@@ -59,3 +59,8 @@ This is Avery Bowen's small change to the README file to test Github commit.
 3/21/17: On this day 100 years ago, Loretta Perfectus Walsh became the first female sailor in the US Navy!
 
 ******************
+bhood2
+Brian Hood's small change to README.  Testing GitHub commit.
+“All right, they’re on our left, they’re on our right, they’re in front of us, they’re behind us…they can’t get away this time”
+– Lewis B. Chesty Puller, USMC
+******************
