@@ -64,3 +64,6 @@ Brian Hood's small change to README.  Testing GitHub commit.
 “All right, they’re on our left, they’re on our right, they’re in front of us, they’re behind us…they can’t get away this time”
 – Lewis B. Chesty Puller, USMC
 ******************
+mdseiler
+Matthew Seiler's small change to the README.md file to test Github commit.  
+******************
