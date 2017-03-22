@@ -16,7 +16,7 @@ Your first step should be to clone the github repository (easiest way is to clon
 
 You should then be able to run the project. The included ant script should work, and you should also be able to run it directly from within Eclipse (Start.java) or the command line or from the .bat/.sh scripts provided. Hint: After running and closing the window from Memoranda make sure you also terminate the the program in eclipse if it is still running (closing the window does not always terminate the program).
 
-Try to change minimal things to see how everything works. After that go back to the initial version and start your SCRUM process and document all changes through github and Taiga (like I said, if it isn’t in github/taiga it does not count).
+Try to change minimal things to see how everything works. After that go back to the initial version and start your SCRUM process and document all changes through github and Taiga (like I said, if it isnâ€™t in github/taiga it does not count).
 
 Enjoy!
 
@@ -44,7 +44,7 @@ Your first step should be to clone the github repository (easiest way is to clon
 
 You should then be able to run the project. The included ant script should work, and you should also be able to run it directly from within Eclipse (Start.java) or the command line or from the .bat/.sh scripts provided. Hint: After running and closing the window from Memoranda make sure you also terminate the the program in eclipse if it is still running (closing the window does not always terminate the program).
 
-Try to change minimal things to see how everything works. After that go back to the initial version and start your SCRUM process and document all changes through github and Taiga (like I said, if it isn’t in github/taiga it does not count).
+Try to change minimal things to see how everything works. After that go back to the initial version and start your SCRUM process and document all changes through github and Taiga (like I said, if it isnâ€™t in github/taiga it does not count).
 
 Enjoy!
 
@@ -61,9 +61,12 @@ This is Avery Bowen's small change to the README file to test Github commit.
 ******************
 bhood2
 Brian Hood's small change to README.  Testing GitHub commit.
-“All right, they’re on our left, they’re on our right, they’re in front of us, they’re behind us…they can’t get away this time”
-– Lewis B. Chesty Puller, USMC
+â€œAll right, theyâ€™re on our left, theyâ€™re on our right, theyâ€™re in front of us, theyâ€™re behind usâ€¦they canâ€™t get away this timeâ€�
+â€“ Lewis B. Chesty Puller, USMC
 ******************
 mdseiler
 Matthew Seiler's small change to the README.md file to test Github commit.  
+******************
+wschull	
+William Schull's small change to the README.md file to test Github commit.
 ******************
