@@ -23,3 +23,10 @@ Enjoy!
 
 
 Dr. Mehlhase
+
+******************
+ajbowen1
+This is Avery Bowen's small change to the README file to test Github commit.  
+3/21/17: On this day 100 years ago, Loretta Perfectus Walsh became the first female sailor in the US Navy!
+
+******************
