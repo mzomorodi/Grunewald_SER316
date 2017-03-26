@@ -57,7 +57,7 @@ public class PreferencesDialog extends JDialog {
 
 	JLabel jLabel4 = new JLabel();
 
-	JCheckBox enSystrayChB = new JCheckBox();
+	//JCheckBox enSystrayChB = new JCheckBox();
 
 	JCheckBox startMinimizedChB = new JCheckBox();
 
@@ -342,7 +342,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(jLabel4, gbc);
-		enSystrayChB.setText(Local.getString("Enable system tray icon"));
+		/*enSystrayChB.setText(Local.getString("Enable system tray icon"));
 		enSystrayChB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				enSystrayChB_actionPerformed(e);
@@ -353,7 +353,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.gridy = 10;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(enSystrayChB, gbc);
+		GeneralPanel.add(enSystrayChB, gbc);*/
 		startMinimizedChB.setText(Local.getString("Start minimized"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -526,8 +526,8 @@ public class PreferencesDialog extends JDialog {
 				.equalsIgnoreCase("yes"));
 		enSplashChB.setSelected(!Configuration.get("SHOW_SPLASH").toString()
 				.equalsIgnoreCase("no"));
-		enSystrayChB.setSelected(!Configuration.get("DISABLE_SYSTRAY")
-				.toString().equalsIgnoreCase("yes"));
+		/*enSystrayChB.setSelected(!Configuration.get("DISABLE_SYSTRAY")
+				.toString().equalsIgnoreCase("yes"));*/
 		startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
 				.toString().equalsIgnoreCase("yes"));
 		firstdow.setSelected(Configuration.get("FIRST_DAY_OF_WEEK").toString()
@@ -625,10 +625,10 @@ public class PreferencesDialog extends JDialog {
 		else
 			Configuration.put("SHOW_SPLASH", "no");
 
-		if (this.enSystrayChB.isSelected())
+		/*if (this.enSystrayChB.isSelected())
 			Configuration.put("DISABLE_SYSTRAY", "no");
 		else
-			Configuration.put("DISABLE_SYSTRAY", "yes");
+			Configuration.put("DISABLE_SYSTRAY", "yes");*/
 
 		if (this.startMinimizedChB.isSelected())
 			Configuration.put("START_MINIMIZED", "yes");
@@ -777,9 +777,9 @@ public class PreferencesDialog extends JDialog {
 		this.enableCustomLF(true);
 	}
 
-	void enSystrayChB_actionPerformed(ActionEvent e) {
+	/*void enSystrayChB_actionPerformed(ActionEvent e) {
 
-	}
+	}*/
 
 	void enSplashChB_actionPerformed(ActionEvent e) {
 
