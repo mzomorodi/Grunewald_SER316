@@ -59,7 +59,7 @@ public class PreferencesDialog extends JDialog {
 
 	//JCheckBox enSystrayChB = new JCheckBox();
 
-	JCheckBox startMinimizedChB = new JCheckBox();
+	//JCheckBox startMinimizedChB = new JCheckBox();
 
 	JCheckBox enSplashChB = new JCheckBox();
 
@@ -157,13 +157,13 @@ public class PreferencesDialog extends JDialog {
 				.getString("Sound"));
 		this.setResizable(false);
 		// Build Tab1
-		jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
+		/*jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel1.setText(Local.getString("Window minimize action:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.insets = new Insets(10, 10, 0, 15);
-		gbc.anchor = GridBagConstraints.EAST;
+		gbc.anchor = GridBagConstraints.EAST;*/
 		enableSoundCB.setText(Local.getString("Enable sound notifications"));
 		enableSoundCB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -213,7 +213,7 @@ public class PreferencesDialog extends JDialog {
 		jPanel3.add(soundFile, BorderLayout.CENTER);
 		jPanel3.add(soundFileBrowseB, BorderLayout.EAST);
 		jPanel3.add(jLabel6, BorderLayout.WEST);
-		GeneralPanel.add(jLabel1, gbc);
+		/*GeneralPanel.add(jLabel1, gbc);
 		minGroup.add(minTaskbarRB);
 		minTaskbarRB.setSelected(true);
 		minTaskbarRB.setText(Local.getString("Minimize to taskbar"));
@@ -240,7 +240,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.gridy = 1;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(minHideRB, gbc);
+		GeneralPanel.add(minHideRB, gbc);*/
 		jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel2.setText(Local.getString("Window close action:"));
 		gbc = new GridBagConstraints();
@@ -354,13 +354,13 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enSystrayChB, gbc);*/
-		startMinimizedChB.setText(Local.getString("Start minimized"));
+		/*startMinimizedChB.setText(Local.getString("Start minimized"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 11;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(startMinimizedChB, gbc);
+		GeneralPanel.add(startMinimizedChB, gbc);*/
 		enSplashChB.setText(Local.getString("Show splash screen"));
 		enSplashChB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -528,8 +528,8 @@ public class PreferencesDialog extends JDialog {
 				.equalsIgnoreCase("no"));
 		/*enSystrayChB.setSelected(!Configuration.get("DISABLE_SYSTRAY")
 				.toString().equalsIgnoreCase("yes"));*/
-		startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
-				.toString().equalsIgnoreCase("yes"));
+		/*startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
+				.toString().equalsIgnoreCase("yes"));*/
 		firstdow.setSelected(Configuration.get("FIRST_DAY_OF_WEEK").toString()
 				.equalsIgnoreCase("mon"));
 
@@ -630,10 +630,10 @@ public class PreferencesDialog extends JDialog {
 		else
 			Configuration.put("DISABLE_SYSTRAY", "yes");*/
 
-		if (this.startMinimizedChB.isSelected())
+		/*if (this.startMinimizedChB.isSelected())
 			Configuration.put("START_MINIMIZED", "yes");
 		else
-			Configuration.put("START_MINIMIZED", "no");
+			Configuration.put("START_MINIMIZED", "no");*/
 
 		if (this.askConfirmChB.isSelected())
 			Configuration.put("ASK_ON_EXIT", "yes");
