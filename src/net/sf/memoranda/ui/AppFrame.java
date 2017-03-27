@@ -633,15 +633,57 @@ public class AppFrame extends JFrame {
     }
    
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.BUGS_TRACKER_URL);
+     if (java.awt.Desktop.isDesktopSupported()) 
+     {
+         try {
+          java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+          java.net.URI oURL = new java.net.URI(App.BUGS_TRACKER_URL);
+          desktop.browse(oURL);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+     }
+     else
+     {
+         Util.runBrowser(App.BUGS_TRACKER_URL);
+   
+     }
     }
    
     protected void jMenuHelpWeb_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.WEBSITE_URL);
+     if (java.awt.Desktop.isDesktopSupported()) 
+     {
+         try {
+          java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+          java.net.URI oURL = new java.net.URI(App.WEBSITE_URL);
+          desktop.browse(oURL);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+     }
+     else
+     {
+         Util.runBrowser(App.WEBSITE_URL);
+   
+     }
     }
    
     protected void jMenuHelpGuide_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.GUIDE_URL);
+     if (java.awt.Desktop.isDesktopSupported()) 
+     {
+         try {
+          java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+          java.net.URI oURL = new java.net.URI(App.GUIDE_URL);
+          desktop.browse(oURL);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+     }
+     else
+     {
+         Util.runBrowser(App.GUIDE_URL);
+   
+     }
     }
     
     //File | Exit action performed
