@@ -103,11 +103,11 @@ public class AppFrame extends JFrame {
         }
     };
 
-    public Action minimizeAction = new AbstractAction("Close the window") {
+    /*public Action minimizeAction = new AbstractAction("Close the window") {
         public void actionPerformed(ActionEvent e) {
             doMinimize();
         }
-    };
+    };*/
 
     public Action preferencesAction = new AbstractAction("Preferences") {
         public void actionPerformed(ActionEvent e) {
@@ -147,7 +147,7 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuFileImportNote = new JMenuItem(importOneNoteAction);
     JMenuItem jMenuFileExportNote = new JMenuItem(
             workPanel.dailyItemsPanel.editorPanel.exportAction);
-    JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
+    //JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
 
     JMenuItem jMenuItem1 = new JMenuItem();
     JMenuItem jMenuEditUndo = new JMenuItem(editor.undoAction);
@@ -337,9 +337,9 @@ public class AppFrame extends JFrame {
         jMenuFileImportNote.setText(Local.getString("Import one note")
                 + "...");
         jMenuFilePackPrj.setText(Local.getString("Pack project") + "...");
-        jMenuFileMin.setText(Local.getString("Close the window"));
+        /*jMenuFileMin.setText(Local.getString("Close the window"));
         jMenuFileMin.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,
-                InputEvent.ALT_MASK));
+                InputEvent.ALT_MASK));*/
 
         jMenuEdit.setText(Local.getString("Edit"));
 
@@ -458,8 +458,8 @@ public class AppFrame extends JFrame {
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuEditPref);
         jMenuFile.addSeparator();
-        jMenuFile.add(jMenuFileMin);
-        jMenuFile.addSeparator();
+        //jMenuFile.add(jMenuFileMin);
+        //jMenuFile.addSeparator();
         jMenuFile.add(jMenuFileExit);
         
         jMenuHelp.add(jMenuHelpGuide);
