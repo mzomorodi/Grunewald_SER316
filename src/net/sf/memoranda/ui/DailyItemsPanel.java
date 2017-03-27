@@ -119,7 +119,6 @@ public class DailyItemsPanel extends JPanel {
         splitPane.setBorder(null);
         splitPane.setDividerSize(2);
         controlPanel.setLayout(borderLayout2);
-        //calendar.setMinimumSize(new Dimension(200, 170));
         mainPanel.setLayout(borderLayout3);
         editorsPanel.setLayout(cardLayout1);
         statusPanel.setBackground(Color.black);
@@ -134,17 +133,19 @@ public class DailyItemsPanel extends JPanel {
         controlPanel.setBackground(new Color(230, 230, 230));
         controlPanel.setBorder(border2);
         controlPanel.setMinimumSize(new Dimension(20, 170));
-        controlPanel.setPreferredSize(new Dimension(205, 170));
+        controlPanel.setPreferredSize(new Dimension(300, 250));
         //controlPanel.setMaximumSize(new Dimension(206, 170));
         //controlPanel.setSize(controlPanel.getMaximumSize());
         calendar.setFont(new java.awt.Font("Dialog", 0, 11));
         calendar.setMinimumSize(new Dimension(0, 168));
+        calendar.setPreferredSize(new Dimension(300, 250));
         toggleToolBar.setBackground(new Color(215, 225, 250));
         toggleToolBar.setRequestFocusEnabled(false);
         toggleToolBar.setFloatable(false);
         cmainPanel.setLayout(borderLayout5);
         cmainPanel.setBackground(SystemColor.desktop);
         cmainPanel.setMinimumSize(new Dimension(0, 168));
+        cmainPanel.setPreferredSize(new Dimension(300, 300));
         cmainPanel.setOpaque(false);
         toggleButton.setMaximumSize(new Dimension(32767, 32767));
         toggleButton.setMinimumSize(new Dimension(16, 16));
@@ -192,7 +193,7 @@ public class DailyItemsPanel extends JPanel {
         notesControlPane.setFont(new java.awt.Font("Dialog", 1, 10));
         mainTabsPanel.setLayout(cardLayout2);
         this.add(splitPane, BorderLayout.CENTER);
-
+        
         controlPanel.add(cmainPanel, BorderLayout.CENTER);
         cmainPanel.add(calendar, BorderLayout.NORTH);
 
@@ -213,7 +214,7 @@ public class DailyItemsPanel extends JPanel {
         toggleToolBar.add(toggleButton, null);
 
         splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
-        //splitPane.setResizeWeight(0.0);
+        splitPane.setResizeWeight(0.2);
 
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
