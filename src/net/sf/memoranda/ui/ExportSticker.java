@@ -44,7 +44,7 @@ public class ExportSticker {
          */
         public static String remove1(String input) {
             
-            String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
+            String original = "¡ ¤©¨«­¬¯³²¶º¹u±€„‰ˆ‹�Œ�“’–š™œ‘§‡";
             
             String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
             String output = input;
@@ -69,12 +69,14 @@ public class ExportSticker {
                         fwrite.write(contents);
                         
                         fwrite.close();
-                        JOptionPane.showMessageDialog(null,Local.getString("Documento creado con exito en su carpeta Memoranda =D"));
+                        JOptionPane.showMessageDialog(null,Local.getString("Document created successfully in your Memoranda folder =D"));
+                        //JOptionPane.showMessageDialog(null,Local.getString("Documento creado con exito en su carpeta Memoranda =D"));
             
             
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null,Local.getString("NO Logramos crear su documento =(..."));
+            JOptionPane.showMessageDialog(null,Local.getString("Unable to create your document."));
+            //JOptionPane.showMessageDialog(null,Local.getString("NO Logramos crear su documento =(..."));
         }
                 
                 
