@@ -378,7 +378,7 @@ public class AgendaGenerator {
 				.getResource("resources/agenda/removesticker.gif")
 				.toExternalForm();
 
-		 String s = ""
+		 String s = "";
 
 		/*String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Import document")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Export document as .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Export document as .html")+"</b></a></td></tr></table>"
 				 +   "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""				
