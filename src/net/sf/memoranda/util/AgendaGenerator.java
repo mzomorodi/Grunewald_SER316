@@ -380,7 +380,7 @@ public class AgendaGenerator {
 
 		 String s = "";
 
-		/*String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Import document")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Export document as .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Export document as .html")+"</b></a></td></tr></table>"
+		/*String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Import document")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Export stickers as .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Export stickers as .html")+"</b></a></td></tr></table>"
 				 +   "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""				
 				 + iurl
 				+ "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"
