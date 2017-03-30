@@ -47,6 +47,7 @@ public class ExportSticker {
             String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
             
             String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+            
             String output = input;
             for (int i=0; i<original.length(); i++) {
             
