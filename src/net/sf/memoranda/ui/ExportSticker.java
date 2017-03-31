@@ -44,15 +44,15 @@ public class ExportSticker {
          */
         public static String remove1(String input) {
             
-            String original = "¡ ¤©¨«­¬¯³²¶º¹u±€„‰ˆ‹�Œ�“’–š™œ‘§‡";
+            //String original = "¡ ¤©¨«­¬¯³²¶º¹u±€„‰ˆ‹�Œ�“’–š™œ‘§‡";
             
-            String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+            //String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
             
             String output = input;
-            for (int i=0; i<original.length(); i++) {
+           /* for (int i=0; i<original.length(); i++) {
             
                 output = output.replace(original.charAt(i), ascii.charAt(i));
-            }
+            }*/
             return output;
         }
         
