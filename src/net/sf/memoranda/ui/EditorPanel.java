@@ -582,7 +582,22 @@ public class EditorPanel extends JPanel {
 			f = Util.getTempFile();
 			new HTMLFileExport(f, editor.document, CurrentNote.get(), "UTF-8",
 					false, null, false);
-			Util.runBrowser("file:" + f.getAbsolutePath());
+			
+		     if (java.awt.Desktop.isDesktopSupported()) 
+		     {
+		    	 try 
+		    	 {
+		    	    java.awt.Desktop.getDesktop().browse(f.toURI());
+		    	 } catch (IOException ex) {
+		    	    ex.printStackTrace();
+		    	 }
+		     }
+		     else
+		     {
+		    	 Util.runBrowser("file:" + f.getAbsolutePath());
+		   
+		     }
+			
 		} catch (IOException ioe) {
 			new ExceptionDialog(ioe, "Cannot create temporary file", null);
 		}
