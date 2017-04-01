@@ -10,6 +10,7 @@ package net.sf.memoranda.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Calendar;
+import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,8 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.EventImpl;
 import net.sf.memoranda.EventsManager;
 import net.sf.memoranda.Task;
+import net.sf.memoranda.TaskImpl;
+import net.sf.memoranda.TaskListImpl;
 import net.sf.memoranda.date.CalendarDate;
 /**
  *
@@ -103,8 +107,16 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 			label.setBackground(Color.WHITE);
 				
 		// always display NREvents
-		if (EventsManager.isNREventsForDate(d))
-			label.setIcon(evIcon);
+		if (EventsManager.isNREventsForDate(d)){
+			//label.setIcon(evIcon);
+			String s = "";
+			Collection evCol = EventsManager.getEventsForDate(d);
+			for(Object o : evCol){
+				EventImpl e = (EventImpl)o;
+				s += ("\n" + e.getText());
+			}			
+			label.setText(label.getText() + "\n" + s);
+		}
 		else
 			label.setIcon(null);
 		

@@ -220,11 +220,6 @@ public class JNCalendarModel extends AbstractTableModel {
 		public String getColumnName(int col) {
 			return dayNames[col];
 		}
-		
-		public void addEvent(Event e){
-			CalendarDate toPut = e.getStartDate();
-			
-		}
 
 	}
 
