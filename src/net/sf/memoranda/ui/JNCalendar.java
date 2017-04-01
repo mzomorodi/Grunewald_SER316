@@ -14,6 +14,7 @@ import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -50,6 +51,8 @@ public class JNCalendar extends JTable {
 		/* table properties */
 		setCellSelectionEnabled(true);
 		setRowHeight(100);
+		
+		renderer.setVerticalAlignment(SwingConstants.TOP);
 		
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getTableHeader().setReorderingAllowed(false);
