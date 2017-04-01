@@ -51,6 +51,7 @@ import net.sf.memoranda.util.Util;
 
 /*$Id: DailyItemsPanel.java,v 1.22 2005/02/13 03:06:10 rawsushi Exp $*/
 public class DailyItemsPanel extends JPanel {
+	JFrame calendarF = new JFrame();
     BorderLayout borderLayout1 = new BorderLayout();
     JPanel mainPanel = new JPanel();
     BorderLayout borderLayout2 = new BorderLayout();
@@ -412,7 +413,7 @@ public class DailyItemsPanel extends JPanel {
 	
 	public void calendarWindow() {
 		Dimension preferredSize = new Dimension(950,750);
-		JFrame calendarF = new JFrame();
+		//JFrame calendarF = new JFrame();
 		calendarF.add(calendar);
 		calendarF.pack();
 		calendarF.setSize(preferredSize);
