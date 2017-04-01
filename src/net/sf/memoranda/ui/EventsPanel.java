@@ -38,9 +38,9 @@ import net.sf.memoranda.util.Util;
 /*$Id: EventsPanel.java,v 1.25 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventsPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
-    JButton historyBackB = new JButton();
+    //JButton historyBackB = new JButton();
     JToolBar eventsToolBar = new JToolBar();
-    JButton historyForwardB = new JButton();
+    //JButton historyForwardB = new JButton();
     JButton newEventB = new JButton();
     JButton editEventB = new JButton();
     JButton removeEventB = new JButton();
@@ -63,7 +63,7 @@ public class EventsPanel extends JPanel {
     }
     void jbInit() throws Exception {
         eventsToolBar.setFloatable(false);
-
+/*
         historyBackB.setAction(History.historyBackAction);
         historyBackB.setFocusable(false);
         historyBackB.setBorderPainted(false);
@@ -83,7 +83,7 @@ public class EventsPanel extends JPanel {
         historyForwardB.setMinimumSize(new Dimension(24, 24));
         historyForwardB.setMaximumSize(new Dimension(24, 24));
         historyForwardB.setText("");
-
+*/
         newEventB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/event_new.png")));
         newEventB.setEnabled(true);
@@ -167,8 +167,8 @@ public class EventsPanel extends JPanel {
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/event_new.png")));
         scrollPane.getViewport().add(eventsTable, null);
         this.add(scrollPane, BorderLayout.CENTER);
-        eventsToolBar.add(historyBackB, null);
-        eventsToolBar.add(historyForwardB, null);
+        //eventsToolBar.add(historyBackB, null);
+        //eventsToolBar.add(historyForwardB, null);
         eventsToolBar.addSeparator(new Dimension(8, 24));
 
         eventsToolBar.add(newEventB, null);

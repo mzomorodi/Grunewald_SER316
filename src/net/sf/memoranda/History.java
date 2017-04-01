@@ -75,6 +75,7 @@ public class History {
     }
 
     public static HistoryItem rollForward() {
+    	System.out.println("Here I am.");
         Object n = next;        
         if (p < _list.size() - 1) {
             p++;
