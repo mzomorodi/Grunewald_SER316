@@ -113,9 +113,9 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 			Collection evCol = EventsManager.getEventsForDate(d);
 			for(Object o : evCol){
 				EventImpl e = (EventImpl)o;
-				s += ("\n" + e.getText());
+				s += ("<br>" + e.getText());
 			}			
-			label.setText(label.getText() + "\n" + s);
+			label.setText("<html>" + label.getText() + "<br>" + s + "</html>");
 		}
 		else
 			label.setIcon(null);
