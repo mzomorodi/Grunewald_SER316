@@ -427,7 +427,7 @@ public class AppFrame extends JFrame {
                 + "...");
         jMenuFormatProperties.setToolTipText(Local.getString(
                 "Object properties"));
-/*
+
         jMenuGo.setText(Local.getString("Go"));
         jMenuGoHBack.setText(Local.getString("History back"));
         jMenuGoHBack.setToolTipText(Local.getString("History back"));
@@ -436,7 +436,7 @@ public class AppFrame extends JFrame {
         jMenuGoDayBack.setText(Local.getString("One day back"));
         jMenuGoDayFwd.setText(Local.getString("One day forward"));
         jMenuGoToday.setText(Local.getString("To today"));
-*/
+
 
         jMenuInsertSpecial.setText(Local.getString("Special"));
         jMenuInsertBR.setText(Local.getString("Line break"));
@@ -459,7 +459,7 @@ public class AppFrame extends JFrame {
         jMenuFile.add(jMenuEditPref);
         jMenuFile.addSeparator();
         //jMenuFile.add(jMenuFileMin);
-        //jMenuFile.addSeparator();
+        jMenuFile.addSeparator();
         jMenuFile.add(jMenuFileExit);
         
         jMenuHelp.add(jMenuHelpGuide);
@@ -472,7 +472,7 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuEdit);
         menuBar.add(jMenuInsert);
         menuBar.add(jMenuFormat);
-//        menuBar.add(jMenuGo);
+        menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
@@ -547,14 +547,14 @@ public class AppFrame extends JFrame {
         jMenuFormatAlign.add(jMenuFormatAlignR);
         jMenuFormatTable.add(jMenuFormatTableInsR);
         jMenuFormatTable.add(jMenuFormatTableInsC);
- /*       
+       
         jMenuGo.add(jMenuGoHBack);
         jMenuGo.add(jMenuGoFwd);
         jMenuGo.addSeparator();
         jMenuGo.add(jMenuGoDayBack);
         jMenuGo.add(jMenuGoDayFwd);
         jMenuGo.add(jMenuGoToday);
-*/
+
 
         splitPane.setBorder(null);
         workPanel.setBorder(null);
