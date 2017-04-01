@@ -119,7 +119,13 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 				}
 				
 				EventImpl e = (EventImpl)o;
-				s += ("<br>" + e.getText());
+				String evText = "";
+				evText = e.getText();
+				if (e.getText().length() > 20) {
+					s += ("<br>" + evText.substring(0, 20) + "...");
+				} else {
+					s += ("<br>" + evText);
+				}
 				evCount++;
 			}			
 			label.setText("<html>" + label.getText() + "<br>" + s + "</html>");
