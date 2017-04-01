@@ -50,7 +50,7 @@ public class JNCalendar extends JTable {
 		super();
 		/* table properties */
 		setCellSelectionEnabled(true);
-		setRowHeight(100);
+		setRowHeight(105);
 		
 		renderer.setVerticalAlignment(SwingConstants.TOP);
 		
