@@ -19,6 +19,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import net.sf.memoranda.Event;
+import net.sf.memoranda.Task;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
@@ -47,6 +49,8 @@ public class JNCalendar extends JTable {
 		super();
 		/* table properties */
 		setCellSelectionEnabled(true);
+		setRowHeight(80);
+		
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getTableHeader().setReorderingAllowed(false);
 		getTableHeader().setResizingAllowed(false);
@@ -215,6 +219,11 @@ public class JNCalendarModel extends AbstractTableModel {
 
 		public String getColumnName(int col) {
 			return dayNames[col];
+		}
+		
+		public void addEvent(Event e){
+			CalendarDate toPut = e.getStartDate();
+			
 		}
 
 	}

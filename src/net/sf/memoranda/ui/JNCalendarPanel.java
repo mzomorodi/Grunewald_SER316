@@ -170,6 +170,7 @@ public class JNCalendarPanel extends JPanel {
     jnCalendar.setFont(new java.awt.Font("Dialog", 0, 10));
     jnCalendar.setGridColor(Color.lightGray);
     jnCalendarPanel.setLayout(borderLayout5);
+    
     todayBPanel.setMinimumSize(new Dimension(68, 24));
     todayBPanel.setOpaque(false);
     todayBPanel.setPreferredSize(new Dimension(51, 24));
@@ -185,7 +186,7 @@ public class JNCalendarPanel extends JPanel {
     mntyPanel.add(monthsCB, BorderLayout.CENTER);
     mntyPanel.add(yearSpin,  BorderLayout.EAST);
     this.add(jnCalendarPanel,  BorderLayout.CENTER);
-    jnCalendar.getTableHeader().setPreferredSize(new Dimension(200, 15));
+    jnCalendar.getTableHeader().setPreferredSize(new Dimension(600, 15));
     jnCalendarPanel.add(jnCalendar.getTableHeader(), BorderLayout.NORTH);
     jnCalendarPanel.add(jnCalendar, BorderLayout.CENTER);
     jnCalendar.addSelectionListener(new ActionListener()  {

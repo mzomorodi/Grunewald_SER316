@@ -411,9 +411,14 @@ public class DailyItemsPanel extends JPanel {
 	}
 	
 	public void calendarWindow() {
+		Dimension preferredSize = new Dimension(950,750);
 		JFrame calendarF = new JFrame();
 		calendarF.add(calendar);
 		calendarF.pack();
+		calendarF.setSize(preferredSize);
+		
+		calendarF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	
 		calendarF.setVisible(true);
 	}
 	
