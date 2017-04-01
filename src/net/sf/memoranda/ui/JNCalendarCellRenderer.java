@@ -122,9 +122,9 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 				String evText = "";
 				evText = e.getText();
 				if (evText.length() > 20) {
-					s += ("<br>" + evText.substring(0, 20) + "...");
+					s += ("<br>-" + evText.substring(0, 20) + "...");
 				} else {
-					s += ("<br>" + evText);
+					s += ("<br>-" + evText);
 				}
 				evCount++;
 			}			
