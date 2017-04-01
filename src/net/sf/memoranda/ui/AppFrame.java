@@ -159,7 +159,7 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuEditSelectAll = new JMenuItem(editor.selectAllAction);
     JMenuItem jMenuEditFind = new JMenuItem(editor.findAction);
 
-//    JMenu jMenuGo = new JMenu();
+    JMenu jMenuGo = new JMenu();
     JMenuItem jMenuInsertImage = new JMenuItem(editor.imageAction);
     JMenuItem jMenuInsertTable = new JMenuItem(editor.tableAction);
     JMenuItem jMenuInsertLink = new JMenuItem(editor.linkAction);
@@ -223,15 +223,14 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuFormatTableInsR = new JMenuItem(editor.insertTableRowAction);
     JMenuItem jMenuFormatTableInsC = new JMenuItem(editor.insertTableCellAction);
     JMenuItem jMenuFormatProperties = new JMenuItem(editor.propsAction);
-//    JMenuItem jMenuGoHBack = new JMenuItem(History.historyBackAction);
-//    JMenuItem jMenuGoFwd = new JMenuItem(History.historyForwardAction);
-
-//    JMenuItem jMenuGoDayBack = new JMenuItem(
-//            workPanel.dailyItemsPanel.calendar.dayBackAction);
-//    JMenuItem jMenuGoDayFwd = new JMenuItem(
-//            workPanel.dailyItemsPanel.calendar.dayForwardAction);
-//    JMenuItem jMenuGoToday = new JMenuItem(
-//            workPanel.dailyItemsPanel.calendar.todayAction);
+    JMenuItem jMenuGoHBack = new JMenuItem(History.historyBackAction);
+    JMenuItem jMenuGoFwd = new JMenuItem(History.historyForwardAction);
+    JMenuItem jMenuGoDayBack = new JMenuItem(
+            workPanel.dailyItemsPanel.calendar.dayBackAction);
+    JMenuItem jMenuGoDayFwd = new JMenuItem(
+            workPanel.dailyItemsPanel.calendar.dayForwardAction);
+    JMenuItem jMenuGoToday = new JMenuItem(
+            workPanel.dailyItemsPanel.calendar.todayAction);
 
     JMenuItem jMenuEditPref = new JMenuItem(preferencesAction);
 
