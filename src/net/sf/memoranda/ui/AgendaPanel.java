@@ -43,9 +43,9 @@ import nu.xom.Element;
 /*$Id: AgendaPanel.java,v 1.11 2005/02/15 16:58:02 rawsushi Exp $*/
 public class AgendaPanel extends JPanel {
 	BorderLayout borderLayout1 = new BorderLayout();
-	JButton historyBackB = new JButton();
+	//JButton historyBackB = new JButton();
 	JToolBar toolBar = new JToolBar();
-	JButton historyForwardB = new JButton();
+	//JButton historyForwardB = new JButton();
 	JButton export = new JButton();
 	JEditorPane viewer = new JEditorPane("text/html", "");
 	String[] priorities = {"Very High","High","Medium","Low","Very Low"};
@@ -195,14 +195,14 @@ public class AgendaPanel extends JPanel {
 						 final JFrame parent = new JFrame();
 						 String name = JOptionPane.showInputDialog(parent,Local.getString("Enter file name to export."),null);
 						 //String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a exportar"),null);
-						 new ExportSticker(name).export("txt");
+						 if (name != null) { new ExportSticker(name).export("txt"); }
 						 //JOptionPane.showMessageDialog(null,name);
 					}else if (d.startsWith("memoranda:exportstickersh")) {
 						/* Missing the export sticker in the meantime...  (Falta agregar el exportar sticker mientras tanto...)*/
 						 final JFrame parent = new JFrame();
 						 String name = JOptionPane.showInputDialog(parent,Local.getString("Enter file name to export."),null);
 						 //String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a exportar"),null);
-						 new ExportSticker(name).export("html");
+						  if (name != null) { new ExportSticker(name).export("html"); }
 						 //JOptionPane.showMessageDialog(null,name);
 					}else if (d.startsWith("memoranda:importstickers")) {
 						final JFrame parent = new JFrame();
@@ -213,6 +213,7 @@ public class AgendaPanel extends JPanel {
 				}
 			}
 		});
+		/*
 		historyBackB.setAction(History.historyBackAction);
 		historyBackB.setFocusable(false);
 		historyBackB.setBorderPainted(false);
@@ -232,15 +233,16 @@ public class AgendaPanel extends JPanel {
 		historyForwardB.setMinimumSize(new Dimension(24, 24));
 		historyForwardB.setMaximumSize(new Dimension(24, 24));
 		historyForwardB.setText("");
+		*/
 
 		this.setLayout(borderLayout1);
 		scrollPane.getViewport().setBackground(Color.white);
 
 		scrollPane.getViewport().add(viewer, null);
 		this.add(scrollPane, BorderLayout.CENTER);
-		toolBar.add(historyBackB, null);
-		toolBar.add(historyForwardB, null);
-		toolBar.addSeparator(new Dimension(8, 24));
+		//toolBar.add(historyBackB, null);
+		//toolBar.add(historyForwardB, null);
+		//toolBar.addSeparator(new Dimension(8, 24));
 
 		this.add(toolBar, BorderLayout.NORTH);
 
