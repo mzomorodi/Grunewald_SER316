@@ -16,8 +16,7 @@ public class CalendarFrame extends JInternalFrame {
   public JNCalendarPanel cal = new JNCalendarPanel();
   Border border1;
 
-  public CalendarFrame() {
-    try {
+  public CalendarFrame() {try {
       jbInit();
     }
     catch(Exception e) {

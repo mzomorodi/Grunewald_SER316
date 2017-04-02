@@ -55,13 +55,13 @@ public class EditorPanel extends JPanel {
 
 	JButton copyB = new JButton();
 
-	JButton historyBackB = new JButton();
+	//JButton historyBackB = new JButton();
 
 	JToolBar editorToolBar = new JToolBar();
 
 	JButton pasteB = new JButton();
 
-	JButton historyForwardB = new JButton();
+	//JButton historyForwardB = new JButton();
 
 	JButton insDateB = new JButton();
 
@@ -213,7 +213,7 @@ public class EditorPanel extends JPanel {
 		copyB.setBorderPainted(false);
 		copyB.setFocusable(false);
 		copyB.setText("");
-
+/*
 		historyBackB.setAction(History.historyBackAction);
 		historyBackB.setMaximumSize(new Dimension(24, 24));
 		historyBackB.setMinimumSize(new Dimension(24, 24));
@@ -233,7 +233,7 @@ public class EditorPanel extends JPanel {
 		historyForwardB.setMinimumSize(new Dimension(24, 24));
 		historyForwardB.setMaximumSize(new Dimension(24, 24));
 		historyForwardB.setText("");
-
+*/
 		pasteB.setAction(editor.pasteAction);
 		pasteB.setMaximumSize(new Dimension(24, 24));
 		pasteB.setMinimumSize(new Dimension(24, 24));
@@ -314,8 +314,8 @@ public class EditorPanel extends JPanel {
 		this.add(jPanel1, BorderLayout.CENTER);
 		editorToolBar.add(newB, null);
 		editorToolBar.addSeparator(new Dimension(8, 24));
-		editorToolBar.add(historyBackB, null);
-		editorToolBar.add(historyForwardB, null);
+		//editorToolBar.add(historyBackB, null);
+		//editorToolBar.add(historyForwardB, null);
 		editorToolBar.addSeparator(new Dimension(8, 24));
 		editorToolBar.add(undoB, null);
 		editorToolBar.add(redoB, null);
@@ -582,7 +582,22 @@ public class EditorPanel extends JPanel {
 			f = Util.getTempFile();
 			new HTMLFileExport(f, editor.document, CurrentNote.get(), "UTF-8",
 					false, null, false);
-			Util.runBrowser("file:" + f.getAbsolutePath());
+			
+		     if (java.awt.Desktop.isDesktopSupported()) 
+		     {
+		    	 try 
+		    	 {
+		    	    java.awt.Desktop.getDesktop().browse(f.toURI());
+		    	 } catch (IOException ex) {
+		    	    ex.printStackTrace();
+		    	 }
+		     }
+		     else
+		     {
+		    	 Util.runBrowser("file:" + f.getAbsolutePath());
+		   
+		     }
+			
 		} catch (IOException ioe) {
 			new ExceptionDialog(ioe, "Cannot create temporary file", null);
 		}

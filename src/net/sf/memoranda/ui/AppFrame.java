@@ -103,11 +103,11 @@ public class AppFrame extends JFrame {
         }
     };
 
-    public Action minimizeAction = new AbstractAction("Close the window") {
+    /*public Action minimizeAction = new AbstractAction("Close the window") {
         public void actionPerformed(ActionEvent e) {
             doMinimize();
         }
-    };
+    };*/
 
     public Action preferencesAction = new AbstractAction("Preferences") {
         public void actionPerformed(ActionEvent e) {
@@ -148,7 +148,7 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuFileImportNote = new JMenuItem(importOneNoteAction);
     JMenuItem jMenuFileExportNote = new JMenuItem(
             workPanel.dailyItemsPanel.editorPanel.exportAction);
-    JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
+    //JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
 
     JMenuItem jMenuItem1 = new JMenuItem();
     JMenuItem jMenuEditUndo = new JMenuItem(editor.undoAction);
@@ -226,7 +226,6 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuFormatProperties = new JMenuItem(editor.propsAction);
     JMenuItem jMenuGoHBack = new JMenuItem(History.historyBackAction);
     JMenuItem jMenuGoFwd = new JMenuItem(History.historyForwardAction);
-
     JMenuItem jMenuGoDayBack = new JMenuItem(
             workPanel.dailyItemsPanel.calendar.dayBackAction);
     JMenuItem jMenuGoDayFwd = new JMenuItem(
@@ -338,9 +337,9 @@ public class AppFrame extends JFrame {
         jMenuFileImportNote.setText(Local.getString("Import one note")
                 + "...");
         jMenuFilePackPrj.setText(Local.getString("Pack project") + "...");
-        jMenuFileMin.setText(Local.getString("Close the window"));
+        /*jMenuFileMin.setText(Local.getString("Close the window"));
         jMenuFileMin.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,
-                InputEvent.ALT_MASK));
+                InputEvent.ALT_MASK));*/
 
         jMenuEdit.setText(Local.getString("Edit"));
 
@@ -439,6 +438,7 @@ public class AppFrame extends JFrame {
         jMenuGoDayFwd.setText(Local.getString("One day forward"));
         jMenuGoToday.setText(Local.getString("To today"));
 
+
         jMenuInsertSpecial.setText(Local.getString("Special"));
         jMenuInsertBR.setText(Local.getString("Line break"));
         jMenuInsertBR.setToolTipText(Local.getString("Insert break"));
@@ -458,8 +458,8 @@ public class AppFrame extends JFrame {
         jMenuFile.add(jMenuFileImportPrj);
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuEditPref);
-        jMenuFile.addSeparator();
-        jMenuFile.add(jMenuFileMin);
+        //jMenuFile.addSeparator();
+        //jMenuFile.add(jMenuFileMin);
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuFileExit);
         
@@ -548,12 +548,14 @@ public class AppFrame extends JFrame {
         jMenuFormatAlign.add(jMenuFormatAlignR);
         jMenuFormatTable.add(jMenuFormatTableInsR);
         jMenuFormatTable.add(jMenuFormatTableInsC);
+       
         jMenuGo.add(jMenuGoHBack);
         jMenuGo.add(jMenuGoFwd);
         jMenuGo.addSeparator();
         jMenuGo.add(jMenuGoDayBack);
         jMenuGo.add(jMenuGoDayFwd);
         jMenuGo.add(jMenuGoToday);
+
 
         splitPane.setBorder(null);
         workPanel.setBorder(null);
@@ -635,15 +637,57 @@ public class AppFrame extends JFrame {
     }
    
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.BUGS_TRACKER_URL);
+     if (java.awt.Desktop.isDesktopSupported()) 
+     {
+         try {
+          java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+          java.net.URI oURL = new java.net.URI(App.BUGS_TRACKER_URL);
+          desktop.browse(oURL);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+     }
+     else
+     {
+         Util.runBrowser(App.BUGS_TRACKER_URL);
+   
+     }
     }
    
     protected void jMenuHelpWeb_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.WEBSITE_URL);
+     if (java.awt.Desktop.isDesktopSupported()) 
+     {
+         try {
+          java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+          java.net.URI oURL = new java.net.URI(App.WEBSITE_URL);
+          desktop.browse(oURL);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+     }
+     else
+     {
+         Util.runBrowser(App.WEBSITE_URL);
+   
+     }
     }
    
     protected void jMenuHelpGuide_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.GUIDE_URL);
+     if (java.awt.Desktop.isDesktopSupported()) 
+     {
+         try {
+          java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+          java.net.URI oURL = new java.net.URI(App.GUIDE_URL);
+          desktop.browse(oURL);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+     }
+     else
+     {
+         Util.runBrowser(App.GUIDE_URL);
+   
+     }
     }
     
     //File | Exit action performed
@@ -684,16 +728,16 @@ public class AppFrame extends JFrame {
 
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            if (Configuration.get("ON_CLOSE").equals("exit"))
+            //if (Configuration.get("ON_CLOSE").equals("exit"))
                 doExit();
-            else
-                doMinimize();
+            //else
+                //doMinimize();
         }
-        else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
+        /*else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
             super.processWindowEvent(new WindowEvent(this,
                     WindowEvent.WINDOW_CLOSING));
             doMinimize();
-        }
+        }*/
         else
             super.processWindowEvent(e);
     }

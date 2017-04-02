@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+﻿<<<<<<< HEAD
 Project SER316
 
 # spring17project
@@ -70,3 +70,4 @@ Matthew Seiler's small change to the README.md file to test Github commit.
 wschull	
 William Schull's small change to the README.md file to test Github commit.
 ******************
+Small change to test US7-T25 
