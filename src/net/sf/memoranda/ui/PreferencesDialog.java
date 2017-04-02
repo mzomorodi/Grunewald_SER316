@@ -305,8 +305,14 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(lfJavaRB, gbc);
+		lfGroup.add(lfSystemRB);
+		lfSystemRB.setText(Local.getString("System"));
+		lfGroup.add(lfJavaRB);
+		lfJavaRB.setText(Local.getString("Java"));
 		lfGroup.add(lfCustomRB);
 		lfCustomRB.setText(Local.getString("Custom"));
+		
+		
 		lfCustomRB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lfCustomRB_actionPerformed(e);
@@ -354,6 +360,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(firstdow, gbc);
 		autoExColChb.setText(Local.getString("Auto expand/collapse control panel"));
+		autoExColChb.setSelected(true);
 		autoExColChb.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				autoExColChB_actionPerformed(e);
@@ -366,6 +373,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(autoExColChb, gbc);
 		popoutCalendarChb.setText(Local.getString("Pop-out calendar"));
+		popoutCalendarChb.setSelected(true);
 		popoutCalendarChb.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				popoutCalendarChB_actionPerformed(e);
@@ -561,10 +569,8 @@ public class PreferencesDialog extends JDialog {
 
 		enSystrayChB.setSelected(!Configuration.get("DISABLE_SYSTRAY")
 				.toString().equalsIgnoreCase("yes"));
-		autoExColChb.setSelected(Configuration.get("AUTO_EXCOL")
-				.toString().equalsIgnoreCase("yes"));
-		popoutCalendarChb.setSelected(Configuration.get("CALENDAR_POPOUT")
-				.toString().equalsIgnoreCase("yes"));
+		autoExColChb.setSelected(true);
+		popoutCalendarChb.setSelected(true);
 		/*startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
 				.toString().equalsIgnoreCase("yes"));*/
 
