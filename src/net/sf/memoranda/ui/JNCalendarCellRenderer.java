@@ -51,6 +51,7 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         int column) {
         
 		JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+		label.setFont(new java.awt.Font("Dialog", 1, 12));
 		String currentPanel = ((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.getCurrentPanel();
 
 		if (d == null) {
@@ -121,8 +122,8 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 			Collection evCol = EventsManager.getEventsForDate(d);
 			int evCount = 0;
 			for(Object o : evCol){
-				if (evCount == 4) {
-					s += ("<br><span style=\"font-size: 10px; font-weight: 700;\">...</span>");
+				if (evCount == 3) {
+					s += ("<br>...");
 					break;
 				}
 				
@@ -139,10 +140,10 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
     	if((t != null) && (d.inPeriod(t.getStartDate(), t.getEndDate()))){		
 			String tText = t.getText();
 			if(tText.length() > 20){
-				s += ("<br>" + tText.substring(0, 20) + "...");
+				s += ("<br><span style=\"color: blue;\">" + tText.substring(0, 20) + "...</span>");
 			}
 			else{
-				s += ("<br>" + tText);
+				s += ("<br><span style=\"color: blue;\">" + tText + "</span>");
 			}
     	}
     	return s;
