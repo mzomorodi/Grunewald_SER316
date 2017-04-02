@@ -59,13 +59,11 @@ public class PreferencesDialog extends JDialog {
 	
 	JLabel jLabelCalendar = new JLabel();
 
-
 	JCheckBox enSystrayChB = new JCheckBox();
 	
 	JCheckBox autoExColChb = new JCheckBox();
 	
 	JCheckBox popoutCalendarChb = new JCheckBox();
-
 
 	//JCheckBox startMinimizedChB = new JCheckBox();
 
@@ -289,27 +287,21 @@ public class PreferencesDialog extends JDialog {
 		jLabel3.setText(Local.getString("Look and feel:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 0;
 		gbc.insets = new Insets(2, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(jLabel3, gbc);
 
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 4;
-		gbc.insets = new Insets(2, 0, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 5;
+		gbc.gridy = 1;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(lfSystemRB, gbc);
 
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 6;
+		gbc.gridy = 2;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(lfJavaRB, gbc);
@@ -322,7 +314,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 7;
+		gbc.gridy = 3;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(lfCustomRB, gbc);
@@ -330,14 +322,14 @@ public class PreferencesDialog extends JDialog {
 		classNameLabel.setText(Local.getString("L&F class name:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 8;
+		gbc.gridy = 4;
 		gbc.insets = new Insets(2, 20, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(classNameLabel, gbc);
 		lfClassName.setEnabled(false);
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 9;
+		gbc.gridy = 5;
 		gbc.insets = new Insets(7, 20, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -346,7 +338,7 @@ public class PreferencesDialog extends JDialog {
 		jLabelCalendar.setText(Local.getString("Calendar:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-		gbc.gridy = 10;
+		gbc.gridy = 6;
 		gbc.insets = new Insets(2, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(jLabelCalendar, gbc);
@@ -357,7 +349,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 10;
+		gbc.gridy = 7;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(firstdow, gbc);
@@ -369,7 +361,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 11;
+		gbc.gridy = 8;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(autoExColChb, gbc);
@@ -381,7 +373,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 12;
+		gbc.gridy = 9;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(popoutCalendarChb, gbc);
@@ -389,7 +381,7 @@ public class PreferencesDialog extends JDialog {
 		jLabel4.setText(Local.getString("Startup:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-		gbc.gridy = 12;
+		gbc.gridy = 10;
 		gbc.insets = new Insets(2, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(jLabel4, gbc);
@@ -420,7 +412,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 15;
+		gbc.gridy = 11;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enSplashChB, gbc);
@@ -432,7 +424,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 16;
+		gbc.gridy = 12;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enL10nChB, gbc);
@@ -440,7 +432,7 @@ public class PreferencesDialog extends JDialog {
 		lblExit.setText(Local.getString("Exit") + ":");
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-		gbc.gridy = 17;
+		gbc.gridy = 13;
 		gbc.insets = new Insets(2, 10, 10, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(lblExit, gbc);
@@ -453,7 +445,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 17;
+		gbc.gridy = 14;
 		gbc.insets = new Insets(2, 0, 10, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(askConfirmChB, gbc);
@@ -674,7 +666,6 @@ public class PreferencesDialog extends JDialog {
 		if (this.enSystrayChB.isSelected())
 			Configuration.put("DISABLE_SYSTRAY", "no");
 		else
-
 			Configuration.put("DISABLE_SYSTRAY", "yes");
 		
 		if (this.autoExColChb.isSelected())
@@ -686,7 +677,6 @@ public class PreferencesDialog extends JDialog {
 			Configuration.put("CALENDAR_POPOUT", "yes");
 		else
 			Configuration.put("CALENDAR_POPOUT", "no");
-
 
 		/*if (this.startMinimizedChB.isSelected())
 			Configuration.put("START_MINIMIZED", "yes");
