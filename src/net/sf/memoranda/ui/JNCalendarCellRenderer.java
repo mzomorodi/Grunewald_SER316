@@ -31,7 +31,7 @@ import net.sf.memoranda.date.CalendarDate;
 public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRenderer {
     private CalendarDate d = null;
     boolean disabled = false;
-    ImageIcon evIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/en.png"));
+    //ImageIcon evIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/en.png"));
     Task t = null;
     
     public void setTask(Task _t) {
@@ -92,8 +92,9 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 			label.setBackground(Color.WHITE);
 		
 		else if (currentPanel.equals("TASKS") && (t != null) && 
-			(d.inPeriod(t.getStartDate(), t.getEndDate()))) 
+			(d.inPeriod(t.getStartDate(), t.getEndDate()))){ 
 				label.setBackground( new Color(230, 255, 230));
+		}
 		
 		else if(currentPanel.equals("NOTES") && 
 		CurrentProject.getNoteList().getNoteForDate(d) != null) 
@@ -105,11 +106,18 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 		
 		else if(!isSelected)
 			label.setBackground(Color.WHITE);
-				
-		// always display NREvents
-		if (EventsManager.isNREventsForDate(d)){
-			//label.setIcon(evIcon);
-			String s = "";
+		
+		if(EventsManager.isNREventsForDate(d) || (t != null)){
+			String str = setLabel();
+			label.setText("<html>" + label.getText() + "<br>" + str + "</html>");
+		}
+		
+		return label;
+    }
+    
+    public String setLabel(){
+    	String s = "";
+    	if (EventsManager.isNREventsForDate(d)){
 			Collection evCol = EventsManager.getEventsForDate(d);
 			int evCount = 0;
 			for(Object o : evCol){
@@ -119,22 +127,28 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 				}
 				
 				EventImpl e = (EventImpl)o;
-				String evText = "";
-				evText = e.getText();
+				String evText = e.getText();
 				if (evText.length() > 20) {
 					s += ("<br>" + evText.substring(0, 20) + "...");
 				} else {
 					s += ("<br>" + evText);
 				}
 				evCount++;
-			}			
-			label.setText("<html>" + label.getText() + "<br>" + s + "</html>");
-		}
-		else
-			label.setIcon(null);
-		
-        return label;
+			}
+    	}
+    	if((t != null) && (d.inPeriod(t.getStartDate(), t.getEndDate()))){		
+			String tText = t.getText();
+			if(tText.length() > 20){
+				s += ("<br>" + tText.substring(0, 20) + "...");
+			}
+			else{
+				s += ("<br>" + tText);
+			}
+    	}
+    	return s;
+    
     }
+    
 
     public void setDate(CalendarDate date) {
         d = date;
