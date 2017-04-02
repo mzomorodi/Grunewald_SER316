@@ -569,8 +569,10 @@ public class PreferencesDialog extends JDialog {
 
 		enSystrayChB.setSelected(!Configuration.get("DISABLE_SYSTRAY")
 				.toString().equalsIgnoreCase("yes"));
-		autoExColChb.setSelected(true);
-		popoutCalendarChb.setSelected(true);
+		autoExColChb.setSelected(Configuration.get("AUTO_EXCOL")
+				.toString().equalsIgnoreCase("yes"));
+		popoutCalendarChb.setSelected(Configuration.get("CALENDAR_POPOUT")
+				.toString().equalsIgnoreCase("yes"));
 		/*startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
 				.toString().equalsIgnoreCase("yes"));*/
 
