@@ -457,7 +457,7 @@ public class AppFrame extends JFrame {
         jMenuFile.add(jMenuFileImportPrj);
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuEditPref);
-        jMenuFile.addSeparator();
+        //jMenuFile.addSeparator();
         //jMenuFile.add(jMenuFileMin);
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuFileExit);
