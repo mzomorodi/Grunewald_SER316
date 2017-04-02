@@ -56,8 +56,14 @@ public class PreferencesDialog extends JDialog {
 	JTextField lfClassName = new JTextField();
 
 	JLabel jLabel4 = new JLabel();
+	
+	JLabel jLabelCalendar = new JLabel();
 
-	//JCheckBox enSystrayChB = new JCheckBox();
+	JCheckBox enSystrayChB = new JCheckBox();
+	
+	JCheckBox autoExColChb = new JCheckBox();
+	
+	JCheckBox popoutCalendarChb = new JCheckBox();
 
 	//JCheckBox startMinimizedChB = new JCheckBox();
 
@@ -281,32 +287,32 @@ public class PreferencesDialog extends JDialog {
 		jLabel3.setText(Local.getString("Look and feel:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 0;
 		gbc.insets = new Insets(2, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(jLabel3, gbc);
 
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 4;
-		gbc.insets = new Insets(2, 0, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 5;
+		gbc.gridy = 1;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(lfSystemRB, gbc);
 
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 6;
+		gbc.gridy = 2;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(lfJavaRB, gbc);
+		lfGroup.add(lfSystemRB);
+		lfSystemRB.setText(Local.getString("System"));
+		lfGroup.add(lfJavaRB);
+		lfJavaRB.setText(Local.getString("Java"));
 		lfGroup.add(lfCustomRB);
 		lfCustomRB.setText(Local.getString("Custom"));
+		
+		
 		lfCustomRB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lfCustomRB_actionPerformed(e);
@@ -314,7 +320,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 7;
+		gbc.gridy = 3;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(lfCustomRB, gbc);
@@ -322,18 +328,63 @@ public class PreferencesDialog extends JDialog {
 		classNameLabel.setText(Local.getString("L&F class name:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 8;
+		gbc.gridy = 4;
 		gbc.insets = new Insets(2, 20, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(classNameLabel, gbc);
 		lfClassName.setEnabled(false);
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 9;
+		gbc.gridy = 5;
 		gbc.insets = new Insets(7, 20, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		GeneralPanel.add(lfClassName, gbc);
+		jLabelCalendar.setHorizontalAlignment(SwingConstants.RIGHT);
+		jLabelCalendar.setText(Local.getString("Calendar:"));
+		gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		gbc.insets = new Insets(2, 10, 0, 15);
+		gbc.anchor = GridBagConstraints.EAST;
+		GeneralPanel.add(jLabelCalendar, gbc);
+		firstdow.setText(Local.getString("First day of week - Monday (after restart)"));
+		firstdow.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		gbc = new GridBagConstraints();
+		gbc.gridx = 1;
+		gbc.gridy = 7;
+		gbc.insets = new Insets(2, 0, 0, 10);
+		gbc.anchor = GridBagConstraints.WEST;
+		GeneralPanel.add(firstdow, gbc);
+		autoExColChb.setText(Local.getString("Auto expand/collapse control panel"));
+		autoExColChb.setSelected(true);
+		autoExColChb.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				autoExColChB_actionPerformed(e);
+			}
+		});
+		gbc = new GridBagConstraints();
+		gbc.gridx = 1;
+		gbc.gridy = 8;
+		gbc.insets = new Insets(2, 0, 0, 10);
+		gbc.anchor = GridBagConstraints.WEST;
+		GeneralPanel.add(autoExColChb, gbc);
+		popoutCalendarChb.setText(Local.getString("Pop-out calendar"));
+		popoutCalendarChb.setSelected(true);
+		popoutCalendarChb.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				popoutCalendarChB_actionPerformed(e);
+			}
+		});
+		gbc = new GridBagConstraints();
+		gbc.gridx = 1;
+		gbc.gridy = 9;
+		gbc.insets = new Insets(2, 0, 0, 10);
+		gbc.anchor = GridBagConstraints.WEST;
+		GeneralPanel.add(popoutCalendarChb, gbc);
 		jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel4.setText(Local.getString("Startup:"));
 		gbc = new GridBagConstraints();
@@ -350,14 +401,14 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 10;
+		gbc.gridy = 13;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enSystrayChB, gbc);*/
 		/*startMinimizedChB.setText(Local.getString("Start minimized"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 11;
+		gbc.gridy = 14;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(startMinimizedChB, gbc);*/
@@ -369,7 +420,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 12;
+		gbc.gridy = 11;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enSplashChB, gbc);
@@ -381,26 +432,15 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 13;
+		gbc.gridy = 12;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enL10nChB, gbc);
-		firstdow.setText(Local.getString("First day of week - Monday"));
-		firstdow.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 14;
-		gbc.insets = new Insets(2, 0, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(firstdow, gbc);
 		lblExit.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblExit.setText(Local.getString("Exit") + ":");
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-		gbc.gridy = 15;
+		gbc.gridy = 13;
 		gbc.insets = new Insets(2, 10, 10, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(lblExit, gbc);
@@ -413,7 +453,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 15;
+		gbc.gridy = 14;
 		gbc.insets = new Insets(2, 0, 10, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(askConfirmChB, gbc);
@@ -526,10 +566,14 @@ public class PreferencesDialog extends JDialog {
 				.equalsIgnoreCase("yes"));
 		enSplashChB.setSelected(!Configuration.get("SHOW_SPLASH").toString()
 				.equalsIgnoreCase("no"));
-		/*enSystrayChB.setSelected(!Configuration.get("DISABLE_SYSTRAY")
-				.toString().equalsIgnoreCase("yes"));*/
+
+		enSystrayChB.setSelected(!Configuration.get("DISABLE_SYSTRAY")
+				.toString().equalsIgnoreCase("yes"));
+		autoExColChb.setSelected(true);
+		popoutCalendarChb.setSelected(true);
 		/*startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
 				.toString().equalsIgnoreCase("yes"));*/
+
 		firstdow.setSelected(Configuration.get("FIRST_DAY_OF_WEEK").toString()
 				.equalsIgnoreCase("mon"));
 
@@ -625,10 +669,20 @@ public class PreferencesDialog extends JDialog {
 		else
 			Configuration.put("SHOW_SPLASH", "no");
 
-		/*if (this.enSystrayChB.isSelected())
+		if (this.enSystrayChB.isSelected())
 			Configuration.put("DISABLE_SYSTRAY", "no");
 		else
-			Configuration.put("DISABLE_SYSTRAY", "yes");*/
+			Configuration.put("DISABLE_SYSTRAY", "yes");
+		
+		if (this.autoExColChb.isSelected())
+			Configuration.put("AUTO_EXCOL", "yes");
+		else
+			Configuration.put("AUTO_EXCOL", "no");
+		
+		if (this.popoutCalendarChb.isSelected())
+			Configuration.put("CALENDAR_POPOUT", "yes");
+		else
+			Configuration.put("CALENDAR_POPOUT", "no");
 
 		/*if (this.startMinimizedChB.isSelected())
 			Configuration.put("START_MINIMIZED", "yes");
@@ -777,9 +831,19 @@ public class PreferencesDialog extends JDialog {
 		this.enableCustomLF(true);
 	}
 
-	/*void enSystrayChB_actionPerformed(ActionEvent e) {
+	void enSystrayChB_actionPerformed(ActionEvent e) {
 
-	}*/
+
+	}
+	
+	void autoExColChB_actionPerformed(ActionEvent e) {
+
+	}
+	
+	void popoutCalendarChB_actionPerformed(ActionEvent e) {
+
+	}
+
 
 	void enSplashChB_actionPerformed(ActionEvent e) {
 

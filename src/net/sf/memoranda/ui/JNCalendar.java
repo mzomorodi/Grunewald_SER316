@@ -14,11 +14,14 @@ import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import net.sf.memoranda.Event;
+import net.sf.memoranda.Task;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
@@ -47,6 +50,10 @@ public class JNCalendar extends JTable {
 		super();
 		/* table properties */
 		setCellSelectionEnabled(true);
+		setRowHeight(30);
+		
+		renderer.setVerticalAlignment(SwingConstants.TOP);
+		
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getTableHeader().setReorderingAllowed(false);
 		getTableHeader().setResizingAllowed(true);

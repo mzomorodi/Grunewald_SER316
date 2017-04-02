@@ -10,6 +10,7 @@ package net.sf.memoranda.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Calendar;
+import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,8 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.EventImpl;
 import net.sf.memoranda.EventsManager;
 import net.sf.memoranda.Task;
+import net.sf.memoranda.TaskImpl;
+import net.sf.memoranda.TaskListImpl;
 import net.sf.memoranda.date.CalendarDate;
 /**
  *
@@ -27,7 +31,7 @@ import net.sf.memoranda.date.CalendarDate;
 public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRenderer {
     private CalendarDate d = null;
     boolean disabled = false;
-    ImageIcon evIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/en.png"));
+    //ImageIcon evIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/en.png"));
     Task t = null;
     
     public void setTask(Task _t) {
@@ -47,6 +51,7 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         int column) {
         
 		JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+		label.setFont(new java.awt.Font("Dialog", 1, 12));
 		String currentPanel = ((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.getCurrentPanel();
 
 		if (d == null) {
@@ -84,12 +89,17 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 		}
 
 		// set background color
-		if (currentPanel == null)
+		if (currentPanel == null){
 			label.setBackground(Color.WHITE);
+			if(d.equals(CalendarDate.today())){
+				label.setBackground(Color.PINK);
+			}
+		}
 		
 		else if (currentPanel.equals("TASKS") && (t != null) && 
-			(d.inPeriod(t.getStartDate(), t.getEndDate()))) 
+			(d.inPeriod(t.getStartDate(), t.getEndDate()))){ 
 				label.setBackground( new Color(230, 255, 230));
+		}
 		
 		else if(currentPanel.equals("NOTES") && 
 		CurrentProject.getNoteList().getNoteForDate(d) != null) 
@@ -101,15 +111,49 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 		
 		else if(!isSelected)
 			label.setBackground(Color.WHITE);
-				
-		// always display NREvents
-		if (EventsManager.isNREventsForDate(d))
-			label.setIcon(evIcon);
-		else
-			label.setIcon(null);
 		
-        return label;
+		if(EventsManager.isNREventsForDate(d) || (t != null)){
+			String str = setLabel();
+			label.setText("<html>" + label.getText() + "<br>" + str + "</html>");
+		}
+		
+		return label;
     }
+    
+    public String setLabel(){
+    	String s = "";
+    	if (EventsManager.isNREventsForDate(d)){
+			Collection evCol = EventsManager.getEventsForDate(d);
+			int evCount = 0;
+			for(Object o : evCol){
+				if (evCount == 3) {
+					s += ("<br>...");
+					break;
+				}
+				
+				EventImpl e = (EventImpl)o;
+				String evText = e.getText();
+				if (evText.length() > 20) {
+					s += ("<br>-" + evText.substring(0, 20) + "...");
+				} else {
+					s += ("<br>-" + evText);
+				}
+				evCount++;
+			}
+    	}
+    	if((t != null) && (d.inPeriod(t.getStartDate(), t.getEndDate()))){		
+			String tText = t.getText();
+			if(tText.length() > 20){
+				s += ("<br><span style=\"color: blue;\">" + tText.substring(0, 20) + "...</span>");
+			}
+			else{
+				s += ("<br><span style=\"color: blue;\">" + tText + "</span>");
+			}
+    	}
+    	return s;
+    
+    }
+    
 
     public void setDate(CalendarDate date) {
         d = date;

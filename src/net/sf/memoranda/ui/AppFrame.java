@@ -116,30 +116,31 @@ public class AppFrame extends JFrame {
     };
     
     public Action exportNotesAction =
-                new AbstractAction(Local.getString("Export notes") + "...") {
+            new AbstractAction(Local.getString("Export notes") + "...") {
 
-                public void actionPerformed(ActionEvent e) {
-                        ppExport_actionPerformed(e);
-                }
-        };
+            public void actionPerformed(ActionEvent e) {
+                    ppExport_actionPerformed(e);
+            }
+    };
         
-        public Action importNotesAction =
-                        new AbstractAction(Local.getString("Import multiple notes")) {
+    public Action importNotesAction =
+            new AbstractAction(Local.getString("Import multiple notes")) {
 
-                        public void actionPerformed(ActionEvent e) {
-                                ppImport_actionPerformed(e);
-                        }
-                };
-        public Action importOneNoteAction =
-                new AbstractAction(Local.getString("Import one note")) {
+            public void actionPerformed(ActionEvent e) {
+                    ppImport_actionPerformed(e);
+            }
+    };
+    
+    public Action importOneNoteAction =
+            new AbstractAction(Local.getString("Import one note")) {
 
-                public void actionPerformed(ActionEvent e) {
-                        p1Import_actionPerformed(e);
-                }
-        };
+            public void actionPerformed(ActionEvent e) {
+                    p1Import_actionPerformed(e);
+            }
+    };
     
     JMenuItem jMenuFileNewPrj = new JMenuItem();
-        JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
+    JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
     JMenuItem jMenuFilePackPrj = new JMenuItem(prjPackAction);
     JMenuItem jMenuFileUnpackPrj = new JMenuItem(prjUnpackAction);
     JMenuItem jMenuFileExportPrj = new JMenuItem(exportNotesAction);
@@ -457,7 +458,7 @@ public class AppFrame extends JFrame {
         jMenuFile.add(jMenuFileImportPrj);
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuEditPref);
-        jMenuFile.addSeparator();
+        //jMenuFile.addSeparator();
         //jMenuFile.add(jMenuFileMin);
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuFileExit);
@@ -589,6 +590,7 @@ public class AppFrame extends JFrame {
         this.workPanel.eventsB.addActionListener(setMenusDisabled);
         this.workPanel.filesB.addActionListener(setMenusDisabled);
         this.workPanel.agendaB.addActionListener(setMenusDisabled);
+        this.workPanel.calendarB.addActionListener(setMenusDisabled);
 
         this.workPanel.notesB.addActionListener(
                 new java.awt.event.ActionListener() {
@@ -709,7 +711,7 @@ public class AppFrame extends JFrame {
     }
 
     public void doMinimize() {
-        exitNotify();
+        //exitNotify();
         App.closeWindow();
     }
 

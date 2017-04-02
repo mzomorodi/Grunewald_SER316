@@ -10,10 +10,12 @@ import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -40,6 +42,8 @@ import net.sf.memoranda.TaskList;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.date.DateListener;
+import net.sf.memoranda.util.Configuration;
+import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
@@ -50,6 +54,7 @@ import net.sf.memoranda.util.Util;
 
 /*$Id: DailyItemsPanel.java,v 1.22 2005/02/13 03:06:10 rawsushi Exp $*/
 public class DailyItemsPanel extends JPanel {
+	JFrame calendarF = new JFrame();
     BorderLayout borderLayout1 = new BorderLayout();
     JSplitPane splitPane = new JSplitPane();
     JPanel controlPanel = new JPanel(); /* Contains the calendar */
@@ -119,7 +124,6 @@ public class DailyItemsPanel extends JPanel {
         splitPane.setBorder(null);
         splitPane.setDividerSize(2);
         controlPanel.setLayout(borderLayout2);
-        //calendar.setMinimumSize(new Dimension(200, 170));
         mainPanel.setLayout(borderLayout3);
         editorsPanel.setLayout(cardLayout1);
         statusPanel.setBackground(Color.black);
@@ -134,17 +138,19 @@ public class DailyItemsPanel extends JPanel {
         controlPanel.setBackground(new Color(230, 230, 230));
         controlPanel.setBorder(border2);
         controlPanel.setMinimumSize(new Dimension(20, 170));
-        controlPanel.setPreferredSize(new Dimension(205, 170));
-        //controlPanel.setMaximumSize(new Dimension(206, 170));
-        //controlPanel.setSize(controlPanel.getMaximumSize());
+        controlPanel.setPreferredSize(new Dimension(300, 250));
+        controlPanel.setMaximumSize(new Dimension(206, 170));
+        controlPanel.setSize(controlPanel.getMaximumSize());
         calendar.setFont(new java.awt.Font("Dialog", 0, 11));
         calendar.setMinimumSize(new Dimension(0, 168));
+        calendar.setPreferredSize(new Dimension(300, 250));
         toggleToolBar.setBackground(new Color(215, 225, 250));
         toggleToolBar.setRequestFocusEnabled(false);
         toggleToolBar.setFloatable(false);
         cmainPanel.setLayout(borderLayout5);
         cmainPanel.setBackground(SystemColor.desktop);
         cmainPanel.setMinimumSize(new Dimension(0, 168));
+        cmainPanel.setPreferredSize(new Dimension(300, 300));
         cmainPanel.setOpaque(false);
         toggleButton.setMaximumSize(new Dimension(32767, 32767));
         toggleButton.setMinimumSize(new Dimension(16, 16));
@@ -156,7 +162,7 @@ public class DailyItemsPanel extends JPanel {
         toggleButton.setMargin(new Insets(0, 0, 0, 0));
         toggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                toggleButton_actionPerformed(e);
+              toggleButton_actionPerformed(e);
             }
         });
         toggleButton.setIcon(collIcon);
@@ -192,15 +198,15 @@ public class DailyItemsPanel extends JPanel {
         notesControlPane.setFont(new java.awt.Font("Dialog", 1, 10));
         mainTabsPanel.setLayout(cardLayout2);
         this.add(splitPane, BorderLayout.CENTER);
-
+        
         controlPanel.add(cmainPanel, BorderLayout.CENTER);
         cmainPanel.add(calendar, BorderLayout.NORTH);
 
         mainPanel.add(statusPanel, BorderLayout.NORTH);
         statusPanel.add(currentDateLabel, BorderLayout.CENTER);
         statusPanel.add(indicatorsPanel, BorderLayout.EAST);
-
-        mainPanel.add(editorsPanel, BorderLayout.CENTER);
+        
+        mainPanel.add(editorsPanel, BorderLayout.CENTER);//mzomorod        
         
         editorsPanel.add(agendaPanel, "AGENDA");
         editorsPanel.add(eventsPanel, "EVENTS");
@@ -211,9 +217,30 @@ public class DailyItemsPanel extends JPanel {
         splitPane.add(controlPanel, JSplitPane.LEFT);
         controlPanel.add(toggleToolBar, BorderLayout.SOUTH);
         toggleToolBar.add(toggleButton, null);
-
+        
         splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
-        //splitPane.setResizeWeight(0.0);
+        splitPane.setResizeWeight(0.2);
+                
+        //this.add(mainPanel, BorderLayout.CENTER);
+        
+        calendarF.addWindowListener(new WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            	calendar.jnCalendar.setRowHeight(30);
+                cmainPanel.add(calendar, BorderLayout.NORTH);
+                splitPane.add(controlPanel, JSplitPane.LEFT);
+                
+                if (expanded) {
+                	collapseControlPanel();
+                	expandControlPanel();
+                } else {
+                	expandControlPanel();
+                	if (Configuration.get("AUTO_EXCOL").equals("no")) {
+                		collapseControlPanel();
+                	}
+                }
+                
+            }
+        });
 
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
@@ -304,8 +331,6 @@ public class DailyItemsPanel extends JPanel {
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
     }
-
-   
 
     void currentDateChanged(CalendarDate newdate) {
         Cursor cur = App.getFrame().getCursor();
@@ -402,24 +427,30 @@ public class DailyItemsPanel extends JPanel {
         CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
         /*DEBUG* System.out.println("Save");*/
     }
-
-    void toggleButton_actionPerformed(ActionEvent e) {
-        if (expanded) {
-            expanded = false;
-            toggleButton.setIcon(expIcon);
-            controlPanel.remove(toggleToolBar);
-            controlPanel.add(toggleToolBar, BorderLayout.EAST);
-            splitPane.setDividerLocation((int) controlPanel.getMinimumSize().getWidth());
-
-        }
-        else {
-            expanded = true;
-            toggleButton.setIcon(collIcon);
-            controlPanel.remove(toggleToolBar);
-            controlPanel.add(toggleToolBar, BorderLayout.SOUTH);
-            splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
-        }
-    }
+    
+	void toggleButton_actionPerformed(ActionEvent e) {
+		if (expanded) {
+			collapseControlPanel();
+		} else {
+			expandControlPanel();
+		}
+	}
+	
+	void collapseControlPanel() {
+		expanded = false;
+		toggleButton.setIcon(expIcon);
+		controlPanel.remove(toggleToolBar);
+		controlPanel.add(toggleToolBar, BorderLayout.EAST);
+		splitPane.setDividerLocation((int) controlPanel.getMinimumSize().getWidth());
+	}
+	
+	void expandControlPanel() {
+		expanded = true;
+		toggleButton.setIcon(collIcon);
+		controlPanel.remove(toggleToolBar);
+		controlPanel.add(toggleToolBar, BorderLayout.SOUTH);
+		splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
+	}
 
     public void updateIndicators(CalendarDate date, TaskList tl) {
         indicatorsPanel.removeAll();
@@ -473,6 +504,26 @@ public class DailyItemsPanel extends JPanel {
 	public String getCurrentPanel() {
 		return CurrentPanel;
 	}
+	
+	public void calendarWindow() {
+		Dimension preferredSize = new Dimension(1000,800);
+		calendar.jnCalendar.setRowHeight(115);
+		//JFrame calendarF = new JFrame();
+		cmainPanel.remove(calendar);
+		if (Configuration.get("AUTO_EXCOL").equals("yes")) {
+			if (expanded && Context.get("CURRENT_PANEL") != "NOTES") {
+				collapseControlPanel();
+			}
+		}
+		calendarF.add(calendar);
+		calendarF.pack();
+		calendarF.setSize(preferredSize);
+		
+		calendarF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	
+		calendarF.setVisible(true);
+	}
+	
     void taskB_actionPerformed(ActionEvent e) {
         parentPanel.tasksB_actionPerformed(null);
     }
