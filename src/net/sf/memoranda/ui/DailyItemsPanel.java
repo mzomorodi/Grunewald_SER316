@@ -42,6 +42,7 @@ import net.sf.memoranda.TaskList;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.date.DateListener;
+import net.sf.memoranda.util.Configuration;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
@@ -223,14 +224,19 @@ public class DailyItemsPanel extends JPanel {
         //this.add(mainPanel, BorderLayout.CENTER);
         
         calendarF.addWindowListener(new WindowAdapter() {
-            @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
             	calendar.jnCalendar.setRowHeight(30);
                 cmainPanel.add(calendar, BorderLayout.NORTH);
                 splitPane.add(controlPanel, JSplitPane.LEFT);
                 
-                if (expanded == false) {
+                if (expanded) {
+                	collapseControlPanel();
                 	expandControlPanel();
+                } else {
+                	expandControlPanel();
+                	if (Configuration.get("AUTO_EXCOL").equals("no")) {
+                		collapseControlPanel();
+                	}
                 }
                 
             }
@@ -504,8 +510,10 @@ public class DailyItemsPanel extends JPanel {
 		calendar.jnCalendar.setRowHeight(115);
 		//JFrame calendarF = new JFrame();
 		cmainPanel.remove(calendar);
-		if (Context.get("CURRENT_PANEL") != "NOTES") {
-			collapseControlPanel();
+		if (Configuration.get("AUTO_EXCOL").equals("yes")) {
+			if (expanded && Context.get("CURRENT_PANEL") != "NOTES") {
+				collapseControlPanel();
+			}
 		}
 		calendarF.add(calendar);
 		calendarF.pack();
