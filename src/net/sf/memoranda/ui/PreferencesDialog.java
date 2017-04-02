@@ -59,13 +59,15 @@ public class PreferencesDialog extends JDialog {
 	
 	JLabel jLabelCalendar = new JLabel();
 
+
 	JCheckBox enSystrayChB = new JCheckBox();
 	
 	JCheckBox autoExColChb = new JCheckBox();
 	
 	JCheckBox popoutCalendarChb = new JCheckBox();
 
-	JCheckBox startMinimizedChB = new JCheckBox();
+
+	//JCheckBox startMinimizedChB = new JCheckBox();
 
 	JCheckBox enSplashChB = new JCheckBox();
 
@@ -163,13 +165,13 @@ public class PreferencesDialog extends JDialog {
 				.getString("Sound"));
 		this.setResizable(false);
 		// Build Tab1
-		jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
+		/*jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel1.setText(Local.getString("Window minimize action:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.insets = new Insets(10, 10, 0, 15);
-		gbc.anchor = GridBagConstraints.EAST;
+		gbc.anchor = GridBagConstraints.EAST;*/
 		enableSoundCB.setText(Local.getString("Enable sound notifications"));
 		enableSoundCB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -219,7 +221,7 @@ public class PreferencesDialog extends JDialog {
 		jPanel3.add(soundFile, BorderLayout.CENTER);
 		jPanel3.add(soundFileBrowseB, BorderLayout.EAST);
 		jPanel3.add(jLabel6, BorderLayout.WEST);
-		GeneralPanel.add(jLabel1, gbc);
+		/*GeneralPanel.add(jLabel1, gbc);
 		minGroup.add(minTaskbarRB);
 		minTaskbarRB.setSelected(true);
 		minTaskbarRB.setText(Local.getString("Minimize to taskbar"));
@@ -246,8 +248,8 @@ public class PreferencesDialog extends JDialog {
 		gbc.gridy = 1;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(minHideRB, gbc);
-		jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
+		GeneralPanel.add(minHideRB, gbc);*/
+		/*jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel2.setText(Local.getString("Window close action:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -282,7 +284,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.gridy = 3;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(closeHideRB, gbc);
+		GeneralPanel.add(closeHideRB, gbc);*/
 		jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel3.setText(Local.getString("Look and feel:"));
 		gbc = new GridBagConstraints();
@@ -391,7 +393,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(jLabel4, gbc);
-		enSystrayChB.setText(Local.getString("Enable system tray icon"));
+		/*enSystrayChB.setText(Local.getString("Enable system tray icon"));
 		enSystrayChB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				enSystrayChB_actionPerformed(e);
@@ -402,14 +404,14 @@ public class PreferencesDialog extends JDialog {
 		gbc.gridy = 13;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(enSystrayChB, gbc);
-		startMinimizedChB.setText(Local.getString("Start minimized"));
+		GeneralPanel.add(enSystrayChB, gbc);*/
+		/*startMinimizedChB.setText(Local.getString("Start minimized"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 14;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(startMinimizedChB, gbc);
+		GeneralPanel.add(startMinimizedChB, gbc);*/
 		enSplashChB.setText(Local.getString("Show splash screen"));
 		enSplashChB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -564,6 +566,7 @@ public class PreferencesDialog extends JDialog {
 				.equalsIgnoreCase("yes"));
 		enSplashChB.setSelected(!Configuration.get("SHOW_SPLASH").toString()
 				.equalsIgnoreCase("no"));
+
 		enSystrayChB.setSelected(!Configuration.get("DISABLE_SYSTRAY")
 				.toString().equalsIgnoreCase("yes"));
 		autoExColChb.setSelected(Configuration.get("AUTO_EXCOL")
@@ -572,6 +575,7 @@ public class PreferencesDialog extends JDialog {
 				.toString().equalsIgnoreCase("yes"));
 		startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
 				.toString().equalsIgnoreCase("yes"));
+
 		firstdow.setSelected(Configuration.get("FIRST_DAY_OF_WEEK").toString()
 				.equalsIgnoreCase("mon"));
 
@@ -667,9 +671,10 @@ public class PreferencesDialog extends JDialog {
 		else
 			Configuration.put("SHOW_SPLASH", "no");
 
-		if (this.enSystrayChB.isSelected())
+		/*if (this.enSystrayChB.isSelected())
 			Configuration.put("DISABLE_SYSTRAY", "no");
 		else
+
 			Configuration.put("DISABLE_SYSTRAY", "yes");
 		
 		if (this.autoExColChb.isSelected())
@@ -682,10 +687,11 @@ public class PreferencesDialog extends JDialog {
 		else
 			Configuration.put("CALENDAR_POPOUT", "no");
 
-		if (this.startMinimizedChB.isSelected())
+
+		/*if (this.startMinimizedChB.isSelected())
 			Configuration.put("START_MINIMIZED", "yes");
 		else
-			Configuration.put("START_MINIMIZED", "no");
+			Configuration.put("START_MINIMIZED", "no");*/
 
 		if (this.askConfirmChB.isSelected())
 			Configuration.put("ASK_ON_EXIT", "yes");
@@ -829,7 +835,8 @@ public class PreferencesDialog extends JDialog {
 		this.enableCustomLF(true);
 	}
 
-	void enSystrayChB_actionPerformed(ActionEvent e) {
+	/*void enSystrayChB_actionPerformed(ActionEvent e) {
+
 
 	}
 	
@@ -840,6 +847,7 @@ public class PreferencesDialog extends JDialog {
 	void popoutCalendarChB_actionPerformed(ActionEvent e) {
 
 	}
+
 
 	void enSplashChB_actionPerformed(ActionEvent e) {
 

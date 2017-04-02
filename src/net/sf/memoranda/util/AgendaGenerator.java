@@ -377,11 +377,24 @@ public class AgendaGenerator {
 				.class
 				.getResource("resources/agenda/removesticker.gif")
 				.toExternalForm();
-		 String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Importar anotaci�n")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Exportar anotaci�n como .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Exportar anotaci�n como .html")+"</b></a></td></tr></table>"
+
+		 String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Export stickers as .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Export stickers as .html")+"</b></a></td></tr></table>"
 				 +   "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""				
 				 + iurl
 				+ "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"
 				+Local.getString("Add sticker")+"</b></a></td></tr></table>";
+
+		/*String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Import document")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Export stickers as .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Export stickers as .html")+"</b></a></td></tr></table>"
+				 +   "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""				
+				 + iurl
+				+ "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"
+				+Local.getString("Add sticker")+"</b></a></td></tr></table>"; */
+		/*String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Importar anotaci�n")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Exportar anotaci�n como .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Exportar anotaci�n como .html")+"</b></a></td></tr></table>"
+>>>>>>> 07c1dcce9775dcf33db83fbafb5cc37d3c63fe22
+				 +   "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""				
+				 + iurl
+				+ "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"
+				+Local.getString("Add sticker")+"</b></a></td></tr></table>";*/
 		PriorityQueue pQ = sortStickers();
 		while(!pQ.Vacia()){
 		Element el = pQ.extraer();

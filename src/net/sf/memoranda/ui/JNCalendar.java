@@ -56,7 +56,7 @@ public class JNCalendar extends JTable {
 		
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getTableHeader().setReorderingAllowed(false);
-		getTableHeader().setResizingAllowed(false);
+		getTableHeader().setResizingAllowed(true);
 		set(date);
 
 		/* selection listeners */
