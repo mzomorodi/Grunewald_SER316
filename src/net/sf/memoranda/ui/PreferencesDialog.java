@@ -573,8 +573,8 @@ public class PreferencesDialog extends JDialog {
 				.toString().equalsIgnoreCase("yes"));
 		popoutCalendarChb.setSelected(Configuration.get("CALENDAR_POPOUT")
 				.toString().equalsIgnoreCase("yes"));
-		startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
-				.toString().equalsIgnoreCase("yes"));
+		/*startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
+				.toString().equalsIgnoreCase("yes"));*/
 
 		firstdow.setSelected(Configuration.get("FIRST_DAY_OF_WEEK").toString()
 				.equalsIgnoreCase("mon"));
@@ -671,7 +671,7 @@ public class PreferencesDialog extends JDialog {
 		else
 			Configuration.put("SHOW_SPLASH", "no");
 
-		/*if (this.enSystrayChB.isSelected())
+		if (this.enSystrayChB.isSelected())
 			Configuration.put("DISABLE_SYSTRAY", "no");
 		else
 
@@ -835,7 +835,7 @@ public class PreferencesDialog extends JDialog {
 		this.enableCustomLF(true);
 	}
 
-	/*void enSystrayChB_actionPerformed(ActionEvent e) {
+	void enSystrayChB_actionPerformed(ActionEvent e) {
 
 
 	}
