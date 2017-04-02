@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import net.sf.memoranda.util.Configuration;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.Local;
 
@@ -261,6 +262,8 @@ public class WorkPanel extends JPanel {
 				eventsB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
+			else if (pan.equals("CALENDAR"))
+				calendarB_actionPerformed(null);
 		}
 	}
 
@@ -299,11 +302,14 @@ public class WorkPanel extends JPanel {
 	}
 	
 	public void calendarB_actionPerformed(ActionEvent e) {
-		calendarPanel.jnCalendar.setRowHeight(100);
-		//cardLayout1.show(panel, "CALENDAR");
-		//setCurrentButton(calendarB);
-		//Context.put("CURRENT_PANEL", "CALENDAR");
-		dailyItemsPanel.calendarWindow();
+		if (Configuration.get("CALENDAR_POPOUT").equals("yes")) {
+			dailyItemsPanel.calendarWindow();
+    	} else {
+    		calendarPanel.jnCalendar.setRowHeight(100);
+			cardLayout1.show(panel, "CALENDAR");
+			setCurrentButton(calendarB);
+			Context.put("CURRENT_PANEL", "CALENDAR");
+    	}
 	}
 
 	void setCurrentButton(JButton cb) {

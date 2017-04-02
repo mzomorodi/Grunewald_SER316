@@ -62,6 +62,8 @@ public class PreferencesDialog extends JDialog {
 	JCheckBox enSystrayChB = new JCheckBox();
 	
 	JCheckBox autoExColChb = new JCheckBox();
+	
+	JCheckBox popoutCalendarChb = new JCheckBox();
 
 	JCheckBox startMinimizedChB = new JCheckBox();
 
@@ -369,6 +371,18 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(autoExColChb, gbc);
+		popoutCalendarChb.setText(Local.getString("Pop-out calendar"));
+		popoutCalendarChb.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				popoutCalendarChB_actionPerformed(e);
+			}
+		});
+		gbc = new GridBagConstraints();
+		gbc.gridx = 1;
+		gbc.gridy = 12;
+		gbc.insets = new Insets(2, 0, 0, 10);
+		gbc.anchor = GridBagConstraints.WEST;
+		GeneralPanel.add(popoutCalendarChb, gbc);
 		jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel4.setText(Local.getString("Startup:"));
 		gbc = new GridBagConstraints();
@@ -385,14 +399,14 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 12;
+		gbc.gridy = 13;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enSystrayChB, gbc);
 		startMinimizedChB.setText(Local.getString("Start minimized"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 13;
+		gbc.gridy = 14;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(startMinimizedChB, gbc);
@@ -404,7 +418,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 14;
+		gbc.gridy = 15;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enSplashChB, gbc);
@@ -416,7 +430,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 15;
+		gbc.gridy = 16;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enL10nChB, gbc);
@@ -424,7 +438,7 @@ public class PreferencesDialog extends JDialog {
 		lblExit.setText(Local.getString("Exit") + ":");
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-		gbc.gridy = 16;
+		gbc.gridy = 17;
 		gbc.insets = new Insets(2, 10, 10, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(lblExit, gbc);
@@ -437,7 +451,7 @@ public class PreferencesDialog extends JDialog {
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 16;
+		gbc.gridy = 17;
 		gbc.insets = new Insets(2, 0, 10, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(askConfirmChB, gbc);
@@ -554,6 +568,8 @@ public class PreferencesDialog extends JDialog {
 				.toString().equalsIgnoreCase("yes"));
 		autoExColChb.setSelected(Configuration.get("AUTO_EXCOL")
 				.toString().equalsIgnoreCase("yes"));
+		popoutCalendarChb.setSelected(Configuration.get("CALENDAR_POPOUT")
+				.toString().equalsIgnoreCase("yes"));
 		startMinimizedChB.setSelected(Configuration.get("START_MINIMIZED")
 				.toString().equalsIgnoreCase("yes"));
 		firstdow.setSelected(Configuration.get("FIRST_DAY_OF_WEEK").toString()
@@ -660,6 +676,11 @@ public class PreferencesDialog extends JDialog {
 			Configuration.put("AUTO_EXCOL", "yes");
 		else
 			Configuration.put("AUTO_EXCOL", "no");
+		
+		if (this.popoutCalendarChb.isSelected())
+			Configuration.put("CALENDAR_POPOUT", "yes");
+		else
+			Configuration.put("CALENDAR_POPOUT", "no");
 
 		if (this.startMinimizedChB.isSelected())
 			Configuration.put("START_MINIMIZED", "yes");
@@ -813,6 +834,10 @@ public class PreferencesDialog extends JDialog {
 	}
 	
 	void autoExColChB_actionPerformed(ActionEvent e) {
+
+	}
+	
+	void popoutCalendarChB_actionPerformed(ActionEvent e) {
 
 	}
 
