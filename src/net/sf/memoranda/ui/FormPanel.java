@@ -40,10 +40,13 @@ public class FormPanel extends JPanel {
 	private JMenuItem newForm = new JMenuItem();
 	private JMenuItem editForm = new JMenuItem();
 	public JPopupMenu formPopWindow = new JPopupMenu();
+	//private DailyItemsPanel _parentPanel = null;
+	private boolean isActive = false;
 	
 	
 	public FormPanel(){
 		try{
+			//_parentPanel = parentPanel;
 			jbInit();
 		}
 		catch(Exception e){
@@ -95,6 +98,10 @@ public class FormPanel extends JPanel {
 	
 	public void _editFormButtonClicked(ActionEvent e){
 		Util.debug("Clicked the edit form button");
+	}
+	
+	public void setActive(boolean b){
+		isActive = b;
 	}
 
 }

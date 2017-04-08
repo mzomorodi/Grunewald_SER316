@@ -20,6 +20,7 @@ import javax.swing.border.Border;
 import net.sf.memoranda.util.Configuration;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.Local;
+import net.sf.memoranda.util.Util;
 
 /**
  * 
@@ -37,11 +38,13 @@ public class WorkPanel extends JPanel {
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
 	public JNCalendarPanel calendarPanel = new JNCalendarPanel();
+	public FormPanel formPanel = new FormPanel();
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
 	public JButton calendarB = new JButton();
+	public JButton formB = new JButton();
 	JButton currentB = null;
 	Border border1;
 
@@ -228,17 +231,47 @@ public class WorkPanel extends JPanel {
 		calendarB.setMargin(new Insets(0, 0, 0, 0));
 		calendarB.setSelected(true);
 		
+//	FOR TESTING:	
+		formB.setBackground(Color.white);
+		formB.setMaximumSize(new Dimension(60, 80));
+		formB.setMinimumSize(new Dimension(30, 30));
+
+		formB.setFont(new java.awt.Font("Dialog", 1, 10));
+		formB.setPreferredSize(new Dimension(50, 50));
+		formB.setBorderPainted(false);
+		formB.setContentAreaFilled(false);
+		formB.setFocusPainted(false);
+		formB.setHorizontalTextPosition(SwingConstants.CENTER);
+		formB.setText("Forms");
+		formB.setVerticalAlignment(SwingConstants.TOP);
+		formB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		
+		formB.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formB_actionPerformed(e);
+			}
+		});
+		
+		formB.setIcon( new ImageIcon(
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+					"resources/icons/calendar2.png")));
+		formB.setOpaque(false);
+		formB.setMargin(new Insets(0, 0, 0, 0));
+		formB.setSelected(true);
+//
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
 		panel.add(calendarPanel, "CALENDAR");
+		panel.add(formPanel, "FORMS");
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
 		toolBar.add(calendarB, null);
+		toolBar.add(formB, null);
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -249,6 +282,7 @@ public class WorkPanel extends JPanel {
 		dailyItemsPanel.setBorder(null);
 		filesPanel.setBorder(null);
 		calendarPanel.setBorder(border1);
+		formPanel.setBorder(null);
 
 	}
 
@@ -264,6 +298,8 @@ public class WorkPanel extends JPanel {
 				filesB_actionPerformed(null);
 			else if (pan.equals("CALENDAR"))
 				calendarB_actionPerformed(null);
+			else if(pan.equals("FORMS"))
+				formB_actionPerformed(null);
 		}
 	}
 
@@ -311,6 +347,16 @@ public class WorkPanel extends JPanel {
 			Context.put("CURRENT_PANEL", "CALENDAR");
     	}
 	}
+	
+// FOR TESTING:
+	public void formB_actionPerformed(ActionEvent e) {
+		Util.debug("Clicked the forms button");
+		cardLayout1.show(panel, "FORMS");
+		setCurrentButton(formB);
+		Context.put("CURRENT_PANEL", "FORMS");
+		
+	}
+//
 
 	void setCurrentButton(JButton cb) {
 		currentB.setBackground(Color.white);
