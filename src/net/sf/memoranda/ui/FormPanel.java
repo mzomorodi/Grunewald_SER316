@@ -5,7 +5,6 @@ package net.sf.memoranda.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,7 +28,7 @@ import net.sf.memoranda.util.Util;
 
 /**
  * @author Avery
- *
+ * 
  */
 public class FormPanel extends JPanel {
 	private BorderLayout _borderLayout1 = new BorderLayout();
@@ -37,16 +36,12 @@ public class FormPanel extends JPanel {
 	private JButton _newFormButton = new JButton();
 	private JButton _editFormButton = new JButton();
 	private JScrollPane _scrollPane = new JScrollPane();
-	private JMenuItem newForm = new JMenuItem();
-	private JMenuItem editForm = new JMenuItem();
-	public JPopupMenu formPopWindow = new JPopupMenu();
-	//private DailyItemsPanel _parentPanel = null;
-	private boolean isActive = false;
-	
-	
+	private JMenuItem _newForm = new JMenuItem();
+	private JMenuItem _editForm = new JMenuItem();
+	public JPopupMenu formPopMenu = new JPopupMenu();
+		
 	public FormPanel(){
 		try{
-			//_parentPanel = parentPanel;
 			jbInit();
 		}
 		catch(Exception e){
@@ -76,6 +71,8 @@ public class FormPanel extends JPanel {
 				_newFormButtonClicked(e);
 			}
 		});
+		_newFormButton.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/addresource.png")));
+		_newFormButton.setToolTipText("Start a new form");
 		
 		_editFormButton.setEnabled(true);
 		_editFormButton.setMaximumSize(new Dimension(24, 24));
@@ -89,6 +86,9 @@ public class FormPanel extends JPanel {
 				_editFormButtonClicked(e);
 			}
 		});
+		_editFormButton.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/editproject.png")));
+		_editFormButton.setToolTipText("Edit form");
+		
 		
 	}
 	
@@ -100,8 +100,4 @@ public class FormPanel extends JPanel {
 		Util.debug("Clicked the edit form button");
 	}
 	
-	public void setActive(boolean b){
-		isActive = b;
-	}
-
 }
