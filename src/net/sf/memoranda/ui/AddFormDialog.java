@@ -37,16 +37,20 @@ import net.sf.memoranda.util.Util;
  *
  */
 public class AddFormDialog extends JDialog {
-	JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JLabel header = new JLabel();
-    JButton newB = new JButton();
-    ButtonGroup buttonGroup1 = new ButtonGroup();
-    JPanel areaPanel = new JPanel(new GridBagLayout());
-    GridBagConstraints gbc;
-    JLabel jLabel1 = new JLabel();
-    JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
-    JButton okB = new JButton();
-    JButton cancelB = new JButton();
+	private JPanel _dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    private JLabel _header = new JLabel();
+    private JRadioButton _locTrackFormB = new JRadioButton();
+    private JRadioButton _timeTrackFormB = new JRadioButton();
+    private JRadioButton _defTrackFormB = new JRadioButton();
+    private JRadioButton _prodTrackFormB = new JRadioButton();
+    
+    private ButtonGroup _buttonGroup1 = new ButtonGroup();
+    private JPanel _areaPanel = new JPanel(new GridBagLayout());
+    private GridBagConstraints _gbc;
+    private JLabel _jLabel1 = new JLabel();
+    private JPanel _buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
+    private JButton _okB = new JButton();
+    private JButton _cancelB = new JButton();
     public boolean CANCELLED = true;
     
     public AddFormDialog(Frame frame, String title) {
@@ -63,69 +67,72 @@ public class AddFormDialog extends JDialog {
     
     public void jbInit(String t) throws Exception{
     	this.setResizable(false);
-        dialogTitlePanel.setBackground(Color.WHITE);
-        dialogTitlePanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
-        header.setForeground(new Color(0, 0, 124));
-        header.setText(Local.getString(t));
-        header.setIcon(new ImageIcon(net.sf.memoranda.ui.AddResourceDialog.class.getResource(
+        _dialogTitlePanel.setBackground(Color.WHITE);
+        _dialogTitlePanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        _header.setFont(new java.awt.Font("Dialog", 0, 20));
+        _header.setForeground(new Color(0, 0, 124));
+        _header.setText(Local.getString(t));
+        _header.setIcon(new ImageIcon(net.sf.memoranda.ui.AddResourceDialog.class.getResource(
             "resources/icons/resource48.png")));
-        dialogTitlePanel.add(header);
-        this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
-        
-        buttonGroup1.add(newB);
-        
+        _dialogTitlePanel.add(_header);
+        this.getContentPane().add(_dialogTitlePanel, BorderLayout.NORTH);
+        _buttonGroup1.add(_locTrackFormB);
+        _buttonGroup1.add(_timeTrackFormB);
+        _buttonGroup1.add(_defTrackFormB);
+        _buttonGroup1.add(_prodTrackFormB);
+           
         if(t.equals("New Form")){
-        	newB.setText(Local.getString("Start new form"));
-        	newB.addActionListener(new java.awt.event.ActionListener() {
-        		public void actionPerformed(ActionEvent e) {
-        			newForm_actionPerformed(e);
-        		}
-        	});
+        	_locTrackFormB.setText(Local.getString("Start new LOC tracking form"));
+        	_timeTrackFormB.setText(Local.getString("Start new time tracking form"));
+        	_defTrackFormB.setText(Local.getString("Start new defect tracking form"));
+        	_prodTrackFormB.setText(Local.getString("Start new productivity tracking form"));
+        	
         }
         if(t.equals("Edit Form")){
-        	newB.setText(Local.getString("Edit form"));
-        	newB.addActionListener(new java.awt.event.ActionListener() {
-        		public void actionPerformed(ActionEvent e) {
-        			editForm_actionPerformed(e);
-        		}
-        	});
+        	_locTrackFormB.setText(Local.getString("Edit LOC tracking form"));
+        	_timeTrackFormB.setText(Local.getString("Edit time tracking form"));
+        	_defTrackFormB.setText(Local.getString("Edit defect tracking form"));
+        	_prodTrackFormB.setText(Local.getString("Edit productivity tracking form"));
         }
         
         
-        gbc = new GridBagConstraints();
-        gbc.gridwidth = 2;
-        gbc.gridx = 0; gbc.gridy = 0;
-        gbc.insets = new Insets(10, 15, 5, 15);
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        areaPanel.add(newB, gbc);
+        _gbc = new GridBagConstraints();
+        _gbc.gridwidth = 2;
+        _gbc.gridx = 0; _gbc.gridy = 0;
+        _gbc.insets = new Insets(10, 15, 5, 15);
+        _gbc.anchor = GridBagConstraints.WEST;
+        _gbc.fill = GridBagConstraints.HORIZONTAL;
+        _areaPanel.add(_locTrackFormB, _gbc);
+        _areaPanel.add(_timeTrackFormB, _gbc);
+        _areaPanel.add(_defTrackFormB, _gbc);
+        _areaPanel.add(_prodTrackFormB, _gbc);
         
-        okB.setEnabled(true);
-        okB.setMaximumSize(new Dimension(100, 26));
-        okB.setMinimumSize(new Dimension(100, 26));
-        okB.setPreferredSize(new Dimension(100, 26));
-        okB.setText(Local.getString("Ok"));
-        okB.addActionListener(new java.awt.event.ActionListener() {
+        _okB.setEnabled(true);
+        _okB.setMaximumSize(new Dimension(100, 26));
+        _okB.setMinimumSize(new Dimension(100, 26));
+        _okB.setPreferredSize(new Dimension(100, 26));
+        _okB.setText(Local.getString("Ok"));
+        _okB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 okB_actionPerformed(e);
             }
         });
-        this.getRootPane().setDefaultButton(okB);
-        cancelB.setMaximumSize(new Dimension(100, 26));
-        cancelB.setMinimumSize(new Dimension(100, 26));
-        cancelB.setPreferredSize(new Dimension(100, 26));
-        cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
+        this.getRootPane().setDefaultButton(_okB);
+        _cancelB.setMaximumSize(new Dimension(100, 26));
+        _cancelB.setMinimumSize(new Dimension(100, 26));
+        _cancelB.setPreferredSize(new Dimension(100, 26));
+        _cancelB.setText(Local.getString("Cancel"));
+        _cancelB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cancelB_actionPerformed(e);
             }
         });
-        buttonsPanel.add(newB);
-        buttonsPanel.add(okB);
-        buttonsPanel.add(cancelB);
+        
+        
+        _buttonsPanel.add(_okB);
+        _buttonsPanel.add(_cancelB);
 		enableFields();
-        this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+        this.getContentPane().add(_buttonsPanel, BorderLayout.SOUTH);
     	
     } //End jbInit()
     
@@ -148,7 +155,7 @@ public class AddFormDialog extends JDialog {
     }
     
     void enableFields() {
-		 jLabel1.setEnabled(true);
+		 _jLabel1.setEnabled(true);
 	}
     
     void newForm_actionPerformed(ActionEvent e){
