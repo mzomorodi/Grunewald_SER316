@@ -18,6 +18,7 @@
 	<property name="main.class" value="net.sf.memoranda.Start"/>
 	<property name="jarname" value="${name}.jar"/>
 	<property name="dist.dir" value="${basedir}/dist"/>
+	<property name="junit.dir" value="C:\eclipse\plugins\org.junit_4.12.0.v201504281640"/>
 	<!-- compile options -->
 	<property name="debug" value="off"/>
 	<property name="debuglevel" value="lines,vars,source"/>
@@ -37,6 +38,7 @@
 			<include name="*.jar"/>
 			<include name="*.zip"/>
 		</fileset>
+		<fileset dir="${junit.dir}" includes="**/*.jar" />
 	</path>
 	<!-- =================================================================== -->
 	<!-- Creates the Jar                                                     -->
@@ -57,6 +59,7 @@
 			</manifest>
 		</jar>
 	</target>
+	
 	<target name="compile" depends="init">
 		<!-- Compile the java code from ${src} into ${build} -->
 		<buildnumber/>
@@ -88,12 +91,15 @@
 			<fileset dir="." includes="tasklist.dtd"/>
 		</copy>
 	</target>
+	
 	<target name="checkbuild">
 		<available file="${build.dir}/${jarname}" property="build.present"/>
 	</target>
+	
 	<target name="build-if-needed" depends="checkbuild" unless="build.present">
 		<antcall target="package"/>
 	</target>
+	
 	<target name="dist-full" depends="init, build-if-needed">
 		<!-- Create the full distribution includes:
     build (build\)
@@ -174,5 +180,14 @@
 		<java jar="${build.dir}/${jarname}" fork="yes">
 			<classpath refid="classpath"/>
 		</java> -->
+	</target>
+	
+	<!-- =================================================================== -->
+	<!-- Runs the JUnit tests                                           	 -->
+	<!-- =================================================================== -->
+	<target name="unittest" depends="compile">
+		<junit haltonfailure="true" printsummary="true">
+			<test name="${source.dir}/net/sf/memoranda/ui/WorkPanelTest"/>
+		</junit>
 	</target>
 </project>
