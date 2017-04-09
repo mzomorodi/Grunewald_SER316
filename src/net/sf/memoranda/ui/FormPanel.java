@@ -5,6 +5,7 @@ package net.sf.memoranda.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -23,11 +24,17 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
+import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
 
 
 /**
- * @author Avery
+ * File: FormPanel.java
+ * @author Avery Bowen
+ * Date: 4/9/17
+ * 
+ * Description: Form panel is the working panel for the PSP form functionality
+ * introduced by team Grunewald for SER316 project.
  * 
  */
 public class FormPanel extends JPanel {
@@ -38,8 +45,13 @@ public class FormPanel extends JPanel {
 	private JScrollPane _scrollPane = new JScrollPane();
 	private JMenuItem _newForm = new JMenuItem();
 	private JMenuItem _editForm = new JMenuItem();
-	public JPopupMenu formPopMenu = new JPopupMenu();
+	private JPopupMenu _formPopMenu = new JPopupMenu();
 		
+	/**
+	 * Description: Constructor takes no arguments.  Tries initializing the GUI
+	 * pane.  
+	 * 
+	 */
 	public FormPanel(){
 		try{
 			jbInit();
@@ -49,6 +61,14 @@ public class FormPanel extends JPanel {
 		}
 	}
 	
+	
+	/**
+	 * Method: jbInit()
+	 * Inputs: n/a
+	 * Returns: void
+	 * @throws Exception
+	 * Description: Initializes the GUI for PSP forms.  Throws exception if unsuccessful.
+	 */
 	public void jbInit() throws Exception{
 		this.setLayout(_borderLayout1);
 		_scrollPane.getViewport().setBackground(Color.WHITE);
@@ -76,7 +96,7 @@ public class FormPanel extends JPanel {
 		
 		_editFormButton.setEnabled(true);
 		_editFormButton.setMaximumSize(new Dimension(24, 24));
-		_editFormButton.setToolTipText("New Form");
+		_editFormButton.setToolTipText("Edit Form");
 		_editFormButton.setRequestFocusEnabled(false);
 		_editFormButton.setPreferredSize(new Dimension(24, 24));
 		_editFormButton.setFocusable(false);
@@ -90,14 +110,30 @@ public class FormPanel extends JPanel {
 		_editFormButton.setToolTipText("Edit form");
 		
 		
-	}
+	} // End jbInit()
 	
 	public void _newFormButtonClicked(ActionEvent e){
 		Util.debug("Clicked the new form button");
+		AddFormDialog fDlg = new AddFormDialog(App.getFrame(), Local.getString("New Form"));
+		Dimension frmSize = App.getFrame().getSize();
+		Point loc = App.getFrame().getLocation();
+		fDlg.setLocation((frmSize.width - fDlg.getSize().width)/2 + loc.x, (frmSize.height - fDlg.getSize().height) / 2 + loc.y);
+		fDlg.setVisible(true);
+		if(fDlg.CANCELLED){
+			return;
+		}
 	}
 	
 	public void _editFormButtonClicked(ActionEvent e){
 		Util.debug("Clicked the edit form button");
+		AddFormDialog fDlg = new AddFormDialog(App.getFrame(), Local.getString("Edit Form"));
+		Dimension frmSize = App.getFrame().getSize();
+		Point loc = App.getFrame().getLocation();
+		fDlg.setLocation((frmSize.width - fDlg.getSize().width)/2 + loc.x, (frmSize.height - fDlg.getSize().height) / 2 + loc.y);
+		fDlg.setVisible(true);
+		if(fDlg.CANCELLED){
+			return;
+		}
 	}
 	
 }
