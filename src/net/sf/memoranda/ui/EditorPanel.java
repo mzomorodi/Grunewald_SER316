@@ -34,8 +34,8 @@ import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 import net.sf.memoranda.util.Util;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
+import net.sf.memoranda.util.FileImport;
 import net.sf.memoranda.util.HTMLFileExport;
-import net.sf.memoranda.util.HTMLFileImport;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Configuration;
 
@@ -555,7 +555,7 @@ public class EditorPanel extends JPanel {
 		chooser.setDialogTitle(Local.getString("Insert file"));
 		chooser.setAcceptAllFileFilterUsed(false);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
+		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.TEXT));
 		chooser.setPreferredSize(new Dimension(550, 375));
 		String lastSel = (String) Context.get("LAST_SELECTED_IMPORT_FILE");
 		if (lastSel != null)
@@ -567,7 +567,7 @@ public class EditorPanel extends JPanel {
 				.getPath());
 
 		File f = chooser.getSelectedFile();
-		new HTMLFileImport(f, editor);
+		new FileImport(f, editor);
 	}
 
 	void newB_actionPerformed(ActionEvent e) {
