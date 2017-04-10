@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -43,9 +44,6 @@ public class FormPanel extends JPanel {
 	private JButton _newFormButton = new JButton();
 	private JButton _editFormButton = new JButton();
 	private JScrollPane _scrollPane = new JScrollPane();
-	private JMenuItem _newForm = new JMenuItem();
-	private JMenuItem _editForm = new JMenuItem();
-	private JPopupMenu _formPopMenu = new JPopupMenu();
 		
 	/**
 	 * Description: Constructor takes no arguments.  Tries initializing the GUI
@@ -72,11 +70,12 @@ public class FormPanel extends JPanel {
 	public void jbInit() throws Exception{
 		this.setLayout(_borderLayout1);
 		_scrollPane.getViewport().setBackground(Color.WHITE);
+		
 		_formToolBar.addSeparator(new Dimension(8, 24));
 		_formToolBar.add(_newFormButton, null);
 		_formToolBar.addSeparator(new Dimension(8, 24));
 		_formToolBar.add(_editFormButton, null);
-		this.add(_formToolBar, BorderLayout.NORTH);
+		this.add(_formToolBar, BorderLayout.NORTH);		
 		
 		_formToolBar.setFloatable(false);
 		_newFormButton.setEnabled(true);
@@ -111,6 +110,7 @@ public class FormPanel extends JPanel {
 		
 		
 	} // End jbInit()
+	
 	
 	public void _newFormButtonClicked(ActionEvent e){
 		Util.debug("Clicked the new form button");
