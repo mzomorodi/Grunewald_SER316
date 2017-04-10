@@ -38,7 +38,7 @@ public class WorkPanel extends JPanel {
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
 	public JNCalendarPanel calendarPanel = new JNCalendarPanel();
-	public FormPanel formPanel = new FormPanel();
+	public PSPPanel pspPanel = new PSPPanel();
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
@@ -263,7 +263,7 @@ public class WorkPanel extends JPanel {
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
 		panel.add(calendarPanel, "CALENDAR");
-		panel.add(formPanel, "PSP");
+		panel.add(pspPanel, "PSP");
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
@@ -281,7 +281,7 @@ public class WorkPanel extends JPanel {
 		dailyItemsPanel.setBorder(null);
 		filesPanel.setBorder(null);
 		calendarPanel.setBorder(border1);
-		formPanel.setBorder(null);
+		pspPanel.setBorder(null);
 
 	}
 
