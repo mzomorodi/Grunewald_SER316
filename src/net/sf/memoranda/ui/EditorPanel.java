@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 
 import net.sf.memoranda.History;
@@ -36,8 +37,10 @@ import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.HTMLFileExport;
 import net.sf.memoranda.util.HTMLFileImport;
+import net.sf.memoranda.util.TXTExport;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Configuration;
+
 
 /*$Id: EditorPanel.java,v 1.21 2006/06/28 22:58:31 alexeya Exp $*/
 public class EditorPanel extends JPanel {
@@ -439,6 +442,7 @@ public class EditorPanel extends JPanel {
 		chooser
 				.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.XHTML));
 		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
+		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.TXT));
 		// chooser.addChoosableFileFilter(new
 		// AllFilesFilter(AllFilesFilter.RTF));
 		String lastSel = (String) Context.get("LAST_SELECTED_EXPORT_FILE");
@@ -479,11 +483,23 @@ public class EditorPanel extends JPanel {
 			template = dlg.templF.getText();
 			Context.put("EXPORT_TEMPLATE", template);
 		}
-		/*
-		 * if (chooser.getFileFilter().getDescription().equals("Rich Text
-		 * Format")) new RTFFileExport(chooser.getSelectedFile(),
-		 * editor.document); else
-		 */
+		
+		//if (chooser.getFileFilter().getDescription().equals("Rich TextFormat")) 
+		//	new RTFFileExport(chooser.getSelectedFile(),
+		//	editor.document); //else
+		//Come back to this and clean up
+		if(chooser.getFileFilter().getDescription().equals("TXT files (*.txt)"))
+			try {
+				new TXTExport(chooser.getSelectedFile(), editor.document);
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		else
+		{
 		int ei = dlg.encCB.getSelectedIndex();
 		enc = null;
 		if (ei == 1)
@@ -491,6 +507,7 @@ public class EditorPanel extends JPanel {
 		File f = chooser.getSelectedFile();
 		new HTMLFileExport(f, editor.document, CurrentNote.get(), enc,
 				dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
+		}
 	}
 
 	String initialTitle = "";
