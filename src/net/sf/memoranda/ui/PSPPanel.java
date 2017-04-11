@@ -52,14 +52,15 @@ public class PSPPanel extends JPanel{
 	void jbInit() throws Exception {
 		
 		defectB.setIcon(
-	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
+	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_time.png")));
         defectB.setEnabled(true);
-        defectB.setMaximumSize(new Dimension(24, 24));
-        defectB.setMinimumSize(new Dimension(24, 24));
+        defectB.setMaximumSize(new Dimension(120, 30));
+        defectB.setMinimumSize(new Dimension(26, 32));
         defectB.setToolTipText(Local.getString("Open Defect View"));
         defectB.setRequestFocusEnabled(false);
-        defectB.setPreferredSize(new Dimension(24, 24));
+        defectB.setPreferredSize(new Dimension(120, 30));
         defectB.setFocusable(false);
+        defectB.setText("Defect Log");
         defectB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 defectB_actionPerformed(e);
@@ -68,14 +69,15 @@ public class PSPPanel extends JPanel{
         defectB.setBorderPainted(false);
         
         timeB.setIcon(
-	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
+	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_defect.png")));
         timeB.setEnabled(true);
-        timeB.setMaximumSize(new Dimension(24, 24));
-        timeB.setMinimumSize(new Dimension(24, 24));
+        timeB.setMaximumSize(new Dimension(90, 30));
+        timeB.setMinimumSize(new Dimension(26, 32));
         timeB.setToolTipText(Local.getString("Open Time View"));
         timeB.setRequestFocusEnabled(false);
-        timeB.setPreferredSize(new Dimension(24, 24));
+        timeB.setPreferredSize(new Dimension(90, 30));
         timeB.setFocusable(false);
+        timeB.setText("Time Log");
         timeB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 timeB_actionPerformed(e);
@@ -86,6 +88,7 @@ public class PSPPanel extends JPanel{
 		newFormToolBar.setFloatable(false);
 		newFormToolBar.addSeparator(new Dimension(8, 24));
 		newFormToolBar.add(defectB, null);
+		newFormToolBar.addSeparator(new Dimension(8, 24));
 		newFormToolBar.add(timeB, null);
 		
 		this.setLayout(borderLayout1);
