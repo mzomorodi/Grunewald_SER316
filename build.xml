@@ -18,12 +18,15 @@
 	<property name="main.class" value="net.sf.memoranda.Start"/>
 	<property name="jarname" value="${name}.jar"/>
 	<property name="dist.dir" value="${basedir}/dist"/>
-	<property name="junit.dir" value="C:\eclipse\plugins\org.junit_4.12.0.v201504281640"/>
+	<property name="junit.dir" value="${basedir}/lib"/>
 	<!-- compile options -->
 	<property name="debug" value="off"/>
 	<property name="debuglevel" value="lines,vars,source"/>
 	<property name="optimize" value="off"/>
 	<property name="deprecation" value="off"/>
+	<presetdef name="javac">
+	        <javac includeantruntime="false" />
+	    </presetdef>
 
 	<target name="init">
 		<!-- Create the time stamp -->
