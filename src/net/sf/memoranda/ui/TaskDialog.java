@@ -60,6 +60,9 @@ public class TaskDialog extends JDialog {
     JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
     JTextField todoField = new JTextField();
     
+    // Added by bhood2
+    JTextField actEffortField = new JTextField();
+    
     // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
@@ -89,6 +92,9 @@ public class TaskDialog extends JDialog {
     JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
+    // Added by bhood2
+    JPanel jPanelActEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
     JButton setNotifB = new JButton();
     JComboBox priorityCB = new JComboBox(priority);
     JLabel jLabel7 = new JLabel();
@@ -96,6 +102,9 @@ public class TaskDialog extends JDialog {
     JLabel jLabelEffort = new JLabel();
     JLabel jLabelDescription = new JLabel();
 	JCheckBox chkEndDate = new JCheckBox();
+	
+	// Added by bhood2
+	JLabel jLabelActEffort = new JLabel();
 	
 	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	JLabel jLabelProgress = new JLabel();
@@ -208,9 +217,16 @@ public class TaskDialog extends JDialog {
 
         jLabelEffort.setMaximumSize(new Dimension(100, 16));
         jLabelEffort.setMinimumSize(new Dimension(60, 16));
-        jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
+        jLabelEffort.setText(Local.getString("Estimated Effort(hrs)"));
         effortField.setBorder(border8);
         effortField.setPreferredSize(new Dimension(30, 24));
+        
+        // Added by bhood2
+        jLabelActEffort.setMaximumSize(new Dimension(100, 16));
+        jLabelActEffort.setMinimumSize(new Dimension (60, 16));
+        jLabelActEffort.setText(Local.getString("Actual Effort(hrs)"));
+        actEffortField.setBorder(border8);
+        actEffortField.setPreferredSize(new Dimension(30, 24));
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -349,7 +365,11 @@ public class TaskDialog extends JDialog {
         jPanel2.add(jPanelEffort, null);
         jPanelEffort.add(jLabelEffort, null);
         jPanelEffort.add(effortField, null);
-
+        // Added by bhood2
+        jPanel3.add(jPanelActEffort, null);
+        jPanelActEffort.add(jLabelActEffort, null);
+        jPanelActEffort.add(actEffortField, null);
+        
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
         jPanel2.add(jPanel3, null);

@@ -82,9 +82,28 @@ public class TaskImpl implements Task, Comparable {
     		}
     	}
     }
+    
+    public long getActEffort() {
+    	Attribute attr = _element.getAttribute("actEffort");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Long.parseLong(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
 
     public void setEffort(long effort) {
         setAttr("effort", String.valueOf(effort));
+    }
+    
+    public void setActEffort(long actEffort) {
+        setAttr("actEffort", String.valueOf(actEffort));
     }
 	
 	/* 

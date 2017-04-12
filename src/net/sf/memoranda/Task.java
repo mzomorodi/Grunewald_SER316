@@ -75,6 +75,9 @@ public interface Task {
     void setEffort(long effort);
     long getEffort();
     
+    void setActEffort(long actEffort);
+    long getActEffort();
+    
     void setDescription(String description);
     String getDescription();
 
