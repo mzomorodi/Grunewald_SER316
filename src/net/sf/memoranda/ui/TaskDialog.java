@@ -65,6 +65,9 @@ public class TaskDialog extends JDialog {
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     
+    // added by cmith
+    JTextField LOCField = new JTextField();
+    
 //    Border border7;
     Border border8;
     CalendarFrame startCalFrame = new CalendarFrame();
@@ -88,6 +91,7 @@ public class TaskDialog extends JDialog {
     JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanelLOC = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
     JButton setNotifB = new JButton();
     JComboBox priorityCB = new JComboBox(priority);
@@ -96,6 +100,8 @@ public class TaskDialog extends JDialog {
     JLabel jLabelEffort = new JLabel();
     JLabel jLabelDescription = new JLabel();
 	JCheckBox chkEndDate = new JCheckBox();
+	// added by cmith
+	JLabel jLabelLOC = new JLabel();
 	
 	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	JLabel jLabelProgress = new JLabel();
@@ -211,6 +217,12 @@ public class TaskDialog extends JDialog {
         jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
         effortField.setBorder(border8);
         effortField.setPreferredSize(new Dimension(30, 24));
+        
+        jLabelLOC.setMaximumSize(new Dimension(100, 16));
+        jLabelLOC.setMinimumSize(new Dimension(60, 16));
+        jLabelLOC.setText(Local.getString("Est LOC(lines)"));
+        LOCField.setBorder(border8);
+        LOCField.setPreferredSize(new Dimension(30, 24));
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -349,6 +361,11 @@ public class TaskDialog extends JDialog {
         jPanel2.add(jPanelEffort, null);
         jPanelEffort.add(jLabelEffort, null);
         jPanelEffort.add(effortField, null);
+        
+        // added by csmith
+        jPanel2.add(jPanelLOC, null);
+        jPanelLOC.add(jLabelLOC, null);
+        jPanelLOC.add(LOCField, null);
 
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);

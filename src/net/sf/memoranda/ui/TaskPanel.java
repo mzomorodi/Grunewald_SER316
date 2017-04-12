@@ -456,6 +456,7 @@ public class TaskPanel extends JPanel {
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
         dlg.priorityCB.setSelectedIndex(t.getPriority());                
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
+        dlg.LOCField.setText(String.valueOf(t.getLOC()));
 	if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
 		dlg.chkEndDate.setSelected(false);
 	else
@@ -478,6 +479,7 @@ public class TaskPanel extends JPanel {
         t.setDescription(dlg.descriptionField.getText());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
+        t.setLOC(Long.parseLong(dlg.LOCField.getText()));
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
 //		CurrentProject.getTaskList().adjustParentTasks(t);
@@ -509,8 +511,9 @@ public class TaskPanel extends JPanel {
  		else
  			ed = null;
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
+        long locode = Long.parseLong(dlg.LOCField.getText());
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),null);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(),  dlg.priorityCB.getSelectedIndex(), effort, locode, dlg.descriptionField.getText(),null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -551,7 +554,8 @@ public class TaskPanel extends JPanel {
  		else
  			ed = null;
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
+        long locode = Long.parseLong(dlg.LOCField.getText());
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, locode, dlg.descriptionField.getText(),parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
@@ -578,6 +582,10 @@ public class TaskPanel extends JPanel {
         TaskList tl = CurrentProject.getTaskList();
         if(dlg.calcEffortChB.isSelected()) {
             t.setEffort(tl.calculateTotalEffortFromSubTasks(t));
+        }
+        
+        if(dlg.calcLOCChB.isSelected()) {
+        	t.setLOC(tl.calculateTotalLOCFromSubTasks(t));
         }
         
         if(dlg.compactDatesChB.isSelected()) {

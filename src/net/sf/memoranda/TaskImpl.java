@@ -87,6 +87,25 @@ public class TaskImpl implements Task, Comparable {
         setAttr("effort", String.valueOf(effort));
     }
 	
+    public long getLOC() {
+    	Attribute attr = _element.getAttribute("loc");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Long.parseLong(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+    public void setLOC(long loc) {
+        setAttr("loc", String.valueOf(loc));
+    }
+    
 	/* 
 	 * @see net.sf.memoranda.Task#getParentTask()
 	 */
