@@ -9,6 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -27,7 +29,8 @@ import javax.swing.event.CaretEvent;
 
 import net.sf.memoranda.Defect;
 import net.sf.memoranda.Task;
-import net.sf.memoranda.Defect.Phase;
+import net.sf.memoranda.TaskListImpl;
+import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
@@ -42,8 +45,10 @@ import net.sf.memoranda.util.Util;
 public class DefectFormDialog extends JDialog{
 	private JPanel _dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     private JLabel _header = new JLabel();
-    
+    private CalendarDate _d = new CalendarDate();
+    private JLabel _taskLab = new JLabel();
     private JComboBox _taskChooser = new JComboBox();
+    private JLabel _typeLab = new JLabel();
     private JComboBox _typeChooser = new JComboBox();
     private JComboBox _injPhaseChooser = new JComboBox();
     private JComboBox _remPhaseChooser = new JComboBox();
@@ -52,23 +57,17 @@ public class DefectFormDialog extends JDialog{
     private JTextField _fixID = new JTextField();
     private JTextField _desc = new JTextField();
     
-    private JPanel _areaPanel = new JPanel(new GridBagLayout());
-    private GridBagConstraints _gbc;
+    private JPanel _areaPanel = new JPanel();
     private JLabel _jLabel1 = new JLabel();
     private JPanel _buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
     private JButton _okB = new JButton();
     private JButton _cancelB = new JButton();
     public boolean CANCELLED = true;
     
-    int id; 
-    Task t; 
-    CalendarDate d;
-    int type;
-    Phase iPh;
-    Phase rPh;
-    int fTime;
-    int fRef;
-    String desc;
+    private String[] arr = new String[]{Local.getString("10: Documentation"), Local.getString("20: Syntax"), Local.getString("30: Build, Package"), Local.getString("40: Assignment"), 
+    		Local.getString("50: Interface"), Local.getString("60: Checking"), Local.getString("70: Data"), Local.getString("80: Function"), Local.getString("90: System"), Local.getString("100: Environment")};
+    public String[] _phases = new String[]{Local.getString("PLANNING"), Local.getString("DESIGN"), Local.getString("CODE"), Local.getString("CODE_REVIEW"), Local.getString("COMPILE"), Local.getString("TEST"), Local.getString("POSTMORTEM")};
+    
     
     public DefectFormDialog(Frame frame, String title){
     	super(frame, title, true);
@@ -94,21 +93,27 @@ public class DefectFormDialog extends JDialog{
         _dialogTitlePanel.add(_header);
         this.getContentPane().add(_dialogTitlePanel, BorderLayout.NORTH);
         
-// NEED TO ADD THE DEFECT INPUT BOXES HERE:
-        List<String> l = Defect.getValues();
-        String[] arr = l.toArray(new String[0]);
-        for(int i = 0; i < arr.length; i++){
-        	_typeChooser.addItem(arr[i]);
-        }
-        _typeChooser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                typeChosen_actionPerformed(e);
-            }
-        });
+        if(t.equals("New Defect")){
+// NEED TO ADD THE DEFECT INPUT BOXES HERE (something like this?):
+        	
+        	
+	        for(int i = 0; i < arr.length; i++){
+	        	_typeChooser.addItem(arr[i]);
+	        }
+	        _typeLab.setText("Select defect type: ");
+	        
+	        
+	        
+	        
+	        _areaPanel.add(_typeLab);
+	        _areaPanel.add(_typeChooser);
+	        this.getContentPane().add(_areaPanel, BorderLayout.CENTER);
+	        
  
+// ---------------------------------
+        }
         
         
-// ---------------------------------        
         
         _okB.setEnabled(true);
         _okB.setMaximumSize(new Dimension(100, 26));
@@ -140,8 +145,8 @@ public class DefectFormDialog extends JDialog{
     }
     
     void okB_actionPerformed(ActionEvent e) {
-        CANCELLED = false;
-		this.dispose();
+    	CANCELLED = false;
+        this.dispose();
     }
 
 	/**

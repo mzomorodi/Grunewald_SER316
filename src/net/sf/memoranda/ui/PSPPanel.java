@@ -8,6 +8,7 @@ package net.sf.memoranda.ui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
@@ -109,6 +110,14 @@ public class PSPPanel extends JPanel{
 	 */
 	public void defectB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(formPanel, "DEFECTS");
+		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("New Defect"));
+		Dimension frmSize = App.getFrame().getSize();
+		Point loc = App.getFrame().getLocation();
+		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
+		dDlg.setVisible(true);
+		if(dDlg.CANCELLED){
+			return;
+		}
 	}
 	
 	/**
