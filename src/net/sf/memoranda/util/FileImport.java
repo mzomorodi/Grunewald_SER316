@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 
@@ -30,35 +32,37 @@ public class FileImport {
             ext = fName.substring(extDot + 1);
         }
         
-        try {
-            //in = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF-8"));
-            in = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-            String line = in.readLine();
-            while (line != null) {
-            	if (ext.equals("html") || ext.equals("htm")) {
-            		text = text + line + "\n";
-            	} else {
-            		text = text + line + "<br>";
-            	}
-            	
-                line = in.readLine();
-            }
-            in.close();         
+        if (!ext.equals("txt") && !ext.equals("html") && !ext.equals("htm")) {
+        	JOptionPane.showMessageDialog(null,Local.getString("Import for \"" + ext + "\" files is not supported."));
+        	System.out.println("Import failed: file type not supported");    
+        } else {
+        	try {
+	            //in = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF-8"));
+	            in = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+	            String line = in.readLine();
+	            while (line != null) {
+	            	if (ext.equals("html") || ext.equals("htm")) {
+	            		text = text + line + "\n";
+	            	} else {
+	            		text = text + line + "<br>";
+	            	}
+	                line = in.readLine();
+	            }
+	            in.close();         
+	        }
+	        catch (Exception e) {
+	            new ExceptionDialog(e, "Failed to import "+f.getPath(), "");
+	            return;
+	        }
+	        
+	        if (ext.equals("htm") || ext.equals("html")) {
+		        text = Pattern.compile("<body(.*?)>", java.util.regex.Pattern.DOTALL + java.util.regex.Pattern.CASE_INSENSITIVE)
+		           .split(text)[1];
+		        text = Pattern.compile("</body>", java.util.regex.Pattern.DOTALL + java.util.regex.Pattern.CASE_INSENSITIVE)
+		            .split(text)[0];
+		        //text = text.substring(p1, p2);
+	        }
+	        editor.insertHTML(text, editor.editor.getCaretPosition());
         }
-        catch (Exception e) {
-            new ExceptionDialog(e, "Failed to import "+f.getPath(), "");
-            return;
-        }
-        
-        if (ext.equals("htm") || ext.equals("html")) {
-	        text = Pattern.compile("<body(.*?)>", java.util.regex.Pattern.DOTALL + java.util.regex.Pattern.CASE_INSENSITIVE)
-	           .split(text)[1];
-	        text = Pattern.compile("</body>", java.util.regex.Pattern.DOTALL + java.util.regex.Pattern.CASE_INSENSITIVE)
-	            .split(text)[0];
-	        //text = text.substring(p1, p2);
-        }
-        
-        editor.insertHTML(text, editor.editor.getCaretPosition());        
-
     }
 }
