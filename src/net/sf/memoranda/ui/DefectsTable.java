@@ -2,7 +2,6 @@ package net.sf.memoranda.ui;
 
 import java.awt.Component;
 import java.awt.Font;
-import java.io.File;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -17,13 +16,10 @@ import net.sf.memoranda.DefectList;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.ProjectListener;
-import net.sf.memoranda.Resource;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
-import net.sf.memoranda.ui.ResourcesTable.ResourcesTableModel;
 import net.sf.memoranda.ui.table.TableSorter;
 import net.sf.memoranda.util.Local;
-import net.sf.memoranda.util.MimeTypesList;
 
 /**
  * @author Matthew Seiler
@@ -47,7 +43,7 @@ public class DefectsTable extends JTable {
 		setRowHeight(30);
 		
 		initTable();
-		_sorter = new TableSorter(new FormTableModel());
+		_sorter = new TableSorter(new DefectsTableModel());
         _sorter.addMouseListenerToHeaderInTable(this);
         setModel(_sorter);
         setFont(new Font("Dialog",0,11));
@@ -92,6 +88,7 @@ public class DefectsTable extends JTable {
 	public void tableChanged() {
         initTable();
         _sorter.tableChanged(null);
+        initColumnsWidth();
         updateUI();
     }
 	
@@ -112,10 +109,9 @@ public class DefectsTable extends JTable {
                 return comp;
             }
         };
-
     }
 	
-	class FormTableModel extends AbstractTableModel {
+	class DefectsTableModel extends AbstractTableModel {
 		
 		String[] columnNames = {
                 Local.getString("ID"),
@@ -125,10 +121,10 @@ public class DefectsTable extends JTable {
                 Local.getString("Injected"),
                 Local.getString("Removed"),
                 Local.getString("Fix Time"),
-                Local.getString("Ref"),
+                Local.getString("Fix Ref"),
                 Local.getString("Description")};
 		
-		public FormTableModel() {
+		public DefectsTableModel() {
 			super();
 		}
 
@@ -143,13 +139,33 @@ public class DefectsTable extends JTable {
 
 		@Override
 		public int getRowCount() {
-			//return _defects.size();
-			return 0;
+			return _defects.size();
 		}
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			return null;
+			Defect d = (Defect)_defects.get(rowIndex);
+            if (columnIndex == 0){
+            	return d.getID();
+            } else if (columnIndex == 1) {
+            	return d.getDefectType();
+            } else if (columnIndex == 2) {
+            	return d.getDate();
+            } else if (columnIndex == 3) {
+            	return d.getTask();
+            } else if (columnIndex == 4) {
+            	return d.getInjectedPhase();
+            } else if (columnIndex == 5) {
+            	return d.getRemovedPhase();
+            } else if (columnIndex == 6) {
+            	return d.getFixedTime();
+            } else if (columnIndex == 7) {
+            	return d.getFixRef();
+            } else if (columnIndex == 8) {
+            	return d.getDesc();
+            }
+            
+            return null;
 		}
 	}
 }
