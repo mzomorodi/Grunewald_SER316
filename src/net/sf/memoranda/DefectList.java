@@ -39,6 +39,18 @@ public class DefectList {
         _root = _doc.getRootElement();
         _project = prj;
 	}
+    
+    public Vector<Defect> getAllDefects() {
+        Elements defects = _root.getChildElements("defect");
+        Vector<Defect> v = new Vector<Defect>();
+
+        for (int i = 0; i < defects.size(); i++) {
+            Defect d = new Defect(defects.get(i), this);
+            v.add(d);
+        }
+        
+        return v;
+    }
 
 	public Defect createDefect(Task t, CalendarDate d, String id, String type, String inject, String remove, String fTime, String fRef, String desc){
     	Element e = new Element("defect");
@@ -60,8 +72,5 @@ public class DefectList {
 	public Document getXMLContent() {
 		return _doc;
 	}
-    
-    
-    
-
+	
 }
