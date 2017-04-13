@@ -84,8 +84,8 @@ public class FileImport {
 	        }
 	        editor.insertHTML(text, editor.editor.getCaretPosition());
         } else {
-        	JOptionPane.showMessageDialog(null,Local.getString("Import for \"" + ext + "\" files is not supported."));
-        	System.out.println("Import failed: file type not supported");
+        	//JOptionPane.showMessageDialog(null,Local.getString("Import for \"" + ext + "\" files is not supported."));
+        	System.out.println("Notes import failed: [" + ext + "] file type not supported");
         }
     }
 }
