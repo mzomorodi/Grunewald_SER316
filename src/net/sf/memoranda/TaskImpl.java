@@ -84,7 +84,7 @@ public class TaskImpl implements Task, Comparable {
     }
     
     public long getActEffort() {
-    	Attribute attr = _element.getAttribute("actEffort");
+    	Attribute attr = _element.getAttribute("actualEffort");
     	if (attr == null) {
     		return 0;
     	}
@@ -103,7 +103,7 @@ public class TaskImpl implements Task, Comparable {
     }
     
     public void setActEffort(long actEffort) {
-        setAttr("actEffort", String.valueOf(actEffort));
+        setAttr("actualEffort", String.valueOf(actEffort));
     }
 	
 	/* 
