@@ -136,6 +136,10 @@ public class DefectsTable extends JTable {
 		public int getColumnCount() {
 			return columnNames.length;
 		}
+		
+		public String getColumnName(int i) {
+            return columnNames[i];
+        }
 
 		@Override
 		public int getRowCount() {
