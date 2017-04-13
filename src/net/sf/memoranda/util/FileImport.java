@@ -1,6 +1,11 @@
-/**
- * FileImport.java
- */
+/*
+  File:	FileImport.java
+  Author: Alex V. Alishevskikh, alex@openmechanics.net, 
+  Author: Matthew Seiler	
+  Date: 4/12/2017
+  
+  Description: Handles file imports to notes.
+*/
 package net.sf.memoranda.util;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,13 +19,20 @@ import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 
 /**
- * 
- */
+Class:	FileImport
+
+Description: This class handles file imports for txt, html, and htm files into Notes.
+*/
 public class FileImport {
 
-    /**
-     * Constructor for FileImport.
-     */
+	/**
+	  Method: Constructor for FileImport
+	  @param f  File to be imported
+	  @param editor  HTMLEditor to which the file's content is imported/pasted to
+	  Returns: none
+
+	  Description: The constructor handles reading and importing of the file (f) given
+	*/
     public FileImport(File f, HTMLEditor editor) {
         String text = "";
         String ext = "";
