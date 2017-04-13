@@ -14,6 +14,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.DefectList;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.ProjectListener;
@@ -50,6 +51,11 @@ public class ResourcesTable extends JTable {
             public void projectWasChanged() {
                  tableChanged();
             }
+			@Override
+			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
+				// TODO Auto-generated method stub
+				
+			}
         });
     }
 

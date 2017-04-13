@@ -5,35 +5,19 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.event.CaretEvent;
 
-import net.sf.memoranda.Defect;
-import net.sf.memoranda.Task;
-import net.sf.memoranda.TaskListImpl;
-import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
-import net.sf.memoranda.util.Util;
 
 /**
  * @author Avery Bowen
@@ -96,7 +80,6 @@ public class DefectFormDialog extends JDialog{
         if(t.equals("New Defect")){
 // NEED TO ADD THE DEFECT INPUT BOXES HERE (something like this?):
         	
-        	
 	        for(int i = 0; i < arr.length; i++){
 	        	_typeChooser.addItem(arr[i]);
 	        }
@@ -104,16 +87,12 @@ public class DefectFormDialog extends JDialog{
 	        
 	        
 	        
-	        
 	        _areaPanel.add(_typeLab);
 	        _areaPanel.add(_typeChooser);
 	        this.getContentPane().add(_areaPanel, BorderLayout.CENTER);
-	        
- 
+
 // ---------------------------------
         }
-        
-        
         
         _okB.setEnabled(true);
         _okB.setMaximumSize(new Dimension(100, 26));

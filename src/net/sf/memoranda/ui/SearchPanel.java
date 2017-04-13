@@ -22,6 +22,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.text.Document;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.DefectList;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
@@ -118,6 +119,11 @@ public class SearchPanel extends JPanel {
                 notesList.update(new Vector());
             }
             public void projectWasChanged() {}
+			@Override
+			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
+				// TODO Auto-generated method stub
+				
+			}
         });
         //notesList.update(new Vector());
 

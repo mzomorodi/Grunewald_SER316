@@ -35,6 +35,7 @@ import javax.swing.UIManager;
 import javax.swing.text.html.HTMLDocument;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.DefectList;
 import net.sf.memoranda.History;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.NoteList;
@@ -632,6 +633,12 @@ public class AppFrame extends JFrame {
             public void projectWasChanged() {
                 setTitle("Memoranda - " + CurrentProject.get().getTitle());
             }
+
+			@Override
+			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
+				// TODO Auto-generated method stub
+				
+			}
         });
 
     }
