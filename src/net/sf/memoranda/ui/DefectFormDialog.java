@@ -16,7 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.Defect;
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 
 /**
@@ -125,6 +128,11 @@ public class DefectFormDialog extends JDialog{
     
     void okB_actionPerformed(ActionEvent e) {
     	CANCELLED = false;
+    	/*CurrentProject.getDefectList().createDefect(
+    			CurrentProject.getTaskList().createTask(
+    					new CalendarDate(), new CalendarDate(), "", 1, 2, "", null),
+    			new CalendarDate(), "", "", "", "", "", "", "");
+    	CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());*/
         this.dispose();
     }
 

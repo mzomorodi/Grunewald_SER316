@@ -64,6 +64,7 @@ public class DefectList {
     	e.addAttribute(new Attribute("fix", fTime));
     	e.addAttribute(new Attribute("ref", fRef));
     	e.addAttribute(new Attribute("desc", desc));
+    	//_root.appendChild(e);
     	_elements.put(hashID, e);
     	
     	return new Defect(e, this);
