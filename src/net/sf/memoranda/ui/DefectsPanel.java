@@ -50,6 +50,7 @@ public class DefectsPanel extends JPanel{
 	public void jbInit() throws Exception {
 		this.setLayout(_borderLayout1);
 		_scrollPane.getViewport().setBackground(Color.WHITE);
+		_scrollPane.getViewport().add(_defectsTable, null);
 		
 		_formToolBar.addSeparator(new Dimension(8, 24));
 		_formToolBar.add(_newFormButton, null);
@@ -90,7 +91,7 @@ public class DefectsPanel extends JPanel{
 		
 		_defectsTable.setMaximumSize(new Dimension(32767, 32767));
         _defectsTable.setRowHeight(24);
-        this.add(_defectsTable);
+        this.add(_scrollPane);
 	}
 	
 	/*
