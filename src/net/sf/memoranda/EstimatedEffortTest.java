@@ -26,6 +26,10 @@ public class EstimatedEffortTest {
 		test2 = CurrentProject.getTaskList().createTask(sd, ed, "GSDN", 2, (long)4.0, (long)4.0, "The Stuff to Get Done Now", null);
 	}
 
+	/**
+	 * Test method to verify effort amount is stored and invalid entries do not 
+	 * affect previously stored values.
+	 */
 	@Test
 	public void testSetEffort() {
 		assertEquals((long)4.0, test1.getEffort(), (long)0.0);
@@ -35,6 +39,9 @@ public class EstimatedEffortTest {
 		assertEquals((long)2.75, test1.getEffort(), (long)0.0);
 	}
 
+	/**
+	 * Test method to verify all areas of getEffort are covered and work properly.
+	 */
 	@Test
 	public void testGetEffort() {
 		assertEquals((long)4.0, test2.getEffort(), (long)0.0);
