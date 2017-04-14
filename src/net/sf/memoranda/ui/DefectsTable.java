@@ -30,7 +30,6 @@ import net.sf.memoranda.util.Local;
 public class DefectsTable extends JTable {
 	
 	private Vector<Defect> _defects = null;
-	private TableSorter _sorter = null;
 	
 	/**
 	 * Constructor for DefectFormTable.
@@ -41,20 +40,17 @@ public class DefectsTable extends JTable {
 		/* table properties */
 		setCellSelectionEnabled(true);
 		setRowHeight(30);
+		setAutoCreateRowSorter(true);
 		
 		initTable();
-		_sorter = new TableSorter(new DefectsTableModel());
-        _sorter.addMouseListenerToHeaderInTable(this);
-        setModel(_sorter);
+        setModel(new DefectsTableModel());
         setFont(new Font("Dialog",0,11));
         
         CurrentProject.addProjectListener(new ProjectListener() {
-			@Override
 			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
 				
 			}
 
-			@Override
 			public void projectWasChanged() {
 				tableChanged();
 			}
@@ -87,7 +83,6 @@ public class DefectsTable extends JTable {
 	
 	public void tableChanged() {
         initTable();
-        _sorter.tableChanged(null);
         initColumnsWidth();
         updateUI();
     }
@@ -128,7 +123,6 @@ public class DefectsTable extends JTable {
 			super();
 		}
 
-		@Override
 		public int getColumnCount() {
 			return columnNames.length;
 		}
@@ -137,12 +131,10 @@ public class DefectsTable extends JTable {
             return columnNames[i];
         }
 
-		@Override
 		public int getRowCount() {
 			return _defects.size();
 		}
 
-		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			Defect d = (Defect)_defects.get(rowIndex);
             if (columnIndex == 0){
