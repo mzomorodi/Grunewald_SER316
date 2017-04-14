@@ -25,14 +25,13 @@ import net.sf.memoranda.util.Local;
 public class PSPPanel extends JPanel{
 	
 	JPanel formPanel = new JPanel();
-	FormPanel defectsPanel = new FormPanel();
-	FormPanel timesPanel = new FormPanel();
+	DefectsPanel defectsPanel = new DefectsPanel();
+	TimesPanel timesPanel = new TimesPanel();
 	JToolBar newFormToolBar = new JToolBar();
 	JButton defectB = new JButton();
 	JButton timeB = new JButton();
 	CardLayout cardLayout1 = new CardLayout();
 	BorderLayout borderLayout1 = new BorderLayout();
-	private DefectsTable _defectsTable = new DefectsTable();
 
 	/**
 	 * Constructor- used to configure panel
@@ -95,10 +94,6 @@ public class PSPPanel extends JPanel{
 		
 		this.setLayout(borderLayout1);
 		
-		_defectsTable.setMaximumSize(new Dimension(32767, 32767));
-        _defectsTable.setRowHeight(24);
-        defectsPanel.add(_defectsTable);
-		
 		formPanel.setLayout(cardLayout1);
 		formPanel.add(defectsPanel, "DEFECTS");
 		formPanel.add(timesPanel, "TIMES");
@@ -115,16 +110,6 @@ public class PSPPanel extends JPanel{
 	 */
 	public void defectB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(formPanel, "DEFECTS");
-		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("New Defect"));
-		Dimension frmSize = App.getFrame().getSize();
-		Point loc = App.getFrame().getLocation();
-		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
-		dDlg.setVisible(true);
-		if(dDlg.CANCELLED){
-			return;
-		} else {
-			//_defectsTable.tableChanged();
-		}
 	}
 	
 	/**
