@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
@@ -25,8 +26,9 @@ public class DefectsPanel extends JPanel{
 	
 	private BorderLayout _borderLayout1 = new BorderLayout();
 	private JToolBar _formToolBar = new JToolBar(); 
-	private JButton _newFormButton = new JButton();
-	private JButton _editFormButton = new JButton();
+	private JLabel _defectLabel = new JLabel();
+	private JButton _newDefectButton = new JButton();
+	private JButton _editDefectButton = new JButton();
 	private JScrollPane _scrollPane = new JScrollPane();
 	DefectsTable _defectsTable = new DefectsTable();
 
@@ -52,41 +54,46 @@ public class DefectsPanel extends JPanel{
 		_scrollPane.getViewport().setBackground(Color.WHITE);
 		_scrollPane.getViewport().add(_defectsTable, null);
 		
+		_defectLabel.setText(Local.getString("PROJECT DEFECT LOG"));
+		
 		_formToolBar.addSeparator(new Dimension(8, 24));
-		_formToolBar.add(_newFormButton, null);
+		_formToolBar.add(_newDefectButton, null);
 		_formToolBar.addSeparator(new Dimension(8, 24));
-		_formToolBar.add(_editFormButton, null);
+		_formToolBar.add(_editDefectButton, null);
+		_formToolBar.addSeparator(new Dimension(240, 24));
+		_formToolBar.add(_defectLabel);
+		
 		this.add(_formToolBar, BorderLayout.NORTH);		
 		
 		_formToolBar.setFloatable(false);
-		_newFormButton.setEnabled(true);
-		_newFormButton.setMaximumSize(new Dimension(24, 24));
-		_newFormButton.setToolTipText("New Defect");
-		_newFormButton.setRequestFocusEnabled(false);
-		_newFormButton.setPreferredSize(new Dimension(24, 24));
-		_newFormButton.setFocusable(false);
-		_newFormButton.setBorderPainted(false);
-		_newFormButton.addActionListener(new java.awt.event.ActionListener(){
+		_newDefectButton.setEnabled(true);
+		_newDefectButton.setMaximumSize(new Dimension(24, 24));
+		_newDefectButton.setToolTipText("New Defect");
+		_newDefectButton.setRequestFocusEnabled(false);
+		_newDefectButton.setPreferredSize(new Dimension(24, 24));
+		_newDefectButton.setFocusable(false);
+		_newDefectButton.setBorderPainted(false);
+		_newDefectButton.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				_newFormButtonClicked(e);
+				_newDefectButtonClicked(e);
 			}
 		});
-		_newFormButton.setIcon(new ImageIcon(
+		_newDefectButton.setIcon(new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/addresource.png")));
 		
-		_editFormButton.setEnabled(true);
-		_editFormButton.setMaximumSize(new Dimension(24, 24));
-		_editFormButton.setToolTipText("Edit Defect");
-		_editFormButton.setRequestFocusEnabled(false);
-		_editFormButton.setPreferredSize(new Dimension(24, 24));
-		_editFormButton.setFocusable(false);
-		_editFormButton.setBorderPainted(false);
-		_editFormButton.addActionListener(new java.awt.event.ActionListener(){
+		_editDefectButton.setEnabled(true);
+		_editDefectButton.setMaximumSize(new Dimension(24, 24));
+		_editDefectButton.setToolTipText("Edit Defect");
+		_editDefectButton.setRequestFocusEnabled(false);
+		_editDefectButton.setPreferredSize(new Dimension(24, 24));
+		_editDefectButton.setFocusable(false);
+		_editDefectButton.setBorderPainted(false);
+		_editDefectButton.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				_editFormButtonClicked(e);
+				_editDefectButtonClicked(e);
 			}
 		});
-		_editFormButton.setIcon(new ImageIcon(
+		_editDefectButton.setIcon(new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/editproject.png")));
 		
 		_defectsTable.setMaximumSize(new Dimension(32767, 32767));
@@ -97,7 +104,7 @@ public class DefectsPanel extends JPanel{
 	/*
 	 * Opens Defect dialog to enter new defect
 	 */
-	public void _newFormButtonClicked(ActionEvent e){
+	public void _newDefectButtonClicked(ActionEvent e){
 		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("New Defect"));
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
@@ -113,7 +120,7 @@ public class DefectsPanel extends JPanel{
 	/*
 	 * Opens Defect dialog to edit selected defect
 	 */
-	public void _editFormButtonClicked(ActionEvent e){
+	public void _editDefectButtonClicked(ActionEvent e){
 		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("Edit Defect"));
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
