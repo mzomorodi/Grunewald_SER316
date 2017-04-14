@@ -101,7 +101,7 @@ public class DefectsTable extends JTable {
 	 * 
 	 * @param row  the index the row of the cell to be rendered
 	 * @param column  the index of the column of the cell to be rendered
-	 * @return TableCellRenderer  used for rendereing cells in the table
+	 * @return TableCellRenderer  used for rendering cells in the table
 	 */
 	public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
