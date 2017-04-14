@@ -52,7 +52,7 @@ public class PSPPanel extends JPanel{
 	void jbInit() throws Exception {
 		
 		defectB.setIcon(
-	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_time.png")));
+	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_defect.png")));
         defectB.setEnabled(true);
         defectB.setMaximumSize(new Dimension(120, 30));
         defectB.setMinimumSize(new Dimension(26, 32));
@@ -69,13 +69,13 @@ public class PSPPanel extends JPanel{
         defectB.setBorderPainted(false);
         
         timeB.setIcon(
-	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_defect.png")));
+	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_time.png")));
         timeB.setEnabled(true);
-        timeB.setMaximumSize(new Dimension(90, 30));
+        timeB.setMaximumSize(new Dimension(120, 30));
         timeB.setMinimumSize(new Dimension(26, 32));
         timeB.setToolTipText(Local.getString("Open Time View"));
         timeB.setRequestFocusEnabled(false);
-        timeB.setPreferredSize(new Dimension(90, 30));
+        timeB.setPreferredSize(new Dimension(120, 30));
         timeB.setFocusable(false);
         timeB.setText("Time Log");
         timeB.addActionListener(new java.awt.event.ActionListener() {
