@@ -77,10 +77,12 @@ public interface Task {
     
     void setActEffort(long actEffort);
     long getActEffort();
-    // Added this section for 100% coverage of getActEffort unit test.
+    // Added this section for 100% coverage of unit tests.
     //**********************************************************************
     long getActEffortExcTest();
     long getActEffortNullTest();
+    long getEffortExcTest();
+    long getEffortNullTest();
     //**********************************************************************
     
     void setDescription(String description);
