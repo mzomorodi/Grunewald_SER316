@@ -341,18 +341,14 @@ public class TaskPanel extends JPanel {
             }
         });
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
                 newTaskB.setEnabled(
                     CurrentDate.get().inPeriod(p.getStartDate(), p.getEndDate()));
             }
             public void projectWasChanged() {
             	//taskTable.setCurrentRootTask(null); //XXX
             }
-			@Override
-			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
-				// TODO Auto-generated method stub
-				
-			}
+			
         });
         taskTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
@@ -483,7 +479,7 @@ public class TaskPanel extends JPanel {
         t.setEndDate(ed);
         t.setText(dlg.todoField.getText());
         t.setDescription(dlg.descriptionField.getText());
-        t.setNumDefects((int) dlg.numDefectsSpinner.getValue());
+        t.setNumDefects((Integer) dlg.numDefectsSpinner.getValue());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
@@ -516,7 +512,7 @@ public class TaskPanel extends JPanel {
  			ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
  		else
  			ed = null;
- 		int numDefects = (int) dlg.numDefectsSpinner.getValue();
+ 		int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
 		Task newTask = CurrentProject.getTaskList().createTask(
@@ -561,7 +557,7 @@ public class TaskPanel extends JPanel {
  			ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
  		else
  			ed = null;
- 		int numDefects = (int) dlg.numDefectsSpinner.getValue();
+ 		int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         Task newTask = CurrentProject.getTaskList().createTask(
         		sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), 

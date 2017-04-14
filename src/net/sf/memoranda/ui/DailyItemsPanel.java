@@ -250,7 +250,7 @@ public class DailyItemsPanel extends JPanel {
         });
 
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
 //            	Util.debug("DailyItemsPanel Project Listener: Project is going to be changed!");				
 //            	Util.debug("current project is " + CurrentProject.get().getTitle());
 
@@ -274,11 +274,7 @@ public class DailyItemsPanel extends JPanel {
 //                }
 //                // DEBUG
             }
-			@Override
-			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
-				// TODO Auto-generated method stub
-				
-			}
+			
         });
 
         CurrentNote.addNoteListener(new NoteListener() {
