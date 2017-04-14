@@ -57,7 +57,7 @@ public class TaskDialog extends JDialog {
     Border border4;
 //    Border border5;
 //    Border border6;
-    JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
+    JPanel jPanel2 = new JPanel(new GridLayout(4, 2));
     JTextField todoField = new JTextField();
     
     // added by rawsushi
@@ -362,11 +362,6 @@ public class TaskDialog extends JDialog {
         jPanelEffort.add(jLabelEffort, null);
         jPanelEffort.add(effortField, null);
         
-        // added by csmith
-        jPanel2.add(jPanelLOC, null);
-        jPanelLOC.add(jLabelLOC, null);
-        jPanelLOC.add(LOCField, null);
-
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
         jPanel2.add(jPanel3, null);
@@ -377,6 +372,11 @@ public class TaskDialog extends JDialog {
         jPanelProgress.add(jLabelProgress, null);
         jPanelProgress.add(progress, null);
         jPanel2.add(jPanelProgress);
+        
+        // added by csmith
+        jPanel2.add(jPanelLOC, null);
+        jPanelLOC.add(jLabelLOC, null);
+        jPanelLOC.add(LOCField, null);
         
         priorityCB.setSelectedItem(Local.getString("Normal"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {
