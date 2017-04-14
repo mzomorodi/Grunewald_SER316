@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.DefectList;
 import net.sf.memoranda.CurrentNote;
 import net.sf.memoranda.NoteListener;
 import net.sf.memoranda.EventNotificationListener;
@@ -273,6 +274,11 @@ public class DailyItemsPanel extends JPanel {
 //                }
 //                // DEBUG
             }
+			@Override
+			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
+				// TODO Auto-generated method stub
+				
+			}
         });
 
         CurrentNote.addNoteListener(new NoteListener() {

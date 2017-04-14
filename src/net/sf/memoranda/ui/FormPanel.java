@@ -18,6 +18,7 @@ import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -108,10 +109,9 @@ public class FormPanel extends JPanel {
 		_editFormButton.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/editproject.png")));
 		_editFormButton.setToolTipText("Edit form");
 		
-		
+        //this.add(_scrollPane, BorderLayout.CENTER);
 	} // End jbInit()
-	
-	
+
 	public void _newFormButtonClicked(ActionEvent e){
 		Util.debug("Clicked the new form button");
 		AddFormDialog fDlg = new AddFormDialog(App.getFrame(), Local.getString("New Form"));
