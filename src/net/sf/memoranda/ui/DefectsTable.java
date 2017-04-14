@@ -32,7 +32,7 @@ public class DefectsTable extends JTable {
 	private Vector<Defect> _defects = null;
 	
 	/**
-	 * Constructor for DefectFormTable.
+	 * Constructor for DefectsTable
 	 */
 	public DefectsTable() {
 		super();
@@ -57,6 +57,9 @@ public class DefectsTable extends JTable {
         });
 	}
 	
+	/**
+	 * initTable sets up the table columns and data that will be displayed in table
+	 */
 	private void initTable() {
 		initColumnsWidth();
 		Vector<Defect> v = CurrentProject.getDefectList().getAllDefects();
@@ -67,6 +70,9 @@ public class DefectsTable extends JTable {
         }
 	}
 	
+	/**
+	 * initColumnsWidth sets up the width of each column in the table
+	 */
 	void initColumnsWidth() {
 		int columnCount = this.getModel().getColumnCount();
         for (int i = 0; i < columnCount; i++) {
@@ -81,12 +87,22 @@ public class DefectsTable extends JTable {
         }
     }
 	
+	/**
+	 * tableChanged refreshes the tables data and updates the UI to show the new data.
+	 */
 	public void tableChanged() {
         initTable();
         initColumnsWidth();
         updateUI();
     }
 	
+	/**
+	 * getCellRenderer a TableCellRenderer that can be used for rendering cells in the table
+	 * 
+	 * @param row  the index the row of the cell to be rendered
+	 * @param column  the index of the column of the cell to be rendered
+	 * @return TableCellRenderer  used for rendereing cells in the table
+	 */
 	public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
 
@@ -106,6 +122,9 @@ public class DefectsTable extends JTable {
         };
     }
 	
+	/**
+	 * Description: the DefectsTable's model
+	 */
 	class DefectsTableModel extends AbstractTableModel {
 		
 		String[] columnNames = {
