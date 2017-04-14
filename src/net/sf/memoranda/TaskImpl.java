@@ -83,6 +83,19 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
     
+    // Added this section for 100% coverage of getActEffort unit test.
+    //**********************************************************************
+    public long getActEffortNullTest(){
+    	_element.removeAttribute(_element.getAttribute("actualEffort"));
+    	return getActEffort();
+    }
+    
+    public long getActEffortExcTest(){
+    	setAttr("actualEffort", "test");
+    	return getActEffort();
+    }
+    //***********************************************************************
+    
     public long getActEffort() {
     	Attribute attr = _element.getAttribute("actualEffort");
     	if (attr == null) {
@@ -99,11 +112,15 @@ public class TaskImpl implements Task, Comparable {
     }
 
     public void setEffort(long effort) {
-        setAttr("effort", String.valueOf(effort));
+    	if (effort > 0){
+    		setAttr("effort", String.valueOf(effort));
+    	}
     }
     
     public void setActEffort(long actEffort) {
-        setAttr("actualEffort", String.valueOf(actEffort));
+    	if(actEffort > 0){
+    		setAttr("actualEffort", String.valueOf(actEffort));
+    	}
     }
 	
 	/* 
