@@ -57,13 +57,17 @@ public class TaskDialog extends JDialog {
     Border border4;
 //    Border border5;
 //    Border border6;
-    JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
+    JPanel jPanel2 = new JPanel(new GridLayout(4, 2));
     JTextField todoField = new JTextField();
     
     // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
+    
+    JSpinner numDefectsSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
+    JLabel jLabelNumDefects = new JLabel();
+    JPanel jPanelNumDefects = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
 //    Border border7;
     Border border8;
@@ -85,7 +89,8 @@ public class TaskDialog extends JDialog {
 //    JSpinner endDate = new JSpinner(new SpinnerDateModel());
     JButton setEndDateB = new JButton();
     //JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    JPanel jPanel5 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
@@ -97,9 +102,10 @@ public class TaskDialog extends JDialog {
     JLabel jLabelDescription = new JLabel();
 	JCheckBox chkEndDate = new JCheckBox();
 	
-	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	JLabel jLabelProgress = new JLabel();
 	JSpinner progress = new JSpinner(new SpinnerNumberModel(0, 0, 100, 5));
+	
 	
 	//Forbid to set dates outside the bounds
 	CalendarDate startDateMin = CurrentProject.get().getStartDate();
@@ -211,6 +217,11 @@ public class TaskDialog extends JDialog {
         jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
         effortField.setBorder(border8);
         effortField.setPreferredSize(new Dimension(30, 24));
+        
+        jLabelNumDefects.setText(Local.getString("Defects"));
+        jLabelNumDefects.setMaximumSize(new Dimension(100, 16));
+        jLabelNumDefects.setMinimumSize(new Dimension (60, 16));
+        numDefectsSpinner.setBorder(border8);
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -349,9 +360,14 @@ public class TaskDialog extends JDialog {
         jPanel2.add(jPanelEffort, null);
         jPanelEffort.add(jLabelEffort, null);
         jPanelEffort.add(effortField, null);
+        
+        jPanelNumDefects.add(jLabelNumDefects, null);
+        jPanelNumDefects.add(numDefectsSpinner, null);
+        jPanel5.add(jPanelNumDefects, null);
 
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
+        jPanel2.add(jPanel5, null);
         jPanel2.add(jPanel3, null);
         
         jPanel3.add(setNotifB, null);

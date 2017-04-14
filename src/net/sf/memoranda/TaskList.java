@@ -19,8 +19,8 @@ public interface TaskList {
 	Project getProject();
     Task getTask(String id);
 
-    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, String description, String parentTaskId);
-
+    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, int numDefects, String description, String parentTaskId);
+    
     void removeTask(Task task);
 
     public boolean hasSubTasks(String id);
