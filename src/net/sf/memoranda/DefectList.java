@@ -39,6 +39,10 @@ public class DefectList {
         _root = _doc.getRootElement();
         _project = prj;
 	}
+ // default constructor for testing:
+    public DefectList(){
+    	_root = new Element("defectlist");
+    }
     
     public Vector<Defect> getAllDefects() {
         Elements defects = _root.getChildElements("defect");
@@ -64,7 +68,7 @@ public class DefectList {
     	e.addAttribute(new Attribute("fix", fTime));
     	e.addAttribute(new Attribute("ref", fRef));
     	e.addAttribute(new Attribute("desc", desc));
-    	//_root.appendChild(e);
+    	_root.appendChild(e);
     	_elements.put(hashID, e);
     	
     	return new Defect(e, this);
@@ -84,7 +88,25 @@ public class DefectList {
     	e.addAttribute(new Attribute("ref", "task 3"));
     	e.addAttribute(new Attribute("desc", "recoded buttons"));
     	_elements.put(hashID, e);
-    	
+    	_root.appendChild(e);
+    	return new Defect(e, this);
+	}
+	
+// CONSTRUCTOR FOR DEFECT NOT ASSOCIATED WITH TASK:
+	public Defect createDefect(CalendarDate d, String id, String type, String inject, String remove, String fTime, String fRef, String desc){
+		Element e = new Element("defect");
+		String hashID = Util.generateId();
+    	e.addAttribute(new Attribute("task", "Not associated"));
+    	e.addAttribute(new Attribute("date", d.toString()));
+    	e.addAttribute(new Attribute("id", id));
+    	e.addAttribute(new Attribute("type", type));
+    	e.addAttribute(new Attribute("inj", inject));
+    	e.addAttribute(new Attribute("rem", remove));
+    	e.addAttribute(new Attribute("fix", fTime));
+    	e.addAttribute(new Attribute("ref", fRef));
+    	e.addAttribute(new Attribute("desc", desc));
+    	_elements.put(hashID, e);
+    	_root.appendChild(e);
     	return new Defect(e, this);
 	}
 
