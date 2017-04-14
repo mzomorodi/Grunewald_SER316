@@ -69,6 +69,24 @@ public class DefectList {
     	
     	return new Defect(e, this);
     }
+	
+// EMPTY CONSTRUCTOR FOR TESTING PURPOSES! -----------------------------	
+	public Defect createDefect(){
+		Element e = new Element("defect");
+		String hashID = Util.generateId();
+    	e.addAttribute(new Attribute("task", "Task1"));
+    	e.addAttribute(new Attribute("date", new CalendarDate().today().toString()));
+    	e.addAttribute(new Attribute("id", "def1"));
+    	e.addAttribute(new Attribute("type", "10: Documentation"));
+    	e.addAttribute(new Attribute("inj", "Design"));
+    	e.addAttribute(new Attribute("rem", "Code Review"));
+    	e.addAttribute(new Attribute("fix", "2 hours"));
+    	e.addAttribute(new Attribute("ref", "task 3"));
+    	e.addAttribute(new Attribute("desc", "recoded buttons"));
+    	_elements.put(hashID, e);
+    	
+    	return new Defect(e, this);
+	}
 
 	public Document getXMLContent() {
 		return _doc;

@@ -219,7 +219,6 @@ public class JNCalendarPanel extends JPanel {
             public void projectWasChanged() {
                 jnCalendar.updateUI();
             }
-			@Override
 			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
 				// TODO Auto-generated method stub
 				

@@ -626,15 +626,11 @@ public class AppFrame extends JFrame {
 
         CurrentProject.addProjectListener(new ProjectListener() {
 
-            public void projectChange(Project prj, NoteList nl, TaskList tl,
-                    ResourcesList rl) {
-            }
-
             public void projectWasChanged() {
                 setTitle("Memoranda - " + CurrentProject.get().getTitle());
             }
 
-			@Override
+			
 			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
 				// TODO Auto-generated method stub
 				

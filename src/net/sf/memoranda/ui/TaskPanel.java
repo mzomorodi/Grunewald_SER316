@@ -348,7 +348,7 @@ public class TaskPanel extends JPanel {
             public void projectWasChanged() {
             	//taskTable.setCurrentRootTask(null); //XXX
             }
-			@Override
+			
 			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
 				// TODO Auto-generated method stub
 				

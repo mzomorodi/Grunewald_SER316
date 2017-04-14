@@ -249,7 +249,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 				curProjectTitle.setText(CurrentProject.get().getTitle());
 				prjTablePanel.updateUI();
 			}
-			@Override
+		
 			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
 				// TODO Auto-generated method stub
 				

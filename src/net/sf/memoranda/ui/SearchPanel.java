@@ -119,7 +119,6 @@ public class SearchPanel extends JPanel {
                 notesList.update(new Vector());
             }
             public void projectWasChanged() {}
-			@Override
 			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
 				// TODO Auto-generated method stub
 				
