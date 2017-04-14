@@ -5,9 +5,9 @@ import java.awt.Font;
 import java.util.Vector;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -93,7 +93,7 @@ public class DefectsTable extends JTable{
     }
 	
 	public TableCellRenderer getCellRenderer(int row, int column) {
-        return new javax.swing.table.DefaultTableCellRenderer() {
+        return new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(
                 JTable table,
