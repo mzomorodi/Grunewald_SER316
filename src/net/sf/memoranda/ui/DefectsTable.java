@@ -2,14 +2,17 @@ package net.sf.memoranda.ui;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.event.MouseInputListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.Defect;
@@ -33,6 +36,8 @@ public class DefectsTable extends JTable{
 	
 	private Vector<Defect> _defects = null;
 	private TableSorter _sorter = null;
+	private boolean _hasSelection;
+	private static String[] _currentSelection = {"","","","","","","","",""};
 	
 	/**
 	 * Constructor for DefectFormTable.
@@ -40,28 +45,36 @@ public class DefectsTable extends JTable{
 	public DefectsTable() {
 		super();
 		
+		_hasSelection = false;
+
 		/* table properties */
 		setCellSelectionEnabled(true);
 		setRowHeight(30);
+		setFont(new Font("Dialog",0,11));
 		
 		initTable();
 		_sorter = new TableSorter(new DefectsTableModel());
-        _sorter.addMouseListenerToHeaderInTable(this);
-        setModel(_sorter);
-      
-        setFont(new Font("Dialog",0,11));
+		_sorter.addMouseListenerToHeaderInTable(this);
+		setModel(_sorter);
         
+        addMouseListener(new MouseTableListener());
+      
         CurrentProject.addProjectListener(new ProjectListener() {
         	public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
-					TimeEntryList tel) {
-				// TODO Auto-generated method stub
-				
-			}
+					TimeEntryList tel) {}
 
 			public void projectWasChanged() {
 				tableChanged();
 			}			
         });
+	}
+	
+	public boolean hasSelection() {
+		return _hasSelection;
+	}
+	
+	public static String[] getCurrentSelection() {
+		return _currentSelection;
 	}
 	
 	public void initTable() {
@@ -150,7 +163,7 @@ public class DefectsTable extends JTable{
             } else if (columnIndex == 1) {
             	return d.getDefectType();
             } else if (columnIndex == 2) {
-            	return d.getDate();
+            	return d.getDate().toString();
             } else if (columnIndex == 3) {
             	return d.getTask();
             } else if (columnIndex == 4) {
@@ -167,5 +180,33 @@ public class DefectsTable extends JTable{
             
             return null;
 		}
+	}
+	
+	class MouseTableListener implements MouseInputListener {
+		public void mouseClicked(MouseEvent e) {
+			if (e.getButton() == MouseEvent.BUTTON1) {
+				_hasSelection = true;
+				JTable jt = (JTable) e.getSource();
+				TableModel model = jt.getModel();
+				int row = jt.getSelectedRow();
+				int numColumns = model.getColumnCount();
+				
+				for(int i = 0; i < numColumns; i++) {
+					_currentSelection[i] = (String) model.getValueAt(row, i);
+				}
+			}
+		}
+
+		public void mouseEntered(MouseEvent e) {}
+
+		public void mouseExited(MouseEvent e) {}
+
+		public void mousePressed(MouseEvent e) {}
+
+		public void mouseReleased(MouseEvent e) {}
+
+		public void mouseDragged(MouseEvent e) {}
+
+		public void mouseMoved(MouseEvent e) {}
 	}
 }

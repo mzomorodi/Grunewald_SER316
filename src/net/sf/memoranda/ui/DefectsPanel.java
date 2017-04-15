@@ -113,7 +113,7 @@ public class DefectsPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
-			_defectsTable.initTable();
+			_defectsTable.tableChanged();
 		}
 	}
 	
@@ -121,16 +121,17 @@ public class DefectsPanel extends JPanel{
 	 * Opens Defect dialog to edit selected defect
 	 */
 	public void _editDefectButtonClicked(ActionEvent e){
-		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("Edit Defect"));
-		Dimension frmSize = App.getFrame().getSize();
-		Point loc = App.getFrame().getLocation();
-		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
-		dDlg.setVisible(true);
-		if(dDlg.CANCELLED){
-			return;
-		} else {
-			_defectsTable.initTable();
+		if (_defectsTable.hasSelection()) {
+			DefectDialog dDlg = new DefectDialog(App.getFrame(), Local.getString("Edit Defect"));
+			Dimension frmSize = App.getFrame().getSize();
+			Point loc = App.getFrame().getLocation();
+			dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
+			dDlg.setVisible(true);
+			if(dDlg.CANCELLED){
+				return;
+			} else {
+				_defectsTable.tableChanged();
+			}
 		}
 	}
-
 }

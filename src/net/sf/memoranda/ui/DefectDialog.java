@@ -9,16 +9,15 @@ package net.sf.memoranda.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,7 +29,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
@@ -51,8 +49,8 @@ public class DefectDialog extends JDialog{
 	private JPanel centerPanel = new JPanel();
 	private JPanel datePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel descriptionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	private JPanel labelsPanel = new JPanel();
-	private JPanel fieldsPanel = new JPanel();
+	//private JPanel labelsPanel = new JPanel();
+	//private JPanel fieldsPanel = new JPanel();
 	private JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
 	private JButton okB = new JButton();
     private JButton cancelB = new JButton();
@@ -80,22 +78,26 @@ public class DefectDialog extends JDialog{
     // Type Field Components
     JLabel typeLabel = new JLabel();
     private JComboBox typeChooser = new JComboBox();
-    private String[] types = new String[]{Local.getString("10: Documentation"),
-    		Local.getString("20: Syntax"), Local.getString("30: Build, Package"),
-    		Local.getString("40: Assignment"), Local.getString("50: Interface"),
-    		Local.getString("60: Checking"), Local.getString("70: Data"),
-    		Local.getString("80: Function"), Local.getString("90: System"),
-    		Local.getString("100: Environment")};
+    private static final ArrayList<String> types = new ArrayList<String>(Arrays.asList(
+			new String[] {Local.getString("10: Documentation"),
+		    		Local.getString("20: Syntax"), Local.getString("30: Build, Package"),
+		    		Local.getString("40: Assignment"), Local.getString("50: Interface"),
+		    		Local.getString("60: Checking"), Local.getString("70: Data"),
+		    		Local.getString("80: Function"), Local.getString("90: System"),
+		    		Local.getString("100: Environment")}
+	));
     
     // Injected and Removed Components
     private JLabel injectedLabel = new JLabel();
     private JLabel removedLabel = new JLabel();
     private JComboBox injectedChooser = new JComboBox();
     private JComboBox removedChooser = new JComboBox();
-    public String[] phases = new String[]{Local.getString("PLANNING"),
-    		Local.getString("DESIGN"), Local.getString("CODE"),
-    		Local.getString("CODE_REVIEW"), Local.getString("COMPILE"),
-    		Local.getString("TEST"), Local.getString("POSTMORTEM")};
+    private static final ArrayList<String> phases = new ArrayList<String>(Arrays.asList(
+			new String[] {Local.getString("PLANNING"),
+		    		Local.getString("DESIGN"), Local.getString("CODE"),
+		    		Local.getString("CODE_REVIEW"), Local.getString("COMPILE"),
+		    		Local.getString("TEST"), Local.getString("POSTMORTEM")}
+	));
     
     // Time and Reference Components
     private JLabel timeLabel = new JLabel();
@@ -115,7 +117,6 @@ public class DefectDialog extends JDialog{
 	}
 	
 	public void jbInit(String t) throws Exception {
-		
 		this.setResizable(false);
     	this.setSize(new Dimension(430,300));
     	
@@ -181,12 +182,10 @@ public class DefectDialog extends JDialog{
         typeLabel.setText(Local.getString("Defect Type"));
         typeLabel.setMinimumSize(new Dimension(60, 16));
         typeLabel.setPreferredSize(new Dimension(60, 16));
-        typeChooser.setBorder(textBorder);
-        if(t.equals("New Defect")){        	        	
-	        for(int i = 0; i < types.length; i++){
-	        	typeChooser.addItem(types[i]);
-        	}
-        }
+        typeChooser.setBorder(textBorder);     	        	
+        for(int i = 0; i < types.size(); i++){
+        	typeChooser.addItem(types.get(i));
+    	}
         
         injectedLabel.setText(Local.getString("Injected"));
         injectedLabel.setMinimumSize(new Dimension(60, 16));
@@ -195,12 +194,10 @@ public class DefectDialog extends JDialog{
         removedLabel.setMinimumSize(new Dimension(60, 16));
         removedLabel.setPreferredSize(new Dimension(60, 16));
         injectedChooser.setBorder(textBorder);
-        removedChooser.setBorder(textBorder);
-        if(t.equals("New Defect")){        	        	
-	        for(int i = 0; i < phases.length; i++){
-	        	injectedChooser.addItem(phases[i]);
-	        	removedChooser.addItem(phases[i]);
-        	}
+        removedChooser.setBorder(textBorder);       	        	
+        for(int i = 0; i < phases.size(); i++){
+        	injectedChooser.addItem(phases.get(i));
+        	removedChooser.addItem(phases.get(i));
         }
         
         timeLabel.setText(Local.getString("Fix Time"));
@@ -213,6 +210,22 @@ public class DefectDialog extends JDialog{
         timeField.setPreferredSize(new Dimension(30, 24));
         referenceField.setBorder(textBorder);
         referenceField.setPreferredSize(new Dimension(30, 24));
+        
+        if(t.equals("Edit Defect")){
+	        String[] values = DefectsTable.getCurrentSelection();
+	        System.out.println(values[2]);
+	        DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
+	        Date defectDate = df.parse(values[2]);
+	        
+	        idField.setText(values[0]);
+	        typeChooser.setSelectedIndex(types.indexOf(values[1]));
+	        dateSpinner.getModel().setValue(defectDate);
+	        injectedChooser.setSelectedIndex(phases.indexOf(values[4]));
+	        removedChooser.setSelectedIndex(phases.indexOf(values[5]));
+	        timeField.setText(values[6]);
+	        referenceField.setText(values[7]);
+	        descriptionField.setText(values[8]);
+        }
         
         centerPanel.setLayout(new GridLayout(0,2));
         centerPanel.add(typeLabel);
