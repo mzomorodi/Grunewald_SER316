@@ -49,11 +49,8 @@ public class DefectDialog extends JDialog{
 	private JPanel centerPanel = new JPanel();
 	private JPanel datePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel descriptionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-<<<<<<< HEAD
 	//private JPanel labelsPanel = new JPanel();
 	//private JPanel fieldsPanel = new JPanel();
-=======
->>>>>>> 9ef7acc0f8640086e5b3e56e08d9572ea6a36eb6
 	private JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
 	private JButton okB = new JButton();
     private JButton cancelB = new JButton();
