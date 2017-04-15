@@ -27,7 +27,10 @@ public class CalendarDate {
 
     public static Calendar dateToCalendar(Date date) {
         Calendar cal = Calendar.getInstance();
+        int m = cal.get(Calendar.MONTH);
+        m += 1;
         cal.setTime(date);
+        cal.set(Calendar.MONTH, m);
         return cal;
     }
 
