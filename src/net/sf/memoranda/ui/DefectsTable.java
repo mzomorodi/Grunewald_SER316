@@ -19,6 +19,7 @@ import net.sf.memoranda.Project;
 import net.sf.memoranda.ProjectListener;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
+import net.sf.memoranda.TimeEntryList;
 import net.sf.memoranda.ui.table.TableSorter;
 import net.sf.memoranda.util.Local;
 
@@ -51,13 +52,15 @@ public class DefectsTable extends JTable{
         setFont(new Font("Dialog",0,11));
         
         CurrentProject.addProjectListener(new ProjectListener() {
-			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
+        	public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
+					TimeEntryList tel) {
+				// TODO Auto-generated method stub
 				
 			}
 
 			public void projectWasChanged() {
 				tableChanged();
-			}
+			}			
         });
 	}
 	
