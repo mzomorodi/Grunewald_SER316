@@ -29,7 +29,7 @@ public class TaskCalcDialog extends JDialog {
 	ButtonGroup closeGroup = new ButtonGroup();
 	JCheckBox compactDatesChB = new JCheckBox();
 	JCheckBox calcEffortChB = new JCheckBox();
-	JCheckBox calcLOCChB = new JCheckBox();
+	JCheckBox calcLOCChB = new JCheckBox();			// US 1
 	JCheckBox calcCompletionChB = new JCheckBox();
 	JButton okB = new JButton();
 	JButton cancelB = new JButton();
@@ -100,13 +100,13 @@ public class TaskCalcDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		generalPanel.add(calcCompletionChB, gbc);
-		calcLOCChB.setText(Local.getString("Calculate task lines of code based on sub task lines of code"));
+		calcLOCChB.setText(Local.getString("Calculate task lines of code based on sub task lines of code")); // US 1
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 13;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		generalPanel.add(calcLOCChB, gbc);
+		generalPanel.add(calcLOCChB, gbc); // US 1
 //		calcCompletionChB.addActionListener(new java.awt.event.ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
 //				enSplashChB_actionPerformed(e);

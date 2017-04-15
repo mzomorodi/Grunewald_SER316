@@ -75,8 +75,24 @@ public interface Task {
     void setEffort(long effort);
     long getEffort();
     
+    // US 1
     void setLOC(long loc);
     long getLOC();
+    
+    // US 2
+    void setActEffort(long actEffort);
+    long getActEffort();
+    // Added this section for 100% coverage of unit tests.
+    //**********************************************************************
+    long getActEffortExcTest();
+    long getActEffortNullTest();
+    long getEffortExcTest();
+    long getEffortNullTest();
+    //**********************************************************************
+
+    // US 3
+    int getNumDefects();
+    void setNumDefects(int numDefects);
     
     void setDescription(String description);
     String getDescription();
