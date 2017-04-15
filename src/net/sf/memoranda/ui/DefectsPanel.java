@@ -98,7 +98,7 @@ public class DefectsPanel extends JPanel{
 	 * Opens Defect dialog to enter new defect
 	 */
 	public void _newFormButtonClicked(ActionEvent e){
-		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("New Defect"));
+		DefectDialog dDlg = new DefectDialog(App.getFrame(), Local.getString("New Defect"));
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
 		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
