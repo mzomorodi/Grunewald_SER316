@@ -59,7 +59,7 @@ public class TimeEntryTable extends JTable {
         });
 	}
 	
-	private void initTable() {
+	public void initTable() {
 		initColumnsWidth();
 		Vector<TimeEntry> v = CurrentProject.getTimeEntryList().getAllTimeEntries();
         _times = new Vector<TimeEntry>();
@@ -74,7 +74,7 @@ public class TimeEntryTable extends JTable {
         for (int i = 0; i < columnCount; i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
-                column.setPreferredWidth(32767);
+                column.setPreferredWidth(100);
             }
             else {
                 column.setMinWidth(100);

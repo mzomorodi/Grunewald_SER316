@@ -114,7 +114,7 @@ public class TimesPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
-			//_timeEntryTable.tableChanged();
+			_timeEntryTable.tableChanged();
 		}
 	}
 	
@@ -131,7 +131,7 @@ public class TimesPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
-			//_timeEntryTable.tableChanged();
+			_timeEntryTable.tableChanged();
 		}
 	}
 

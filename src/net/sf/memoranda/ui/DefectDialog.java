@@ -49,8 +49,11 @@ public class DefectDialog extends JDialog{
 	private JPanel centerPanel = new JPanel();
 	private JPanel datePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel descriptionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+<<<<<<< HEAD
 	//private JPanel labelsPanel = new JPanel();
 	//private JPanel fieldsPanel = new JPanel();
+=======
+>>>>>>> 9ef7acc0f8640086e5b3e56e08d9572ea6a36eb6
 	private JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
 	private JButton okB = new JButton();
     private JButton cancelB = new JButton();
@@ -162,17 +165,17 @@ public class DefectDialog extends JDialog{
         datePanel.add(dateLabel);
         datePanel.add(dateSpinner);
    
-        descriptionLabel.setMaximumSize(new Dimension(100, 16));
+        descriptionLabel.setMaximumSize(new Dimension(60, 16));
     	descriptionLabel.setMinimumSize(new Dimension(60, 16));
     	descriptionLabel.setText(Local.getString("Description"));
-    	descriptionField.setPreferredSize(new Dimension(375, 387));
+    	descriptionField.setPreferredSize(new Dimension(65, 150));
         descriptionField.setLineWrap(true);
         descriptionField.setWrapStyleWord(true);        
-        descriptionScrollPane.setPreferredSize(new Dimension(375,100));
+        descriptionScrollPane.setPreferredSize(new Dimension(65, 100));
         descriptionPanel.setLayout(new BorderLayout());
-        descriptionPanel.add(descriptionLabel);
-        descriptionPanel.add(descriptionScrollPane);
-        descriptionPanel.setPreferredSize(new Dimension(400, 130));
+        descriptionPanel.add(descriptionLabel, BorderLayout.NORTH);
+        descriptionPanel.add(descriptionScrollPane, BorderLayout.SOUTH);
+        descriptionPanel.setPreferredSize(new Dimension(100, 130));
         
         upperPanel.setLayout(new BorderLayout());
         upperPanel.add(datePanel, BorderLayout.NORTH);
