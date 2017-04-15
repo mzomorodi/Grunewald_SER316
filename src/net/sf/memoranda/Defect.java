@@ -40,14 +40,9 @@ public class Defect {
 		}
 	}
 	
-	public Element getTask(){
-		String t = _elem.getAttribute("task").getValue();
-		if(t != ""){
-			return new Element(_elem.getAttribute("task").getValue());
-		}
-		else{
-			return null;
-		}
+	public String getTask(){
+		return _elem.getAttribute("task").getValue();
+		
 	}
 	
 	public String getDefectType(){
