@@ -99,7 +99,7 @@ public class TimesPanel extends JPanel{
 	 * NEEDS TIMEFORMDIALOG ADDED
 	 */
 	public void _newFormButtonClicked(ActionEvent e){
-		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("New Time"));
+		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("New Time"));
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
 		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
@@ -117,7 +117,7 @@ public class TimesPanel extends JPanel{
 	 * NEEDS TIMEFORMDIALOG ADDED
 	 */
 	public void _editFormButtonClicked(ActionEvent e){
-		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("Edit Time"));
+		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("Edit Time"));
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
 		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
