@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -46,6 +47,7 @@ public class DefectsTable extends JTable{
 		_sorter = new TableSorter(new DefectsTableModel());
         _sorter.addMouseListenerToHeaderInTable(this);
         setModel(_sorter);
+      
         setFont(new Font("Dialog",0,11));
         
         CurrentProject.addProjectListener(new ProjectListener() {
@@ -91,7 +93,7 @@ public class DefectsTable extends JTable{
     }
 	
 	public TableCellRenderer getCellRenderer(int row, int column) {
-        return new javax.swing.table.DefaultTableCellRenderer() {
+        return new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(
                 JTable table,

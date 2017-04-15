@@ -243,17 +243,14 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 				Project p,
 				NoteList nl,
 				TaskList tl,
-				ResourcesList rl) {
+				ResourcesList rl,
+				DefectList dl) {
 			}
 			public void projectWasChanged() {
 				curProjectTitle.setText(CurrentProject.get().getTitle());
 				prjTablePanel.updateUI();
 			}
 		
-			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
-				// TODO Auto-generated method stub
-				
-			}
 		});
 		CurrentDate.addDateListener(new DateListener() {
 			public void dateChange(CalendarDate d) {
