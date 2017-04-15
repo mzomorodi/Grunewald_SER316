@@ -1,8 +1,6 @@
 package net.sf.memoranda;
 
-import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -11,8 +9,6 @@ import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
-import nu.xom.Node;
-import nu.xom.Nodes;
 
 /**
  * @author Avery Bowen
@@ -55,10 +51,26 @@ public class DefectList {
         
         return v;
     }
+    
+    public Defect getDefect(String id) {
+        Util.debug("Getting defect " + id);          
+        return new Defect(getDefectElement(id), this);          
+    }
+    
+    private Element getDefectElement(String id) {
+		Element el = (Element)_elements.get(id);
+		
+		if (el == null) {
+			Util.debug("Defect " + id + " cannot be found in project " + _project.getTitle());
+		}
+		
+		return el;
+    }
 
 	public Defect createDefect(String t, CalendarDate d, String id, String type, String inject, String remove, String fTime, String fRef, String desc){
     	Element e = new Element("defect");
     	String hashID = Util.generateId();
+    	e.addAttribute(new Attribute("hashID", hashID));
     	e.addAttribute(new Attribute("task", t));
     	e.addAttribute(new Attribute("date", d.toString()));
     	e.addAttribute(new Attribute("id", id));
@@ -96,6 +108,7 @@ public class DefectList {
 	public Defect createDefect(CalendarDate d, String id, String type, String inject, String remove, String fTime, String fRef, String desc){
 		Element e = new Element("defect");
 		String hashID = Util.generateId();
+		e.addAttribute(new Attribute("hashID", hashID));
     	e.addAttribute(new Attribute("task", "Not associated"));
     	e.addAttribute(new Attribute("date", d.toString()));
     	e.addAttribute(new Attribute("id", id));

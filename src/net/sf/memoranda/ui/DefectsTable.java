@@ -37,7 +37,7 @@ public class DefectsTable extends JTable{
 	private Vector<Defect> _defects = null;
 	private TableSorter _sorter = null;
 	private boolean _hasSelection;
-	private static String[] _currentSelection = {"","","","","","","","",""};
+	private static String[] _currentSelection = {"","","","","","","","","",""};
 	
 	/**
 	 * Constructor for DefectFormTable.
@@ -138,14 +138,15 @@ public class DefectsTable extends JTable{
                 Local.getString("Removed"),
                 Local.getString("Fix Time"),
                 Local.getString("Fix Ref"),
-                Local.getString("Description")};
+                Local.getString("Description"),
+                "Hash ID"};
 		
 		public DefectsTableModel() {
 			super();
 		}
 
 		public int getColumnCount() {
-			return columnNames.length;
+			return columnNames.length-1;
 		}
 		
 		public String getColumnName(int i) {
@@ -176,6 +177,8 @@ public class DefectsTable extends JTable{
             	return d.getFixRef();
             } else if (columnIndex == 8) {
             	return d.getDesc();
+            } else if (columnIndex == 9) {
+            	return d.getHashId();
             }
             
             return null;
@@ -189,7 +192,7 @@ public class DefectsTable extends JTable{
 				JTable jt = (JTable) e.getSource();
 				TableModel model = jt.getModel();
 				int row = jt.getSelectedRow();
-				int numColumns = model.getColumnCount();
+				int numColumns = model.getColumnCount() + 1;
 				
 				for(int i = 0; i < numColumns; i++) {
 					_currentSelection[i] = (String) model.getValueAt(row, i);

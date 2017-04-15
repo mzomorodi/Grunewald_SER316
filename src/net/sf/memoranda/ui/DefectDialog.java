@@ -37,6 +37,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.Defect;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
@@ -286,7 +287,20 @@ public class DefectDialog extends JDialog{
     	String fRef = referenceField.getText();
     	String desc = descriptionField.getText();
     	
-    	CurrentProject.getDefectList().createDefect(d, id, ty, inj, rm, fTime, fRef, desc);
+    	if(getTitle().equals("New Defect")){
+    		CurrentProject.getDefectList().createDefect(d, id, ty, inj, rm, fTime, fRef, desc);
+    	} else {
+    		Defect defect = CurrentProject.getDefectList().getDefect(DefectsTable.getCurrentSelection()[9]);
+    		defect.setID(id);
+    		defect.setDefectType(ty);
+    		//defect.setDate(d);
+    		defect.setInjectedPhase(inj);
+    		defect.setRemovedPhase(rm);
+    		defect.setFixedTime(fTime);
+    		defect.setFixRef(fRef);
+    		defect.setDesc(desc);
+    	}
+    	
     	CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
         this.dispose();
     }

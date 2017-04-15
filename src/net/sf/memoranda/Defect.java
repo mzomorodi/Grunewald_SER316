@@ -1,15 +1,7 @@
 package net.sf.memoranda;
 
-import java.util.Collection;
-import java.util.Vector;
-import java.util.Calendar;
-
 import net.sf.memoranda.date.CalendarDate;
-import net.sf.memoranda.date.CurrentDate;
-import nu.xom.Attribute;
 import nu.xom.Element;
-import nu.xom.Elements;
-import nu.xom.Node;
 
 /**
  * @author Avery Bowen
@@ -38,6 +30,10 @@ public class Defect {
 		else{
 			return null;
 		}
+	}
+	
+	public String getHashId() {
+		return _elem.getAttribute("hashID").getValue();
 	}
 	
 	public String getTask(){
@@ -73,7 +69,35 @@ public class Defect {
 		return _elem.getAttribute("desc").getValue();
 	}
 	
+	public void setTask(String s){
+		_elem.getAttribute("task").setValue(s);
+	}
 	
+	public void setDefectType(String s){
+		_elem.getAttribute("type").setValue(s);
+	}
 	
+	public void setID(String s){
+		_elem.getAttribute("id").setValue(s);
+	}
 	
+	public void setInjectedPhase(String s){
+		_elem.getAttribute("inj").setValue(s);
+	}
+	
+	public void setRemovedPhase(String s){
+		_elem.getAttribute("rem").setValue(s);
+	}
+	
+	public void setFixedTime(String s){
+		_elem.getAttribute("fix").setValue(s);
+	}
+	
+	public void setFixRef(String s){
+		_elem.getAttribute("ref").setValue(s);
+	}
+	
+	public void setDesc(String s){
+		_elem.getAttribute("desc").setValue(s);
+	}
 }
