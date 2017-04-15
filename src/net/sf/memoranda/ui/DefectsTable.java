@@ -79,7 +79,7 @@ public class DefectsTable extends JTable{
         for (int i = 0; i < columnCount; i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
-                column.setPreferredWidth(32767);
+                column.setPreferredWidth(100);
             }
             else {
                 column.setMinWidth(100);

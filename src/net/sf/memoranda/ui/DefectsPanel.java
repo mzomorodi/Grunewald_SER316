@@ -113,7 +113,7 @@ public class DefectsPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
-			_defectsTable.initTable();
+			_defectsTable.tableChanged();
 		}
 	}
 	
@@ -129,7 +129,7 @@ public class DefectsPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
-			_defectsTable.initTable();
+			_defectsTable.tableChanged();
 		}
 	}
 

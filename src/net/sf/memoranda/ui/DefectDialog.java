@@ -9,12 +9,9 @@ package net.sf.memoranda.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
@@ -30,7 +27,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
@@ -51,8 +47,6 @@ public class DefectDialog extends JDialog{
 	private JPanel centerPanel = new JPanel();
 	private JPanel datePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel descriptionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	private JPanel labelsPanel = new JPanel();
-	private JPanel fieldsPanel = new JPanel();
 	private JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
 	private JButton okB = new JButton();
     private JButton cancelB = new JButton();
@@ -161,17 +155,17 @@ public class DefectDialog extends JDialog{
         datePanel.add(dateLabel);
         datePanel.add(dateSpinner);
    
-        descriptionLabel.setMaximumSize(new Dimension(100, 16));
+        descriptionLabel.setMaximumSize(new Dimension(60, 16));
     	descriptionLabel.setMinimumSize(new Dimension(60, 16));
     	descriptionLabel.setText(Local.getString("Description"));
-    	descriptionField.setPreferredSize(new Dimension(375, 387));
+    	descriptionField.setPreferredSize(new Dimension(65, 150));
         descriptionField.setLineWrap(true);
         descriptionField.setWrapStyleWord(true);        
-        descriptionScrollPane.setPreferredSize(new Dimension(375,100));
+        descriptionScrollPane.setPreferredSize(new Dimension(65, 100));
         descriptionPanel.setLayout(new BorderLayout());
-        descriptionPanel.add(descriptionLabel);
-        descriptionPanel.add(descriptionScrollPane);
-        descriptionPanel.setPreferredSize(new Dimension(400, 130));
+        descriptionPanel.add(descriptionLabel, BorderLayout.NORTH);
+        descriptionPanel.add(descriptionScrollPane, BorderLayout.SOUTH);
+        descriptionPanel.setPreferredSize(new Dimension(100, 130));
         
         upperPanel.setLayout(new BorderLayout());
         upperPanel.add(datePanel, BorderLayout.NORTH);
