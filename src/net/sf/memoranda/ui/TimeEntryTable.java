@@ -20,7 +20,6 @@ import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.TimeEntry;
 import net.sf.memoranda.TimeEntryList;
-import net.sf.memoranda.ui.table.TableSorter;
 import net.sf.memoranda.util.Local;
 
 /**
