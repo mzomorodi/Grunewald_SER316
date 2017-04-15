@@ -29,6 +29,7 @@ public class CurrentProject {
     private static NoteList _notelist = null;
     private static ResourcesList _resources = null;
     private static DefectList _defects = null;
+    private static TimeEntryList _times = null;
     private static Vector projectListeners = new Vector();
 
         
@@ -55,6 +56,7 @@ public class CurrentProject {
         _notelist = CurrentStorage.get().openNoteList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
         _defects = CurrentStorage.get().openDefectList(_project);
+        _times = CurrentStorage.get().openTimeEntryList(_project);
         AppFrame.addExitListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 save();                                               
@@ -82,6 +84,10 @@ public class CurrentProject {
     public static DefectList getDefectList(){
     	return _defects;
     }
+    
+    public static TimeEntryList getTimeEntryList(){
+    	return _times;
+    }
 
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
@@ -89,12 +95,14 @@ public class CurrentProject {
         NoteList newnotelist = CurrentStorage.get().openNoteList(project);
         ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
         DefectList newdefects = CurrentStorage.get().openDefectList(project);
-        notifyListenersBefore(project, newnotelist, newtasklist, newresources, newdefects);
+        TimeEntryList newtimes = CurrentStorage.get().openTimeEntryList(project);
+        notifyListenersBefore(project, newnotelist, newtasklist, newresources, newdefects, newtimes);
         _project = project;
         _tasklist = newtasklist;
         _notelist = newnotelist;
         _resources = newresources;
         _defects = newdefects;
+        _times = newtimes;
         notifyListenersAfter();
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
     }
@@ -107,9 +115,9 @@ public class CurrentProject {
         return projectListeners;
     }
 
-    private static void notifyListenersBefore(Project project, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
+    private static void notifyListenersBefore(Project project, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, TimeEntryList tel) {
         for (int i = 0; i < projectListeners.size(); i++) {
-            ((ProjectListener)projectListeners.get(i)).projectChange(project, nl, tl, rl, dl);
+            ((ProjectListener)projectListeners.get(i)).projectChange(project, nl, tl, rl, dl, tel);
             /*DEBUGSystem.out.println(projectListeners.get(i));*/
         }
     }
@@ -127,6 +135,7 @@ public class CurrentProject {
         storage.storeTaskList(_tasklist, _project); 
         storage.storeResourcesList(_resources, _project);
         storage.storeDefectList(_defects, _project);
+        storage.storeTimeEntryList(_times, _project);
         storage.storeProjectManager();
     }
     
@@ -136,5 +145,6 @@ public class CurrentProject {
         _notelist = null;
         _resources = null;
         _defects = null;
+        _times = null;
     }
 }

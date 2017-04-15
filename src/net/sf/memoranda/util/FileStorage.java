@@ -30,6 +30,7 @@ import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.ResourcesListImpl;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.TaskListImpl;
+import net.sf.memoranda.TimeEntryList;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.AltHTMLWriter;
@@ -506,6 +507,42 @@ public class FileStorage implements Storage {
             dl.getXMLContent(),
             JN_DOCPATH + prj.getID() + File.separator + ".defectlist");
 		
+	}
+	
+	public TimeEntryList openTimeEntryList(Project prj) {
+		String fn = JN_DOCPATH + prj.getID() + File.separator + ".timeslist";
+
+        if (documentExists(fn)) {
+            /*DEBUG*/
+            System.out.println(
+                "[DEBUG] Open time entry list: "
+                    + JN_DOCPATH
+                    + prj.getID()
+                    + File.separator
+                    + ".timeslist");
+            
+            Document timeEntryListDoc = openDocument(fn);
+            
+            return new TimeEntryList(timeEntryListDoc, prj);   
+        }
+        else {
+            /*DEBUG*/
+            System.out.println("[DEBUG] New time entry list created");
+            return new TimeEntryList(prj);
+        }
+	}
+
+	public void storeTimeEntryList(TimeEntryList tel, Project prj) {
+		/*DEBUG*/
+        System.out.println(
+            "[DEBUG] Save time entry list: "
+                + JN_DOCPATH
+                + prj.getID()
+                + File.separator
+                + ".timeslist");
+        saveDocument(
+            tel.getXMLContent(),
+            JN_DOCPATH + prj.getID() + File.separator + ".timeslist");
 	}
 
 }
