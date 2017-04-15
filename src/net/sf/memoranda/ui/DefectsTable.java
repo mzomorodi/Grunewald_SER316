@@ -64,7 +64,7 @@ public class DefectsTable extends JTable{
         });
 	}
 	
-	private void initTable() {
+	public void initTable() {
 		initColumnsWidth();
 		Vector<Defect> v = CurrentProject.getDefectList().getAllDefects();
         _defects = new Vector<Defect>();

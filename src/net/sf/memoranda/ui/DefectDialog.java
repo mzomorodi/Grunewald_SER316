@@ -214,25 +214,6 @@ public class DefectDialog extends JDialog{
         referenceField.setBorder(textBorder);
         referenceField.setPreferredSize(new Dimension(30, 24));
         
-        
-        
-    /*    
-        labelsPanel.setLayout(new BorderLayout());
-        labelsPanel.add(typeLabel, BorderLayout.WEST);
-        labelsPanel.add(injectedLabel, BorderLayout.WEST);
-        labelsPanel.add(removedLabel, BorderLayout.WEST);
-        labelsPanel.add(timeLabel, BorderLayout.WEST);
-        labelsPanel.add(referenceLabel, BorderLayout.WEST);
-        labelsPanel.setPreferredSize(new Dimension(80, 100));
-        
-        fieldsPanel.setLayout(new BorderLayout());
-        fieldsPanel.add(typeChooser, BorderLayout.WEST);
-        fieldsPanel.add(injectedChooser, BorderLayout.WEST);
-        fieldsPanel.add(removedChooser, BorderLayout.WEST);
-        fieldsPanel.add(timeField, BorderLayout.WEST);
-        fieldsPanel.add(referenceField, BorderLayout.WEST);
-        fieldsPanel.setPreferredSize(new Dimension(320, 100));
-   */     
         centerPanel.setLayout(new GridLayout(0,2));
         centerPanel.add(typeLabel);
         centerPanel.add(typeChooser);
@@ -270,10 +251,6 @@ public class DefectDialog extends JDialog{
         buttonsPanel.add(okB);
         buttonsPanel.add(cancelB);
         
-        //centerPanel.setLayout(new BorderLayout());
-        //centerPanel.add(labelsPanel, BorderLayout.WEST);
-        //centerPanel.add(fieldsPanel, BorderLayout.EAST);
-        
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(centerPanel, BorderLayout.NORTH);
         mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
@@ -297,7 +274,6 @@ public class DefectDialog extends JDialog{
     	String desc = descriptionField.getText();
     	
     	CurrentProject.getDefectList().createDefect(d, id, ty, inj, rm, fTime, fRef, desc);
-    	//CurrentProject.getDefectList().createDefect();
     	CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
         this.dispose();
     }
