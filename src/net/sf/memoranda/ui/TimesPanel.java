@@ -1,6 +1,6 @@
 /*
  * TimesPanel.java
- * Represents the display for the PSP Defect Log.
+ * Represents the display for the PSP TimeEntry Log
  * 
  * @author mzomorod
  */
@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
@@ -24,14 +25,15 @@ import net.sf.memoranda.util.Local;
 public class TimesPanel extends JPanel{
 	
 	private BorderLayout _borderLayout1 = new BorderLayout();
-	private JToolBar _formToolBar = new JToolBar(); 
-	private JButton _newFormButton = new JButton();
-	private JButton _editFormButton = new JButton();
+	private JToolBar _formToolBar = new JToolBar();
+	private JLabel _timeEntryLabel = new JLabel();
+	private JButton _newTimeButton = new JButton();
+	private JButton _editTimeButton = new JButton();
 	private JScrollPane _scrollPane = new JScrollPane();
-	//DefectsTable _defectsTable = new DefectsTable();
+	TimeEntryTable _timeEntryTable = new TimeEntryTable();
 
 	/*
-	 * Constructor: Initiates default configuration of Defect display
+	 * Constructor: Initiates default configuration of TimeEntry display
 	 */
 	public TimesPanel() {
 		try{
@@ -43,62 +45,67 @@ public class TimesPanel extends JPanel{
 	}
 	
 	/*
-	 * Initiates components for Defect display
+	 * Initiates components for TimeEntry display
 	 * 
 	 * @throws Exception generic Exception
 	 */
 	public void jbInit() throws Exception {
 		this.setLayout(_borderLayout1);
 		_scrollPane.getViewport().setBackground(Color.WHITE);
+		_scrollPane.getViewport().add(_timeEntryTable, null);
+		
+		_timeEntryLabel.setText(Local.getString("PROJECT TIME LOG"));
 		
 		_formToolBar.addSeparator(new Dimension(8, 24));
-		_formToolBar.add(_newFormButton, null);
+		_formToolBar.add(_newTimeButton, null);
 		_formToolBar.addSeparator(new Dimension(8, 24));
-		_formToolBar.add(_editFormButton, null);
+		_formToolBar.add(_editTimeButton, null);
+		_formToolBar.addSeparator(new Dimension(240, 24));
+		_formToolBar.add(_timeEntryLabel);
+		
 		this.add(_formToolBar, BorderLayout.NORTH);		
 		
 		_formToolBar.setFloatable(false);
-		_newFormButton.setEnabled(true);
-		_newFormButton.setMaximumSize(new Dimension(24, 24));
-		_newFormButton.setToolTipText("New Time");
-		_newFormButton.setRequestFocusEnabled(false);
-		_newFormButton.setPreferredSize(new Dimension(24, 24));
-		_newFormButton.setFocusable(false);
-		_newFormButton.setBorderPainted(false);
-		_newFormButton.addActionListener(new java.awt.event.ActionListener(){
+		_newTimeButton.setEnabled(true);
+		_newTimeButton.setMaximumSize(new Dimension(24, 24));
+		_newTimeButton.setToolTipText("New Time");
+		_newTimeButton.setRequestFocusEnabled(false);
+		_newTimeButton.setPreferredSize(new Dimension(24, 24));
+		_newTimeButton.setFocusable(false);
+		_newTimeButton.setBorderPainted(false);
+		_newTimeButton.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				_newFormButtonClicked(e);
+				_newTimeButtonClicked(e);
 			}
 		});
-		_newFormButton.setIcon(new ImageIcon(
+		_newTimeButton.setIcon(new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/addresource.png")));
 		
-		_editFormButton.setEnabled(true);
-		_editFormButton.setMaximumSize(new Dimension(24, 24));
-		_editFormButton.setToolTipText("Edit Time");
-		_editFormButton.setRequestFocusEnabled(false);
-		_editFormButton.setPreferredSize(new Dimension(24, 24));
-		_editFormButton.setFocusable(false);
-		_editFormButton.setBorderPainted(false);
-		_editFormButton.addActionListener(new java.awt.event.ActionListener(){
+		_editTimeButton.setEnabled(true);
+		_editTimeButton.setMaximumSize(new Dimension(24, 24));
+		_editTimeButton.setToolTipText("Edit Time");
+		_editTimeButton.setRequestFocusEnabled(false);
+		_editTimeButton.setPreferredSize(new Dimension(24, 24));
+		_editTimeButton.setFocusable(false);
+		_editTimeButton.setBorderPainted(false);
+		_editTimeButton.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				_editFormButtonClicked(e);
+				_editTimeButtonClicked(e);
 			}
 		});
-		_editFormButton.setIcon(new ImageIcon(
+		_editTimeButton.setIcon(new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/editproject.png")));
 		
-		//_defectsTable.setMaximumSize(new Dimension(32767, 32767));
-       // _defectsTable.setRowHeight(24);
-        //this.add(_defectsTable);
+		_timeEntryTable.setMaximumSize(new Dimension(32767, 32767));
+        _timeEntryTable.setRowHeight(24);
+        this.add(_scrollPane);
 	}
 	
 	/*
-	 * Opens Defect dialog to enter new defect
+	 * Opens TimeEntryDialog to enter new time entry
 	 * 
-	 * NEEDS TIMEFORMDIALOG ADDED
 	 */
-	public void _newFormButtonClicked(ActionEvent e){
+	public void _newTimeButtonClicked(ActionEvent e){
 		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("New Time"));
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
@@ -107,16 +114,15 @@ public class TimesPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
-			//_defectsTable.tableChanged();
+			//_timeEntryTable.tableChanged();
 		}
 	}
 	
 	/*
-	 * Opens Defect dialog to edit selected defect
+	 * Opens TimeEntryDialog to edit selected time entry
 	 * 
-	 * NEEDS TIMEFORMDIALOG ADDED
 	 */
-	public void _editFormButtonClicked(ActionEvent e){
+	public void _editTimeButtonClicked(ActionEvent e){
 		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("Edit Time"));
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
@@ -125,7 +131,7 @@ public class TimesPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
-			//_defectsTable.tableChanged();
+			//_timeEntryTable.tableChanged();
 		}
 	}
 
