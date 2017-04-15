@@ -104,8 +104,13 @@ public class DefectsPanel extends JPanel{
 	/*
 	 * Opens Defect dialog to enter new defect
 	 */
+<<<<<<< HEAD
+	public void _newFormButtonClicked(ActionEvent e){
+		DefectDialog dDlg = new DefectDialog(App.getFrame(), Local.getString("New Defect"));
+=======
 	public void _newDefectButtonClicked(ActionEvent e){
 		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("New Defect"));
+>>>>>>> branch 'US-13' of https://github.com/ser316asu/Grunewald_SER316.git
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
 		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
