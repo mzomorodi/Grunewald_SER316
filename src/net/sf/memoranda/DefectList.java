@@ -96,7 +96,7 @@ public class DefectList {
 	public Defect createDefect(CalendarDate d, String id, String type, String inject, String remove, String fTime, String fRef, String desc){
 		Element e = new Element("defect");
 		String hashID = Util.generateId();
-    	e.addAttribute(new Attribute("task", "Not associated"));
+    	e.addAttribute(new Attribute("task", "Task1"));
     	e.addAttribute(new Attribute("date", d.toString()));
     	e.addAttribute(new Attribute("id", id));
     	e.addAttribute(new Attribute("type", type));

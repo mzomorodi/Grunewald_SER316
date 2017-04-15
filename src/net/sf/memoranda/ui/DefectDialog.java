@@ -15,6 +15,7 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -58,6 +59,10 @@ public class DefectDialog extends JDialog{
 	public boolean CANCELLED = true;
 	private Border textBorder = BorderFactory.createEtchedBorder(Color.white, 
             new Color(178, 178, 178));
+	
+	//id field components
+	private JTextField idField = new JTextField();
+	private JLabel idLabel = new JLabel();
 	
 	// Date Field Components
 	private CalendarFrame calFrame = new CalendarFrame();
@@ -114,6 +119,9 @@ public class DefectDialog extends JDialog{
 		this.setResizable(false);
     	this.setSize(new Dimension(430,300));
     	
+    	idLabel.setText(Local.getString("Defect ID"));
+    	idField.setPreferredSize(new Dimension(60,24));
+    	
     	dateLabel.setText(Local.getString("Date"));
         dateLabel.setMinimumSize(new Dimension(60, 16));
         dateLabel.setMaximumSize(new Dimension(100, 16));
@@ -148,9 +156,11 @@ public class DefectDialog extends JDialog{
                 ignoreDateChanged = false;
             }
         });
-        datePanel.add(dateLabel, BorderLayout.WEST);
-        datePanel.add(dateSpinner, BorderLayout.EAST);
-        
+        datePanel.add(idLabel);
+        datePanel.add(idField);
+        datePanel.add(dateLabel);
+        datePanel.add(dateSpinner);
+   
         descriptionLabel.setMaximumSize(new Dimension(100, 16));
     	descriptionLabel.setMinimumSize(new Dimension(60, 16));
     	descriptionLabel.setText(Local.getString("Description"));
@@ -159,8 +169,8 @@ public class DefectDialog extends JDialog{
         descriptionField.setWrapStyleWord(true);        
         descriptionScrollPane.setPreferredSize(new Dimension(375,100));
         descriptionPanel.setLayout(new BorderLayout());
-        descriptionPanel.add(descriptionLabel, BorderLayout.NORTH);
-        descriptionPanel.add(descriptionScrollPane, BorderLayout.SOUTH);
+        descriptionPanel.add(descriptionLabel);
+        descriptionPanel.add(descriptionScrollPane);
         descriptionPanel.setPreferredSize(new Dimension(400, 130));
         
         upperPanel.setLayout(new BorderLayout());
@@ -204,6 +214,9 @@ public class DefectDialog extends JDialog{
         referenceField.setBorder(textBorder);
         referenceField.setPreferredSize(new Dimension(30, 24));
         
+        
+        
+    /*    
         labelsPanel.setLayout(new BorderLayout());
         labelsPanel.add(typeLabel, BorderLayout.WEST);
         labelsPanel.add(injectedLabel, BorderLayout.WEST);
@@ -219,6 +232,18 @@ public class DefectDialog extends JDialog{
         fieldsPanel.add(timeField, BorderLayout.WEST);
         fieldsPanel.add(referenceField, BorderLayout.WEST);
         fieldsPanel.setPreferredSize(new Dimension(320, 100));
+   */     
+        centerPanel.setLayout(new GridLayout(0,2));
+        centerPanel.add(typeLabel);
+        centerPanel.add(typeChooser);
+        centerPanel.add(injectedLabel);
+        centerPanel.add(injectedChooser);
+        centerPanel.add(removedLabel);
+        centerPanel.add(removedChooser);
+        centerPanel.add(timeLabel);
+        centerPanel.add(timeField);
+        centerPanel.add(referenceLabel);
+        centerPanel.add(referenceField);
         
         okB.setEnabled(true);
         okB.setMaximumSize(new Dimension(100, 26));
@@ -245,9 +270,9 @@ public class DefectDialog extends JDialog{
         buttonsPanel.add(okB);
         buttonsPanel.add(cancelB);
         
-        centerPanel.setLayout(new BorderLayout());
-        centerPanel.add(labelsPanel, BorderLayout.WEST);
-        centerPanel.add(fieldsPanel, BorderLayout.EAST);
+        //centerPanel.setLayout(new BorderLayout());
+        //centerPanel.add(labelsPanel, BorderLayout.WEST);
+        //centerPanel.add(fieldsPanel, BorderLayout.EAST);
         
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(centerPanel, BorderLayout.NORTH);
@@ -261,7 +286,18 @@ public class DefectDialog extends JDialog{
 	
 	void okB_actionPerformed(ActionEvent e) {
     	CANCELLED = false;
-    	CurrentProject.getDefectList().createDefect();
+    	Date jdate = (Date) dateSpinner.getModel().getValue();
+    	CalendarDate d = new CalendarDate(jdate);
+    	String id = idField.getText();
+    	String ty = typeChooser.getSelectedItem().toString();
+    	String inj = injectedChooser.getSelectedItem().toString();
+    	String rm = removedChooser.getSelectedItem().toString();
+    	String fTime = timeField.getText();
+    	String fRef = referenceField.getText();
+    	String desc = descriptionField.getText();
+    	
+    	CurrentProject.getDefectList().createDefect(d, id, ty, inj, rm, fTime, fRef, desc);
+    	//CurrentProject.getDefectList().createDefect();
     	CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
         this.dispose();
     }
