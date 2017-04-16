@@ -45,8 +45,6 @@ import net.sf.memoranda.util.Configuration;
 /*$Id: EditorPanel.java,v 1.21 2006/06/28 22:58:31 alexeya Exp $*/
 public class EditorPanel extends JPanel {
 	BorderLayout borderLayout1 = new BorderLayout();
-	
-	FileExportDialog dlg;
 
 	JPanel jPanel1 = new JPanel();
 
@@ -450,26 +448,8 @@ public class EditorPanel extends JPanel {
 		String lastSel = (String) Context.get("LAST_SELECTED_EXPORT_FILE");
 		if (lastSel != null)
 			chooser.setCurrentDirectory(new File(lastSel));
-		
-		chooser.addPropertyChangeListener(new PropertyChangeListener() {
-			String separator = File.separator;
-			String fPath = "";
-			String fName = "";
-			public void propertyChange(PropertyChangeEvent e) {
-				if (e.getPropertyName().equals("SelectedFileChangedProperty")) {
-					Object o = e.getNewValue();
-					if (o != null) {
-						fPath = e.getNewValue().toString();
-						fName = fPath.substring(fPath.lastIndexOf(separator) + 1);
-						dlg.setFilePath(fPath);
-						dlg.setFileNameField(fName);
-					}
-				}
-			}
-		});
 
-		dlg = new FileExportDialog(App.getFrame(), Local
-				.getString("Export note"), chooser);
+		FileExportDialog dlg = new FileExportDialog(App.getFrame(), Local.getString("Export note"), chooser);
 		String enc = (String) Context.get("EXPORT_FILE_ENCODING");
 		if (enc != null)
 			dlg.encCB.setSelectedItem(enc);

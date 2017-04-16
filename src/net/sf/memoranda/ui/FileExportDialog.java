@@ -86,20 +86,15 @@ public class FileExportDialog extends javax.swing.JDialog {
         filePanel.setBorder(new javax.swing.border.EtchedBorder());
         fileChooser.setControlButtonsAreShown(false);
         fileChooser.addPropertyChangeListener(new PropertyChangeListener() {
-
             public void propertyChange(PropertyChangeEvent evt) {
-                chooserActionPerformed();
-                
+                chooserActionPerformed(evt);
             }
-        
         });
         /*fileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooserActionPerformed();
             }
         });*/
-        
-        
 
         filePanel.add(fileChooser, java.awt.BorderLayout.CENTER);
 
@@ -203,8 +198,20 @@ public class FileExportDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }
 
-    private void chooserActionPerformed() {//GEN-FIRST:event_chooserActionPerformed
-        //okB.setEnabled(fileChooser.getSelectedFile() != null);            
+    private void chooserActionPerformed(PropertyChangeEvent e) {//GEN-FIRST:event_chooserActionPerformed
+        //okB.setEnabled(fileChooser.getSelectedFile() != null); 
+    	String separator = File.separator;
+		String fPath = "";
+		String fName = "";
+		if (e.getPropertyName().equals("SelectedFileChangedProperty")) {
+			Object o = e.getNewValue();
+			if (o != null) {
+				fPath = e.getNewValue().toString();
+				fName = fPath.substring(fPath.lastIndexOf(separator) + 1);
+				this.setFilePath(fPath);
+				this.setFileNameField(fName);
+			}
+		}
     }
     
     private void browseTemplate() {
