@@ -306,7 +306,7 @@ public class DefectDialog extends JDialog{
     	if(getTitle().equals("New Defect")){
     		CurrentProject.getDefectList().createDefect(d, id, ty, inj, rm, fTime, fRef, desc);
     	} else {
-    		Defect defect = CurrentProject.getDefectList().getDefect(currSelection[9]);
+    		Defect defect = CurrentProject.getDefectList().getDefect(currSelection[DefectsTable.ID_COL]);
     		defect.setID(id);
     		defect.setDefectType(ty);
     		defect.setDate(d.toString());

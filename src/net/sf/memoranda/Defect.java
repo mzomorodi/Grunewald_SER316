@@ -119,7 +119,7 @@ public class Defect {
 		_elem.getAttribute("ref").setValue(fr);
 	}
 	
-	public void setDesc(String d){
-		_elem.getAttribute("desc").setValue(d);
+	public void setDesc(String desc){
+		_elem.getAttribute("desc").setValue(desc);
 	}
 }

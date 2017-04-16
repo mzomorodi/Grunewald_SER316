@@ -26,9 +26,6 @@ import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.TimeEntry;
 import net.sf.memoranda.TimeEntryList;
-import net.sf.memoranda.ui.DefectsTable.DefectsTableModel;
-import net.sf.memoranda.ui.DefectsTable.MouseTableListener;
-import net.sf.memoranda.ui.DefectsTable.TableListSelectionHandler;
 import net.sf.memoranda.ui.table.TableSorter;
 import net.sf.memoranda.util.Local;
 
@@ -192,6 +189,7 @@ public class TimeEntryTable extends JTable {
 	class TimeEntryTableModel extends AbstractTableModel {
 		
 		String[] columnNames = {
+				Local.getString("ID"),
                 Local.getString("Date"),
                 Local.getString("Phase"),
                 Local.getString("LOC Start"),
@@ -224,22 +222,24 @@ public class TimeEntryTable extends JTable {
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			TimeEntry t = (TimeEntry)_times.get(rowIndex);
             if (columnIndex == 0){
-            	return t.getDate().toString();
+            	return t.getID();
             } else if (columnIndex == 1) {
-            	return t.getTimeEntryPhase();
+            	return t.getDate().toString();
             } else if (columnIndex == 2) {
-            	return t.getTimeEntryLocStart();
+            	return t.getTimeEntryPhase();
             } else if (columnIndex == 3) {
-            	return t.getTimeEntryLocEnd();
+            	return t.getTimeEntryLocStart();
             } else if (columnIndex == 4) {
-            	return t.getTimeEntryStartTime();
+            	return t.getTimeEntryLocEnd();
             } else if (columnIndex == 5) {
-            	return t.getTimeEntryStopTime();
+            	return t.getTimeEntryStartTime();
             } else if (columnIndex == 6) {
-            	return t.getTimeEntryInterruptTime();
+            	return t.getTimeEntryStopTime();
             } else if (columnIndex == 7) {
-            	return t.getTimeEntryComments();
+            	return t.getTimeEntryInterruptTime();
             } else if (columnIndex == 8) {
+            	return t.getTimeEntryComments();
+            } else if (columnIndex == 9) {
             	return t.getHashID();
             }
             

@@ -68,7 +68,7 @@ public class TimeEntryDialog extends JDialog {
     private JTextField startTimeField = new JTextField();
     
     private JLabel endTimeLabel = new JLabel();
-    private JTextField endTimeField = new JTextField();
+    private JTextField stopTimeField = new JTextField();
     
     private JLabel intTimeLabel = new JLabel();
     private JTextField intTimeField = new JTextField();
@@ -197,8 +197,8 @@ public class TimeEntryDialog extends JDialog {
     		
     		endTimeLabel.setText(Local.getString("Time at End"));
     		endTimeLabel.setPreferredSize(new Dimension(100, 16));
-    		endTimeField.setPreferredSize(new Dimension(30, 24));
-    		endTimeField.setBorder(textBorder);
+    		stopTimeField.setPreferredSize(new Dimension(30, 24));
+    		stopTimeField.setBorder(textBorder);
     		
     		intTimeLabel.setText(Local.getString("Total Interruption Time"));
     		intTimeLabel.setPreferredSize(new Dimension(100, 16));
@@ -250,7 +250,7 @@ public class TimeEntryDialog extends JDialog {
     		centerPanel.add(startTimeLabel);
     		centerPanel.add(startTimeField);
     		centerPanel.add(endTimeLabel);
-    		centerPanel.add(endTimeField);
+    		centerPanel.add(stopTimeField);
     		centerPanel.add(intTimeLabel);
     		centerPanel.add(intTimeField);
     		
@@ -277,7 +277,7 @@ public class TimeEntryDialog extends JDialog {
     	String locStart = startLOCField.getText();
     	String locEnd = endLOCField.getText();
     	String startTime = startTimeField.getText();
-    	String stopTime = endTimeField.getText();
+    	String stopTime = stopTimeField.getText();
     	String interruptTime = intTimeField.getText();
     	String phase = phChooser.getSelectedItem().toString();
     	String comments = commentsField.getText();
@@ -285,7 +285,16 @@ public class TimeEntryDialog extends JDialog {
     		CurrentProject.getTimeEntryList().createTimeEntry(id, d, locStart, locEnd, startTime, stopTime, interruptTime, phase, comments);
     	}
     	else{
-    		TimeEntry tme = CurrentProject.getTimeEntryList().getTimeEntry(currSelection[9]);
+    		TimeEntry te = CurrentProject.getTimeEntryList().getTimeEntry(currSelection[TimeEntryTable.ID_COL]);
+    		te.setID(id);
+    		te.setPhase(phase);
+    		te.setDate(d.toString());
+    		te.setLocStart(locStart);
+    		te.setLocEnd(locEnd);
+    		te.setStartTime(startTime);
+    		te.setStopTime(stopTime);
+    		te.setInterruptTime(interruptTime);
+    		te.setComments(comments);
     	}
     	CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
         this.dispose();

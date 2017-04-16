@@ -81,13 +81,26 @@ public class TimeEntryList {
 	}
 	
 	private void buildElements(Element parent) {
-		Elements els = parent.getChildElements("defect");
+		Elements els = parent.getChildElements("time");
 		for (int i = 0; i < els.size(); i++) {
 			Element el = els.get(i);
 			_elements.put(el.getAttribute("hashID").getValue(), el);
 			buildElements(el);
 		}
 	}
+	
+	public void removeTimeEntry(TimeEntry timeEntry) {
+        String parentTimeEntryId = timeEntry.getParentId();
+        if (parentTimeEntryId == null) {
+            _root.removeChild(timeEntry.getContent());            
+        }
+        else {
+            Element parentNode = getTimeEntryElement(parentTimeEntryId);
+            parentNode.removeChild(timeEntry.getContent());
+        }
+        
+		_elements.remove(timeEntry.getHashID());
+    }
 	
 	public TimeEntry getTimeEntry(String id) {
         Util.debug("Getting entry " + id);          

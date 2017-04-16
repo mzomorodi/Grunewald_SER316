@@ -16,10 +16,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
+import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.TimeEntry;
 import net.sf.memoranda.util.Local;
 
 public class TimesPanel extends JPanel{
@@ -29,6 +32,7 @@ public class TimesPanel extends JPanel{
 	private JLabel _timeEntryLabel = new JLabel();
 	private JButton _newTimeButton = new JButton();
 	private JButton _editTimeButton = new JButton();
+	private JButton _deleteTimeEntryButton = new JButton();
 	private JScrollPane _scrollPane = new JScrollPane();
 	TimeEntryTable _timeEntryTable = new TimeEntryTable();
 
@@ -60,6 +64,8 @@ public class TimesPanel extends JPanel{
 		_formToolBar.add(_newTimeButton, null);
 		_formToolBar.addSeparator(new Dimension(8, 24));
 		_formToolBar.add(_editTimeButton, null);
+		_formToolBar.addSeparator(new Dimension(8, 24));
+		_formToolBar.add(_deleteTimeEntryButton, null);
 		_formToolBar.addSeparator(new Dimension(240, 24));
 		_formToolBar.add(_timeEntryLabel);
 		
@@ -96,6 +102,21 @@ public class TimesPanel extends JPanel{
 		_editTimeButton.setIcon(new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/editproject.png")));
 		
+		_deleteTimeEntryButton.setEnabled(true);
+		_deleteTimeEntryButton.setMaximumSize(new Dimension(24, 24));
+		_deleteTimeEntryButton.setToolTipText("Delete Entry");
+		_deleteTimeEntryButton.setRequestFocusEnabled(false);
+		_deleteTimeEntryButton.setPreferredSize(new Dimension(24, 24));
+		_deleteTimeEntryButton.setFocusable(false);
+		_deleteTimeEntryButton.setBorderPainted(false);
+		_deleteTimeEntryButton.addActionListener(new java.awt.event.ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				_deleteTimeEntryButtonClicked(e);
+			}
+		});
+		_deleteTimeEntryButton.setIcon(new ImageIcon(
+				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/removeresource.png")));
+		
 		_timeEntryTable.setMaximumSize(new Dimension(32767, 32767));
         _timeEntryTable.setRowHeight(24);
         this.add(_scrollPane);
@@ -114,7 +135,9 @@ public class TimesPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
+			int lastSelectedRow = _timeEntryTable.getLastSelectedRow();
 			_timeEntryTable.tableChanged();
+			_timeEntryTable.getSelectionModel().setSelectionInterval(lastSelectedRow, lastSelectedRow);
 		}
 	}
 	
@@ -134,5 +157,36 @@ public class TimesPanel extends JPanel{
 			_timeEntryTable.tableChanged();
 		}
 	}
-
+	
+	/*
+	 * Deletes time entry
+	 */
+	public void _deleteTimeEntryButtonClicked(ActionEvent e){
+		if (_timeEntryTable.hasSelection()) {
+			int toRemove = _timeEntryTable.getSelectedRow();
+	        String msg = "";
+            msg =
+                Local.getString("Delete entry: ")
+                    + "\n'"
+                    + _timeEntryTable.getModel().getValueAt(toRemove, 0)
+                    + "'"
+            		+ "\n"
+            		+ Local.getString("Are you sure?");
+	        int n =
+	            JOptionPane.showConfirmDialog(
+	                App.getFrame(),
+	                msg,
+	                Local.getString("Delete entry"),
+	                JOptionPane.YES_NO_OPTION);
+	        if (n != JOptionPane.YES_OPTION)
+	            return;
+	        /*System.out.println(_timeEntryTable.getModel().getValueAt(
+	        		_timeEntryTable.getSelectedRow(), TimeEntryTable.ID_COL).toString());*/
+	        TimeEntry te1 = CurrentProject.getTimeEntryList().getTimeEntry(
+	        		_timeEntryTable.getModel().getValueAt(
+	                		_timeEntryTable.getSelectedRow(), TimeEntryTable.ID_COL).toString());
+	        CurrentProject.getTimeEntryList().removeTimeEntry(te1);
+	        _timeEntryTable.tableChanged();
+		}
+	}
 }
