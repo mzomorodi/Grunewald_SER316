@@ -135,9 +135,7 @@ public class TimesPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
-			int lastSelectedRow = _timeEntryTable.getLastSelectedRow();
 			_timeEntryTable.tableChanged();
-			_timeEntryTable.getSelectionModel().setSelectionInterval(lastSelectedRow, lastSelectedRow);
 		}
 	}
 	
