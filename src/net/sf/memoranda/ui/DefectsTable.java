@@ -41,7 +41,8 @@ public class DefectsTable extends JTable{
 	private TableSorter _sorter = null;
 	private ListSelectionModel _listSelectionModel = null;
 	private boolean _hasSelection;
-	private static String[] _currentSelection = {"","","","","","","","","",""};
+	private int _lastSelectedRow;
+	private String[] _currentSelection = {"","","","","","","","","",""};
 	
 	/**
 	 * Constructor for DefectFormTable.
@@ -81,7 +82,11 @@ public class DefectsTable extends JTable{
 		return _hasSelection;
 	}
 	
-	public static String[] getCurrentSelection() {
+	public int getLastSelectedRow() {
+		return _lastSelectedRow;
+	}
+	
+	public String[] getCurrentSelection() {
 		return _currentSelection;
 	}
 	
@@ -226,6 +231,8 @@ public class DefectsTable extends JTable{
         	ListSelectionModel lsm = (ListSelectionModel)e.getSource();
         	if (lsm.isSelectionEmpty()) {
         		_hasSelection = false;
+        	} else {
+        		_lastSelectedRow = lsm.getMinSelectionIndex();
         	}
         }
     }
