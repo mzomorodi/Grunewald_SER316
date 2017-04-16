@@ -146,15 +146,17 @@ public class TimesPanel extends JPanel{
 	 * 
 	 */
 	public void _editTimeButtonClicked(ActionEvent e){
-		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("Edit Time"), _timeEntryTable.getCurrentSelection());
-		Dimension frmSize = App.getFrame().getSize();
-		Point loc = App.getFrame().getLocation();
-		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
-		dDlg.setVisible(true);
-		if(dDlg.CANCELLED){
-			return;
-		} else {
-			_timeEntryTable.tableChanged();
+		if (_timeEntryTable.hasSelection()) {
+			TimeEntryDialog tDlg = new TimeEntryDialog(App.getFrame(), Local.getString("Edit Time"), _timeEntryTable.getCurrentSelection());
+			Dimension frmSize = App.getFrame().getSize();
+			Point loc = App.getFrame().getLocation();
+			tDlg.setLocation((frmSize.width - tDlg.getSize().width)/2 + loc.x, (frmSize.height - tDlg.getSize().height) / 2 + loc.y);
+			tDlg.setVisible(true);
+			if(tDlg.CANCELLED){
+				return;
+			} else {
+				_timeEntryTable.tableChanged();
+			}
 		}
 	}
 	

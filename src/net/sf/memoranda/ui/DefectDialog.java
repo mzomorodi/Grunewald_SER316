@@ -210,7 +210,8 @@ public class DefectDialog extends JDialog{
         removedLabel.setMinimumSize(new Dimension(60, 16));
         removedLabel.setPreferredSize(new Dimension(60, 16));
         injectedChooser.setBorder(textBorder);
-        removedChooser.setBorder(textBorder);       	        	
+        removedChooser.setBorder(textBorder);   
+        
         for(int i = 0; i < phases.size(); i++){
         	injectedChooser.addItem(phases.get(i));
         	removedChooser.addItem(phases.get(i));
