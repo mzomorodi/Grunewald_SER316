@@ -1,7 +1,6 @@
 package net.sf.memoranda.util;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -19,6 +18,15 @@ public class TXTExport {
 	
 		this.f = f;
 		this.doc = doc;
+		
+		if(f.getName().indexOf(".txt") == -1)
+		{
+			String dir = f.getPath();
+			String ext = ".txt";
+			String nfile = dir + ext;
+
+			f = new File(nfile);                    	
+		}
 		
 		try{
 			int length = doc.getLength();

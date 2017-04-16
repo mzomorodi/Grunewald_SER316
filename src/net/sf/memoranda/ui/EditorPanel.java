@@ -6,12 +6,13 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.net.URL;
 import java.text.DateFormat;
 
 import javax.swing.AbstractAction;
@@ -27,7 +28,6 @@ import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 
-import net.sf.memoranda.History;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.CurrentNote;
@@ -45,6 +45,8 @@ import net.sf.memoranda.util.Configuration;
 /*$Id: EditorPanel.java,v 1.21 2006/06/28 22:58:31 alexeya Exp $*/
 public class EditorPanel extends JPanel {
 	BorderLayout borderLayout1 = new BorderLayout();
+	
+	FileExportDialog dlg;
 
 	JPanel jPanel1 = new JPanel();
 
@@ -435,12 +437,12 @@ public class EditorPanel extends JPanel {
 				.getString("Cancel"));
 
 		JFileChooser chooser = new JFileChooser();
+		//chooser.setDialogType(JFileChooser.SAVE_DIALOG);
 		chooser.setFileHidingEnabled(false);
 		chooser.setDialogTitle(Local.getString("Export note"));
 		chooser.setAcceptAllFileFilterUsed(false);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser
-				.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.XHTML));
+		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.XHTML));
 		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
 		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.TXT));
 		// chooser.addChoosableFileFilter(new
@@ -448,8 +450,25 @@ public class EditorPanel extends JPanel {
 		String lastSel = (String) Context.get("LAST_SELECTED_EXPORT_FILE");
 		if (lastSel != null)
 			chooser.setCurrentDirectory(new File(lastSel));
+		
+		chooser.addPropertyChangeListener(new PropertyChangeListener() {
+			String separator = File.separator;
+			String fPath = "";
+			String fName = "";
+			public void propertyChange(PropertyChangeEvent e) {
+				if (e.getPropertyName().equals("SelectedFileChangedProperty")) {
+					Object o = e.getNewValue();
+					if (o != null) {
+						fPath = e.getNewValue().toString();
+						fName = fPath.substring(fPath.lastIndexOf(separator) + 1);
+						dlg.setFilePath(fPath);
+						dlg.setFileNameField(fName);
+					}
+				}
+			}
+		});
 
-		FileExportDialog dlg = new FileExportDialog(App.getFrame(), Local
+		dlg = new FileExportDialog(App.getFrame(), Local
 				.getString("Export note"), chooser);
 		String enc = (String) Context.get("EXPORT_FILE_ENCODING");
 		if (enc != null)
@@ -473,8 +492,7 @@ public class EditorPanel extends JPanel {
 		if (dlg.CANCELLED)
 			return;
 
-		Context.put("LAST_SELECTED_EXPORT_FILE", chooser.getSelectedFile()
-				.getPath());
+		Context.put("LAST_SELECTED_EXPORT_FILE", dlg.getFilePath());
 		Context.put("EXPORT_FILE_ENCODING", dlg.encCB.getSelectedItem());
 		Context.put("EXPORT_NUMENT", dlg.numentChB.isSelected() ? "YES" : "NO");
 		Context.put("EXPORT_XHTML", dlg.xhtmlChB.isSelected() ? "YES" : "NO");
@@ -490,7 +508,7 @@ public class EditorPanel extends JPanel {
 		//Come back to this and clean up
 		if(chooser.getFileFilter().getDescription().equals("TXT files (*.txt)"))
 			try {
-				new TXTExport(chooser.getSelectedFile(), editor.document);
+				new TXTExport(new File(dlg.getFilePath()), editor.document);
 			} catch (BadLocationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -500,13 +518,13 @@ public class EditorPanel extends JPanel {
 			}
 		else
 		{
-		int ei = dlg.encCB.getSelectedIndex();
-		enc = null;
-		if (ei == 1)
-			enc = "UTF-8";
-		File f = chooser.getSelectedFile();
-		new HTMLFileExport(f, editor.document, CurrentNote.get(), enc,
-				dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
+			int ei = dlg.encCB.getSelectedIndex();
+			enc = null;
+			if (ei == 1)
+				enc = "UTF-8";
+			File f = new File(dlg.getFilePath());
+			new HTMLFileExport(f, editor.document, CurrentNote.get(), enc,
+					dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
 		}
 	}
 
