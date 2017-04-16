@@ -7,6 +7,9 @@ import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.MouseInputListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -36,6 +39,7 @@ public class DefectsTable extends JTable{
 	
 	private Vector<Defect> _defects = null;
 	private TableSorter _sorter = null;
+	private ListSelectionModel _listSelectionModel = null;
 	private boolean _hasSelection;
 	private static String[] _currentSelection = {"","","","","","","","","",""};
 	
@@ -56,6 +60,10 @@ public class DefectsTable extends JTable{
 		_sorter = new TableSorter(new DefectsTableModel());
 		_sorter.addMouseListenerToHeaderInTable(this);
 		setModel(_sorter);
+		
+        _listSelectionModel = getSelectionModel();
+        _listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
+        setSelectionModel(_listSelectionModel);
         
         addMouseListener(new MouseTableListener());
       
@@ -212,4 +220,13 @@ public class DefectsTable extends JTable{
 
 		public void mouseMoved(MouseEvent e) {}
 	}
+	
+	class SharedListSelectionHandler implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) { 
+        	ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+        	if (lsm.isSelectionEmpty()) {
+        		_hasSelection = false;
+        	}
+        }
+    }
 }
