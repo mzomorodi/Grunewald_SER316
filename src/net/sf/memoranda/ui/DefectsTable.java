@@ -63,7 +63,7 @@ public class DefectsTable extends JTable{
 		setModel(_sorter);
 		
         _listSelectionModel = getSelectionModel();
-        _listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
+        _listSelectionModel.addListSelectionListener(new TableListSelectionHandler());
         setSelectionModel(_listSelectionModel);
         
         addMouseListener(new MouseTableListener());
@@ -116,9 +116,19 @@ public class DefectsTable extends JTable{
 	
 	public void tableChanged() {
         initTable();
+        ListSelectionModel lsm = this.getSelectionModel();
+        TableModel model = this.getModel();
+        int row = lsm.getMinSelectionIndex();
+		int numColumns = model.getColumnCount() + 1;
+		
+		
         _sorter.tableChanged(null);
         initColumnsWidth();
         updateUI();
+        
+        for(int i = 0; i < numColumns; i++) {
+			_currentSelection[i] = (String) model.getValueAt(row, i);
+		}
     }
 	
 	public TableCellRenderer getCellRenderer(int row, int column) {
@@ -226,7 +236,7 @@ public class DefectsTable extends JTable{
 		public void mouseMoved(MouseEvent e) {}
 	}
 	
-	class SharedListSelectionHandler implements ListSelectionListener {
+	class TableListSelectionHandler implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) { 
         	ListSelectionModel lsm = (ListSelectionModel)e.getSource();
         	if (lsm.isSelectionEmpty()) {
