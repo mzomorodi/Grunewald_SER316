@@ -2,6 +2,7 @@ package net.sf.memoranda;
 
 import net.sf.memoranda.date.CalendarDate;
 import nu.xom.Element;
+import nu.xom.Node;
 
 /**
  * @author Avery Bowen
@@ -20,6 +21,23 @@ public class Defect {
 	
 	public Element getContent(){
 		return _elem;
+	}
+	
+	public String getParentId() {
+		Defect parent = this.getParentDefect();
+		if (parent != null)
+			return parent.getHashId();
+		return null;
+	}
+	
+	public Defect getParentDefect() {
+		Node parentNode = _elem.getParent();
+    	if (parentNode instanceof Element) {
+    	    Element parent = (Element) parentNode;
+        	if (parent.getLocalName().equalsIgnoreCase("defect")) 
+        	    return new Defect(parent, _dl);
+    	}
+    	return null;
 	}
 	
 	public CalendarDate getDate(){

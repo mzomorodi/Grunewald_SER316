@@ -37,6 +37,7 @@ import net.sf.memoranda.util.Local;
  */
 public class DefectsTable extends JTable{
 	
+	static int ID_COL = 9;
 	private Vector<Defect> _defects = null;
 	private TableSorter _sorter = null;
 	private ListSelectionModel _listSelectionModel = null;

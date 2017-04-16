@@ -62,6 +62,19 @@ public class DefectList {
 		}
 	}
     
+    public void removeDefect(Defect defect) {
+        String parentDefectId = defect.getParentId();
+        if (parentDefectId == null) {
+            _root.removeChild(defect.getContent());            
+        }
+        else {
+            Element parentNode = getDefectElement(parentDefectId);
+            parentNode.removeChild(defect.getContent());
+        }
+        
+		_elements.remove(defect.getHashId());
+    }
+    
     public Defect getDefect(String id) {
         Util.debug("Getting defect " + id);          
         return new Defect(getDefectElement(id), this);          
