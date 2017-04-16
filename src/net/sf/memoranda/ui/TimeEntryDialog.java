@@ -34,11 +34,13 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.TimeEntry;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 
 public class TimeEntryDialog extends JDialog {
+	private String[] currSelection;
 	
 	// Window components
 	private JPanel mainPanel = new JPanel();
@@ -91,8 +93,9 @@ public class TimeEntryDialog extends JDialog {
 	JTextArea commentsField = new JTextArea();
     JScrollPane commentScrollPane = new JScrollPane(commentsField);
 
-	public TimeEntryDialog(Frame frame, String title) {
+	public TimeEntryDialog(Frame frame, String title, String[] currentSelection) {
 		super(frame, title, true);
+		currSelection = currentSelection;
         try {
             jbInit(title);            
             pack();
@@ -223,6 +226,15 @@ public class TimeEntryDialog extends JDialog {
     				cancelB_actionPerformed(e);
     			}
     		});
+    		/*
+    		if(t.equals("Edit Time")){
+    	        DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
+    	        Date date = df.parse(currSelection[0]);
+    	        phChooser.setSelectedIndex(phases.indexOf(currSelection[1]));
+    	        
+    	        
+            }
+            */
 
     		buttonsPanel.add(okB);
     		buttonsPanel.add(cancelB);
@@ -245,6 +257,7 @@ public class TimeEntryDialog extends JDialog {
     		mainPanel.add(upperPanel);
     		mainPanel.add(centerPanel, BorderLayout.CENTER);
     		mainPanel.add(buttonsPanel);
+    		
 
     		this.add(mainPanel);
     		this.setPreferredSize(new Dimension(400, 500));
@@ -268,8 +281,12 @@ public class TimeEntryDialog extends JDialog {
     	String interruptTime = intTimeField.getText();
     	String phase = phChooser.getSelectedItem().toString();
     	String comments = commentsField.getText();
-    	
-    	CurrentProject.getTimeEntryList().createTimeEntry(id, d, locStart, locEnd, startTime, stopTime, interruptTime, phase, comments);
+    	if(getTitle().equals("New Time")){
+    		CurrentProject.getTimeEntryList().createTimeEntry(id, d, locStart, locEnd, startTime, stopTime, interruptTime, phase, comments);
+    	}
+    	else{
+    		TimeEntry tme = CurrentProject.getTimeEntryList().getTimeEntry(currSelection[9]);
+    	}
     	CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
         this.dispose();
     }

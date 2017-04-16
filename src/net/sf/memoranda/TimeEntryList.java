@@ -34,6 +34,7 @@ public class TimeEntryList {
     	_doc = doc;
         _root = _doc.getRootElement();
         _project = prj;
+        buildElements(_root);
 	}
 
     public TimeEntryList(){
@@ -73,10 +74,35 @@ public class TimeEntryList {
     	e.addAttribute(new Attribute("stop", stopTime));
     	e.addAttribute(new Attribute("interrupt", interruptTime));
     	e.addAttribute(new Attribute("comments", comments));
+    	e.addAttribute(new Attribute("hashID", hashID));
     	_elements.put(hashID, e);
     	_root.appendChild(e);
     	return new TimeEntry(e, this);
 	}
+	
+	private void buildElements(Element parent) {
+		Elements els = parent.getChildElements("defect");
+		for (int i = 0; i < els.size(); i++) {
+			Element el = els.get(i);
+			_elements.put(el.getAttribute("hashID").getValue(), el);
+			buildElements(el);
+		}
+	}
+	
+	public TimeEntry getTimeEntry(String id) {
+        Util.debug("Getting entry " + id);          
+        return new TimeEntry(getTimeEntryElement(id), this);          
+    }
+    
+    private Element getTimeEntryElement(String id) {
+		Element el = (Element)_elements.get(id);
+		
+		if (el == null) {
+			Util.debug("Entry " + id + " cannot be found in project " + _project.getTitle());
+		}
+		
+		return el;
+    }
 
 	public Document getXMLContent() {
 		return _doc;

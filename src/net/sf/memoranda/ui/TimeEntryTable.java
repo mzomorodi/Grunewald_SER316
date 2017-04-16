@@ -6,10 +6,12 @@ import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.DefectList;
@@ -20,6 +22,7 @@ import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.TimeEntry;
 import net.sf.memoranda.TimeEntryList;
+import net.sf.memoranda.ui.table.TableSorter;
 import net.sf.memoranda.util.Local;
 
 /**
@@ -31,6 +34,12 @@ import net.sf.memoranda.util.Local;
 public class TimeEntryTable extends JTable {
 	
 	private Vector<TimeEntry> _times = null;
+	private TableSorter _sorter = null;
+	private ListSelectionModel _listSelectionModel = null;
+	private boolean _hasSelection;
+	private int _lastSelectedRow;
+	private String[] _currentSelection = {"","","","","","","","","",""};
+	
 	
 	/**
 	 * Constructor for TimeEntryTable.
@@ -59,6 +68,18 @@ public class TimeEntryTable extends JTable {
         });
 	}
 	
+	public boolean hasSelection() {
+		return _hasSelection;
+	}
+	
+	public int getLastSelectedRow() {
+		return _lastSelectedRow;
+	}
+	
+	public String[] getCurrentSelection() {
+		return _currentSelection;
+	}
+	
 	public void initTable() {
 		initColumnsWidth();
 		Vector<TimeEntry> v = CurrentProject.getTimeEntryList().getAllTimeEntries();
@@ -85,8 +106,21 @@ public class TimeEntryTable extends JTable {
 	
 	public void tableChanged() {
         initTable();
+        ListSelectionModel lsm = this.getSelectionModel();
+        TableModel model = this.getModel();
+        int row = lsm.getMinSelectionIndex();
+        if (row < 0) {
+        	row = 0;
+        }
+		int numColumns = model.getColumnCount() + 1;
+		
+        _sorter.tableChanged(null);
         initColumnsWidth();
         updateUI();
+        
+        for(int i = 0; i < numColumns; i++) {
+			_currentSelection[i] = (String) model.getValueAt(row, i);
+		}
     }
 	
 	public TableCellRenderer getCellRenderer(int row, int column) {
@@ -118,7 +152,8 @@ public class TimeEntryTable extends JTable {
                 Local.getString("Start Time"),
                 Local.getString("Stop Time"),
                 Local.getString("Interrupt Time"),
-                Local.getString("Comments")};
+                Local.getString("Comments"),
+                "Hash ID"};
 		
 		public TimeEntryTableModel() {
 			super();
@@ -154,6 +189,8 @@ public class TimeEntryTable extends JTable {
             	return t.getTimeEntryInterruptTime();
             } else if (columnIndex == 7) {
             	return t.getTimeEntryComments();
+            } else if (columnIndex == 8) {
+            	return t.getHashID();
             }
             
             return null;

@@ -59,4 +59,8 @@ public class TimeEntry {
 	public String getTimeEntryComments(){
 		return _elem.getAttribute("comments").getValue();
 	}
+
+	public String getHashID() {
+		return _elem.getAttribute("hashID").getValue();
+	}
 }

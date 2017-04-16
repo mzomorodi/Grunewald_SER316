@@ -106,7 +106,7 @@ public class TimesPanel extends JPanel{
 	 * 
 	 */
 	public void _newTimeButtonClicked(ActionEvent e){
-		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("New Time"));
+		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("New Time"), _timeEntryTable.getCurrentSelection());
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
 		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
@@ -123,7 +123,7 @@ public class TimesPanel extends JPanel{
 	 * 
 	 */
 	public void _editTimeButtonClicked(ActionEvent e){
-		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("Edit Time"));
+		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("Edit Time"), _timeEntryTable.getCurrentSelection());
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
 		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
