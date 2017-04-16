@@ -2,11 +2,15 @@ package net.sf.memoranda.ui;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.MouseInputListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
@@ -22,6 +26,9 @@ import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.TimeEntry;
 import net.sf.memoranda.TimeEntryList;
+import net.sf.memoranda.ui.DefectsTable.DefectsTableModel;
+import net.sf.memoranda.ui.DefectsTable.MouseTableListener;
+import net.sf.memoranda.ui.DefectsTable.TableListSelectionHandler;
 import net.sf.memoranda.ui.table.TableSorter;
 import net.sf.memoranda.util.Local;
 
@@ -50,15 +57,24 @@ public class TimeEntryTable extends JTable {
 		/* table properties */
 		setCellSelectionEnabled(true);
 		setRowHeight(30);
-		setAutoCreateRowSorter(true);
+		setFont(new Font("Dialog",0,11));
+		//setAutoCreateRowSorter(true);
 		
 		initTable();
-        setModel(new TimeEntryTableModel());
-      
-        setFont(new Font("Dialog",0,11));
+		_sorter = new TableSorter(new TimeEntryTableModel());
+		_sorter.addMouseListenerToHeaderInTable(this);
+		setModel(_sorter);
+        //setModel(new TimeEntryTableModel());
+		
+		_listSelectionModel = getSelectionModel();
+        _listSelectionModel.addListSelectionListener(new TableListSelectionHandler());
+        setSelectionModel(_listSelectionModel);
         
+        addMouseListener(new MouseTableListener());
+
         CurrentProject.addProjectListener(new ProjectListener() {
-			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, TimeEntryList tel) {
+			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, 
+					TimeEntryList tel) {
 				
 			}
 
@@ -208,7 +224,7 @@ public class TimeEntryTable extends JTable {
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			TimeEntry t = (TimeEntry)_times.get(rowIndex);
             if (columnIndex == 0){
-            	return t.getDate();
+            	return t.getDate().toString();
             } else if (columnIndex == 1) {
             	return t.getTimeEntryPhase();
             } else if (columnIndex == 2) {
@@ -230,4 +246,50 @@ public class TimeEntryTable extends JTable {
             return null;
 		}
 	}
+	
+	/**
+	 * MouseTableListener class is used to listen for mouse events on the table
+	 */
+	class MouseTableListener implements MouseInputListener {
+		public void mouseClicked(MouseEvent e) {
+			if (e.getButton() == MouseEvent.BUTTON1) {
+				_hasSelection = true;
+				JTable jt = (JTable) e.getSource();
+				TableModel model = jt.getModel();
+				int row = jt.getSelectedRow();
+				int numColumns = model.getColumnCount() + 1;
+				
+				for(int i = 0; i < numColumns; i++) {
+					_currentSelection[i] = (String) model.getValueAt(row, i);
+				}
+			}
+		}
+
+		public void mouseEntered(MouseEvent e) {}
+
+		public void mouseExited(MouseEvent e) {}
+
+		public void mousePressed(MouseEvent e) {}
+
+		public void mouseReleased(MouseEvent e) {}
+
+		public void mouseDragged(MouseEvent e) {}
+
+		public void mouseMoved(MouseEvent e) {}
+	}
+	
+	/**
+	 * TableListSelectionHandler class handles table elements are selection
+	 */
+	class TableListSelectionHandler implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) { 
+        	ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+        	if (lsm.isSelectionEmpty()) {
+        		_hasSelection = false;
+        	} else {
+        		_hasSelection = true;
+        		_lastSelectedRow = lsm.getMinSelectionIndex();
+        	}
+        }
+    }
 }
