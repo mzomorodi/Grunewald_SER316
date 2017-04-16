@@ -57,14 +57,21 @@ public class TaskDialog extends JDialog {
     Border border4;
 //    Border border5;
 //    Border border6;
-    JPanel jPanel2 = new JPanel(new GridLayout(4, 2));
+    JPanel jPanel2 = new JPanel(new GridLayout(5, 2));
     JTextField todoField = new JTextField();
+    
+    // Added by bhood2 US 2
+    JTextField actEffortField = new JTextField();
     
     // added by rawsushi
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     
+    // added by cmith
+    JTextField LOCField = new JTextField();
+    
+    // US 3
     JSpinner numDefectsSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
     JLabel jLabelNumDefects = new JLabel();
     JPanel jPanelNumDefects = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -78,7 +85,7 @@ public class TaskDialog extends JDialog {
         Local.getString("Highest")};
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
-    JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
     JPanel jPanel6 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JLabel jLabel6 = new JLabel();
     JButton setStartDateB = new JButton();
@@ -88,11 +95,17 @@ public class TaskDialog extends JDialog {
     JSpinner endDate;
 //    JSpinner endDate = new JSpinner(new SpinnerDateModel());
     JButton setEndDateB = new JButton();
-    //JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-    JPanel jPanel5 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanel5 = new JPanel(new FlowLayout(FlowLayout.LEFT)); // US 3
+    
+    //JPanel jPanel5 = new JPanel(new FlowLayout(FlowLayout.RIGHT));	
     JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanelLOC = new JPanel(new FlowLayout(FlowLayout.LEFT)); // US 1
+    
+    // Added by bhood2 US 2
+    JPanel jPanelActEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
     JButton setNotifB = new JButton();
     JComboBox priorityCB = new JComboBox(priority);
@@ -101,11 +114,14 @@ public class TaskDialog extends JDialog {
     JLabel jLabelEffort = new JLabel();
     JLabel jLabelDescription = new JLabel();
 	JCheckBox chkEndDate = new JCheckBox();
+	// added by csmith US 1
+	JLabel jLabelLOC = new JLabel();
+	// Added by bhood2 US 2
+	JLabel jLabelActEffort = new JLabel();
 	
 	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	JLabel jLabelProgress = new JLabel();
 	JSpinner progress = new JSpinner(new SpinnerNumberModel(0, 0, 100, 5));
-	
 	
 	//Forbid to set dates outside the bounds
 	CalendarDate startDateMin = CurrentProject.get().getStartDate();
@@ -125,8 +141,8 @@ public class TaskDialog extends JDialog {
     }
     
     void jbInit() throws Exception {
-    	this.setResizable(false);
-    	this.setSize(new Dimension(430,300));
+	this.setResizable(false);
+	this.setSize(new Dimension(430,300));
         border1 = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         border2 = BorderFactory.createEtchedBorder(Color.white, 
             new Color(142, 142, 142));
@@ -218,11 +234,26 @@ public class TaskDialog extends JDialog {
         effortField.setBorder(border8);
         effortField.setPreferredSize(new Dimension(30, 24));
         
+        // Added by csmith US 1
+        jLabelLOC.setMaximumSize(new Dimension(100, 16));
+        jLabelLOC.setMinimumSize(new Dimension(60, 16));
+        jLabelLOC.setText(Local.getString("Est LOC(lines)"));
+        LOCField.setBorder(border8);
+        LOCField.setPreferredSize(new Dimension(30, 24));
+
+        // Added by bhood2 US 2
+        jLabelActEffort.setMaximumSize(new Dimension(100, 16));
+        jLabelActEffort.setMinimumSize(new Dimension (60, 16));
+        jLabelActEffort.setText(Local.getString("Actual Hours"));
+        actEffortField.setBorder(border8);
+        actEffortField.setPreferredSize(new Dimension(30, 24));
+        
+        // US 3
         jLabelNumDefects.setText(Local.getString("Defects"));
         jLabelNumDefects.setMaximumSize(new Dimension(100, 16));
         jLabelNumDefects.setMinimumSize(new Dimension (60, 16));
         numDefectsSpinner.setBorder(border8);
-
+        
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
 		SimpleDateFormat sdf = new SimpleDateFormat();
@@ -334,7 +365,7 @@ public class TaskDialog extends JDialog {
         jLabel7.setText(Local.getString("Priority"));
 
         priorityCB.setFont(new java.awt.Font("Dialog", 0, 11));
-        jPanel4.add(jLabel7, null);
+        jPanel5.add(jLabel7, null);
         getContentPane().add(mPanel);
         mPanel.add(areaPanel, BorderLayout.CENTER);
         mPanel.add(buttonsPanel, BorderLayout.SOUTH);
@@ -360,15 +391,21 @@ public class TaskDialog extends JDialog {
         jPanel2.add(jPanelEffort, null);
         jPanelEffort.add(jLabelEffort, null);
         jPanelEffort.add(effortField, null);
+     
+        // Added by bhood2 US 2
+        jPanel2.add(jPanelActEffort, null);
+        jPanelActEffort.add(jLabelActEffort, null);
+        jPanelActEffort.add(actEffortField, null);
         
+        // US 3
         jPanelNumDefects.add(jLabelNumDefects, null);
         jPanelNumDefects.add(numDefectsSpinner, null);
-        jPanel5.add(jPanelNumDefects, null);
-
+        jPanel4.add(jPanelNumDefects, null);
+        
         jPanel2.add(jPanel4, null);
-        jPanel4.add(priorityCB, null);
+        jPanel5.add(priorityCB, null);
         jPanel2.add(jPanel5, null);
-        jPanel2.add(jPanel3, null);
+        
         
         jPanel3.add(setNotifB, null);
         
@@ -376,6 +413,13 @@ public class TaskDialog extends JDialog {
         jPanelProgress.add(jLabelProgress, null);
         jPanelProgress.add(progress, null);
         jPanel2.add(jPanelProgress);
+        
+        jPanel2.add(jPanel3, null);
+
+        // added by csmith US 1
+        jPanel2.add(jPanelLOC, null);
+        jPanelLOC.add(jLabelLOC, null);
+        jPanelLOC.add(LOCField, null);
         
         priorityCB.setSelectedItem(Local.getString("Normal"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {

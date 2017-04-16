@@ -25,7 +25,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.sf.memoranda.CurrentProject;
-import net.sf.memoranda.DefectList;
 import net.sf.memoranda.History;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
@@ -341,14 +340,13 @@ public class TaskPanel extends JPanel {
             }
         });
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {
+            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
                 newTaskB.setEnabled(
                     CurrentDate.get().inPeriod(p.getStartDate(), p.getEndDate()));
             }
             public void projectWasChanged() {
             	//taskTable.setCurrentRootTask(null); //XXX
             }
-			
         });
         taskTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
@@ -456,9 +454,11 @@ public class TaskPanel extends JPanel {
         dlg.descriptionField.setText(t.getDescription());
         dlg.startDate.getModel().setValue(t.getStartDate().getDate());
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
-        dlg.numDefectsSpinner.setValue(t.getNumDefects());
         dlg.priorityCB.setSelectedIndex(t.getPriority());                
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
+        dlg.actEffortField.setText(Util.getHoursFromMillis(t.getActEffort()));
+        dlg.numDefectsSpinner.setValue(t.getNumDefects());
+        dlg.LOCField.setText(String.valueOf(t.getLOC()));
 	if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
 		dlg.chkEndDate.setSelected(false);
 	else
@@ -479,9 +479,11 @@ public class TaskPanel extends JPanel {
         t.setEndDate(ed);
         t.setText(dlg.todoField.getText());
         t.setDescription(dlg.descriptionField.getText());
-        t.setNumDefects((Integer) dlg.numDefectsSpinner.getValue());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
+        t.setActEffort(Util.getMillisFromHours(dlg.actEffortField.getText()));
+        t.setNumDefects((Integer) dlg.numDefectsSpinner.getValue());
+        t.setLOC(Long.parseLong(dlg.LOCField.getText()));
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
 //		CurrentProject.getTaskList().adjustParentTasks(t);
@@ -512,12 +514,12 @@ public class TaskPanel extends JPanel {
  			ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
  		else
  			ed = null;
- 		int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
+        long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
+        int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
+        long locode = Long.parseLong(dlg.LOCField.getText());
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(
-				sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), 
-				effort, numDefects, dlg.descriptionField.getText(), null);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(),  dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(),null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -557,11 +559,11 @@ public class TaskPanel extends JPanel {
  			ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
  		else
  			ed = null;
- 		int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
-        Task newTask = CurrentProject.getTaskList().createTask(
-        		sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), 
-        		effort, numDefects, dlg.descriptionField.getText(),parentTaskId);
+        long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
+        int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
+        long locode = Long.parseLong(dlg.LOCField.getText());
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(),parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
@@ -588,6 +590,18 @@ public class TaskPanel extends JPanel {
         TaskList tl = CurrentProject.getTaskList();
         if(dlg.calcEffortChB.isSelected()) {
             t.setEffort(tl.calculateTotalEffortFromSubTasks(t));
+        }
+        
+        if(dlg.calcLOCChB.isSelected()) {
+        	t.setLOC(tl.calculateTotalLOCFromSubTasks(t));
+        }
+        
+        if(dlg.calcActEffortChB.isSelected()) {
+        	t.setActEffort(tl.calculateTotalActEffortFromSubTasks(t));
+        }
+        
+        if(dlg.calcDefectsChB.isSelected()) {
+        	t.setNumDefects(tl.calculateTotalDefectsFromSubTasks(t));
         }
         
         if(dlg.compactDatesChB.isSelected()) {
