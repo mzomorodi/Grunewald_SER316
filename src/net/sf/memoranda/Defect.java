@@ -69,35 +69,39 @@ public class Defect {
 		return _elem.getAttribute("desc").getValue();
 	}
 	
-	public void setTask(String s){
-		_elem.getAttribute("task").setValue(s);
+	public void setDate(String d){
+		_elem.getAttribute("date").setValue(d);
 	}
 	
-	public void setDefectType(String s){
-		_elem.getAttribute("type").setValue(s);
+	public void setTask(String t){
+		_elem.getAttribute("task").setValue(t);
 	}
 	
-	public void setID(String s){
-		_elem.getAttribute("id").setValue(s);
+	public void setDefectType(String dt){
+		_elem.getAttribute("type").setValue(dt);
 	}
 	
-	public void setInjectedPhase(String s){
-		_elem.getAttribute("inj").setValue(s);
+	public void setID(String id){
+		_elem.getAttribute("id").setValue(id);
 	}
 	
-	public void setRemovedPhase(String s){
-		_elem.getAttribute("rem").setValue(s);
+	public void setInjectedPhase(String ip){
+		_elem.getAttribute("inj").setValue(ip);
 	}
 	
-	public void setFixedTime(String s){
-		_elem.getAttribute("fix").setValue(s);
+	public void setRemovedPhase(String rp){
+		_elem.getAttribute("rem").setValue(rp);
 	}
 	
-	public void setFixRef(String s){
-		_elem.getAttribute("ref").setValue(s);
+	public void setFixedTime(String ft){
+		_elem.getAttribute("fix").setValue(ft);
 	}
 	
-	public void setDesc(String s){
-		_elem.getAttribute("desc").setValue(s);
+	public void setFixRef(String fr){
+		_elem.getAttribute("ref").setValue(fr);
+	}
+	
+	public void setDesc(String d){
+		_elem.getAttribute("desc").setValue(d);
 	}
 }
