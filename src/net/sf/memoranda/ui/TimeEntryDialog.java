@@ -175,30 +175,30 @@ public class TimeEntryDialog extends JDialog {
     		
     		phLabel.setText(Local.getString("Phase"));
     		phLabel.setMinimumSize(new Dimension(60, 16));
-    		phLabel.setPreferredSize(new Dimension(60, 16));
+    		phLabel.setPreferredSize(new Dimension(100, 16));
     		
     		startLOCLabel.setText(Local.getString("LOC at Start"));
-    		startLOCLabel.setPreferredSize(new Dimension(60, 16));
+    		startLOCLabel.setPreferredSize(new Dimension(100, 16));
     		startLOCField.setPreferredSize(new Dimension(30, 24));
     		startLOCField.setBorder(textBorder);
     		
     		endLOCLabel.setText(Local.getString("LOC at End"));
-    		endLOCLabel.setPreferredSize(new Dimension(60, 16));
+    		endLOCLabel.setPreferredSize(new Dimension(100, 16));
     		endLOCField.setPreferredSize(new Dimension(30, 24));
     		endLOCField.setBorder(textBorder);
     		
     		startTimeLabel.setText(Local.getString("Time at Start"));
-    		startTimeLabel.setPreferredSize(new Dimension(60, 16));
+    		startTimeLabel.setPreferredSize(new Dimension(100, 16));
     		startTimeField.setPreferredSize(new Dimension(30, 24));
     		startTimeField.setBorder(textBorder);
     		
     		endTimeLabel.setText(Local.getString("Time at End"));
-    		endTimeLabel.setPreferredSize(new Dimension(60, 16));
+    		endTimeLabel.setPreferredSize(new Dimension(100, 16));
     		endTimeField.setPreferredSize(new Dimension(30, 24));
     		endTimeField.setBorder(textBorder);
     		
     		intTimeLabel.setText(Local.getString("Total Interruption Time"));
-    		intTimeLabel.setPreferredSize(new Dimension(60, 16));
+    		intTimeLabel.setPreferredSize(new Dimension(100, 16));
     		intTimeField.setPreferredSize(new Dimension(30, 24));
     		intTimeField.setBorder(textBorder);
     		    		
@@ -228,6 +228,7 @@ public class TimeEntryDialog extends JDialog {
     		buttonsPanel.add(cancelB);
     				
     		centerPanel.setLayout(new GridLayout(0,2));
+    		centerPanel.setPreferredSize(new Dimension(300, 160));;
     		centerPanel.add(phLabel);
     		centerPanel.add(phChooser);
     		centerPanel.add(startLOCLabel);
@@ -242,7 +243,7 @@ public class TimeEntryDialog extends JDialog {
     		centerPanel.add(intTimeField);
     		
     		mainPanel.add(upperPanel);
-    		mainPanel.add(centerPanel);
+    		mainPanel.add(centerPanel, BorderLayout.CENTER);
     		mainPanel.add(buttonsPanel);
 
     		this.add(mainPanel);
