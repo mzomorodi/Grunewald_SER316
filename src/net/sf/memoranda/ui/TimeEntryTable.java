@@ -205,7 +205,7 @@ public class TimeEntryTable extends JTable {
 		}
 
 		public int getColumnCount() {
-			return columnNames.length;
+			return columnNames.length-1;
 		}
 		
 		public String getColumnName(int i) {
