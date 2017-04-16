@@ -21,7 +21,7 @@ public class EstimatedEffortTest {
 	@Before
 	public void setUp() throws Exception {
 		CalendarDate sd = new CalendarDate();
-		CalendarDate ed = new CalendarDate(sd.getMonth()+1, sd.getDay()+1, sd.getYear()+1);
+		CalendarDate ed = new CalendarDate(sd.getDay()+1, sd.getMonth()+1, sd.getYear()+1);
 		test1 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, "The Stuff to Get Done", null);
 		test2 = CurrentProject.getTaskList().createTask(sd, ed, "GSDN", 2, (long)4.0, (long)4.0, "The Stuff to Get Done Now", null);
 	}

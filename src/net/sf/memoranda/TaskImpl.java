@@ -104,6 +104,10 @@ public class TaskImpl implements Task, Comparable {
     	setAttr("effort", "test");
     	return getEffort();
     }
+    
+    public void remChildElement(String attr){
+    	_element.removeChild(_element.getFirstChildElement(attr));
+    }
     //***********************************************************************
     
     public long getActEffort() {

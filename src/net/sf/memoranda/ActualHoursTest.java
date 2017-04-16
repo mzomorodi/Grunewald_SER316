@@ -22,7 +22,7 @@ public class ActualHoursTest {
 	@Before
 	public void setUp() throws Exception {
 		CalendarDate sd = new CalendarDate();
-		CalendarDate ed = new CalendarDate(sd.getMonth()+1, sd.getDay()+1, sd.getYear()+1);
+		CalendarDate ed = new CalendarDate(sd.getDay()+1, sd.getMonth()+1, sd.getYear()+1);
 		newTask = CurrentProject.getTaskList().createTask(sd, ed, "Stuff", 2, (long)4.0, (long)1.5, "Things", null);
 		anotherTask = CurrentProject.getTaskList().createTask(sd, ed, "Stuff2", 2, (long)4.0, (long)4.0, "Thingies", null);
 	}

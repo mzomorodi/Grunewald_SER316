@@ -83,6 +83,7 @@ public interface Task {
     long getActEffortNullTest();
     long getEffortExcTest();
     long getEffortNullTest();
+    void remChildElement(String attr);
     //**********************************************************************
     
     void setDescription(String description);
