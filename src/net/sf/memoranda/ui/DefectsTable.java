@@ -46,7 +46,7 @@ public class DefectsTable extends JTable{
 	private String[] _currentSelection = {"","","","","","","","","",""};
 	
 	/**
-	 * Constructor for DefectFormTable.
+	 * Constructor for DefectFormTable
 	 */
 	public DefectsTable() {
 		super();
@@ -79,18 +79,37 @@ public class DefectsTable extends JTable{
         });
 	}
 	
+	/**
+	 * hasSelection returns whether the able has a selection or not
+	 * 
+	 * @return the table's selection state
+	 */
 	public boolean hasSelection() {
 		return _hasSelection;
 	}
 	
+	/**
+	 * getLastSelectedRow returns whether the last row selected in table
+	 * 
+	 * @return the table's last selected row
+	 */
 	public int getLastSelectedRow() {
 		return _lastSelectedRow;
 	}
 	
+	/**
+	 * getCurrentSelection returns the row of data selected in the table
+	 * 
+	 * @return array of strings, each string contains one cell from the selected table row
+	 */
 	public String[] getCurrentSelection() {
 		return _currentSelection;
 	}
 	
+	/**
+	 * initTable initializes the table be setting the column widths and 
+	 * populating the data object with defects from storage
+	 */
 	public void initTable() {
 		initColumnsWidth();
 		Vector<Defect> v = CurrentProject.getDefectList().getAllDefects();
@@ -101,6 +120,9 @@ public class DefectsTable extends JTable{
         }
 	}
 	
+	/**
+	 * initColumnsWidth sets the initial column widths of the table
+	 */
 	void initColumnsWidth() {
 		int columnCount = this.getModel().getColumnCount();
         for (int i = 0; i < columnCount; i++) {
@@ -115,6 +137,9 @@ public class DefectsTable extends JTable{
         }
     }
 	
+	/**
+	 * tableChanged is called for updating table UI after table data has been modified
+	 */
 	public void tableChanged() {
         initTable();
         ListSelectionModel lsm = this.getSelectionModel();
@@ -134,6 +159,9 @@ public class DefectsTable extends JTable{
 		}
     }
 	
+	/**
+	 * getCellRenderer returns the cell renderer for the table
+	 */
 	public TableCellRenderer getCellRenderer(int row, int column) {
         return new DefaultTableCellRenderer() {
 
@@ -153,6 +181,9 @@ public class DefectsTable extends JTable{
         };
     }
 	
+	/**
+	 * DefectsTableModel class represents the table's model
+	 */
 	class DefectsTableModel extends AbstractTableModel {
 		
 		String[] columnNames = {
@@ -183,6 +214,9 @@ public class DefectsTable extends JTable{
 			return _defects.size();
 		}
 
+		/** getValueAt returns the value of the cell in the given row and column indexes
+		 * @return the selected cell at the given row and column indexes
+		 */
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			Defect d = (Defect)_defects.get(rowIndex);
             if (columnIndex == 0){
@@ -211,6 +245,9 @@ public class DefectsTable extends JTable{
 		}
 	}
 	
+	/**
+	 * MouseTableListener class is used to listen for mouse events on the table
+	 */
 	class MouseTableListener implements MouseInputListener {
 		public void mouseClicked(MouseEvent e) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
@@ -239,6 +276,9 @@ public class DefectsTable extends JTable{
 		public void mouseMoved(MouseEvent e) {}
 	}
 	
+	/**
+	 * TableListSelectionHandler class handles table elements are selection
+	 */
 	class TableListSelectionHandler implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) { 
         	ListSelectionModel lsm = (ListSelectionModel)e.getSource();
