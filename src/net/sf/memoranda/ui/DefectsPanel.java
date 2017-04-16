@@ -122,7 +122,7 @@ public class DefectsPanel extends JPanel{
 	 */
 	public void _editDefectButtonClicked(ActionEvent e){
 		if (_defectsTable.hasSelection()) {
-			DefectDialog dDlg = new DefectDialog(App.getFrame(), Local.getString("Edit Defect"));
+			DefectDialog dDlg = new DefectDialog(App.getFrame(), Local.getString("Edit Defect"), _defectsTable.getCurrentSelection());
 			Dimension frmSize = App.getFrame().getSize();
 			Point loc = App.getFrame().getLocation();
 			dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
@@ -130,7 +130,9 @@ public class DefectsPanel extends JPanel{
 			if(dDlg.CANCELLED){
 				return;
 			} else {
+				int lastSelectedRow = _defectsTable.getLastSelectedRow();
 				_defectsTable.tableChanged();
+				_defectsTable.getSelectionModel().setSelectionInterval(lastSelectedRow, lastSelectedRow);
 			}
 		}
 	}

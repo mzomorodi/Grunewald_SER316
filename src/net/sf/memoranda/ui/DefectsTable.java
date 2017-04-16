@@ -41,7 +41,8 @@ public class DefectsTable extends JTable{
 	private TableSorter _sorter = null;
 	private ListSelectionModel _listSelectionModel = null;
 	private boolean _hasSelection;
-	private static String[] _currentSelection = {"","","","","","","","","",""};
+	private int _lastSelectedRow;
+	private String[] _currentSelection = {"","","","","","","","","",""};
 	
 	/**
 	 * Constructor for DefectFormTable.
@@ -62,7 +63,7 @@ public class DefectsTable extends JTable{
 		setModel(_sorter);
 		
         _listSelectionModel = getSelectionModel();
-        _listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
+        _listSelectionModel.addListSelectionListener(new TableListSelectionHandler());
         setSelectionModel(_listSelectionModel);
         
         addMouseListener(new MouseTableListener());
@@ -81,7 +82,11 @@ public class DefectsTable extends JTable{
 		return _hasSelection;
 	}
 	
-	public static String[] getCurrentSelection() {
+	public int getLastSelectedRow() {
+		return _lastSelectedRow;
+	}
+	
+	public String[] getCurrentSelection() {
 		return _currentSelection;
 	}
 	
@@ -111,9 +116,21 @@ public class DefectsTable extends JTable{
 	
 	public void tableChanged() {
         initTable();
+        ListSelectionModel lsm = this.getSelectionModel();
+        TableModel model = this.getModel();
+        int row = lsm.getMinSelectionIndex();
+        if (row < 0) {
+        	row = 0;
+        }
+		int numColumns = model.getColumnCount() + 1;
+		
         _sorter.tableChanged(null);
         initColumnsWidth();
         updateUI();
+        
+        for(int i = 0; i < numColumns; i++) {
+			_currentSelection[i] = (String) model.getValueAt(row, i);
+		}
     }
 	
 	public TableCellRenderer getCellRenderer(int row, int column) {
@@ -221,11 +238,14 @@ public class DefectsTable extends JTable{
 		public void mouseMoved(MouseEvent e) {}
 	}
 	
-	class SharedListSelectionHandler implements ListSelectionListener {
+	class TableListSelectionHandler implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) { 
         	ListSelectionModel lsm = (ListSelectionModel)e.getSource();
         	if (lsm.isSelectionEmpty()) {
         		_hasSelection = false;
+        	} else {
+        		_hasSelection = true;
+        		_lastSelectedRow = lsm.getMinSelectionIndex();
         	}
         }
     }
