@@ -126,7 +126,7 @@ public class TimeEntryDialog extends JDialog {
 		this.setResizable(false);
     	this.setSize(new Dimension(430,300));
     	
-    	if(t.equals("New Time")){
+    	//if(t.equals("New Time")){
     		dateLabel.setText(Local.getString("Date"));
     		dateLabel.setMinimumSize(new Dimension(60, 16));
     		dateLabel.setMaximumSize(new Dimension(100, 16));
@@ -284,7 +284,7 @@ public class TimeEntryDialog extends JDialog {
 
     		this.add(mainPanel);
     		this.setPreferredSize(new Dimension(400, 500));
-    	}	
+    	//}	
 	}
 	
 	void okB_actionPerformed(ActionEvent e) {
