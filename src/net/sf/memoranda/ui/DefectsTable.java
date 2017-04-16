@@ -30,6 +30,7 @@ import net.sf.memoranda.util.Local;
 public class DefectsTable extends JTable {
 	
 	private Vector<Defect> _defects = null;
+	private TableSorter _sorter = null;
 	
 	/**
 	 * Constructor for DefectsTable
@@ -40,9 +41,11 @@ public class DefectsTable extends JTable {
 		/* table properties */
 		setCellSelectionEnabled(true);
 		setRowHeight(30);
-		setAutoCreateRowSorter(true);
 		
 		initTable();
+		_sorter = new TableSorter(new DefectsTableModel());
+		_sorter.addMouseListenerToHeaderInTable(this);
+		setModel(_sorter);
         setModel(new DefectsTableModel());
         setFont(new Font("Dialog",0,11));
         
@@ -92,6 +95,7 @@ public class DefectsTable extends JTable {
 	 */
 	public void tableChanged() {
         initTable();
+        _sorter.tableChanged(null);
         initColumnsWidth();
         updateUI();
     }
