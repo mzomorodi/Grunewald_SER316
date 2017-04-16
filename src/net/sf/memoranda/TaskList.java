@@ -39,6 +39,8 @@ public interface TaskList {
     
     public long calculateTotalEffortFromSubTasks(Task t);
     public long calculateTotalLOCFromSubTasks(Task t);	// US 1
+    public long calculateTotalActEffortFromSubTasks(Task t);
+    public int calculateTotalDefectsFromSubTasks(Task t);
     public CalendarDate getLatestEndDateFromSubTasks(Task t);
     public CalendarDate getEarliestStartDateFromSubTasks(Task t);
     public long[] calculateCompletionFromSubTasks(Task t);

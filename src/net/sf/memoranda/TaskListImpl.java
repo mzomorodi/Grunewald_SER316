@@ -219,6 +219,38 @@ public class TaskListImpl implements TaskList {
         }
     }
     
+    public long calculateTotalActEffortFromSubTasks(Task t) {
+        long totalActEffort = 0;
+        if (hasSubTasks(t.getID())) {
+            Collection subTasks = getAllSubTasks(t.getID());
+            for (Iterator iter = subTasks.iterator(); iter.hasNext();) {
+            	Task e = (Task) iter.next();
+            	totalActEffort = totalActEffort + calculateTotalActEffortFromSubTasks(e);
+            }
+            t.setActEffort(totalActEffort);
+            return totalActEffort;            
+        }
+        else {
+            return t.getActEffort();
+        }
+    }
+    
+    public int calculateTotalDefectsFromSubTasks(Task t) {
+        int totalDefects = 0;
+        if (hasSubTasks(t.getID())) {
+            Collection subTasks = getAllSubTasks(t.getID());
+            for (Iterator iter = subTasks.iterator(); iter.hasNext();) {
+            	Task e = (Task) iter.next();
+            	totalDefects = totalDefects + calculateTotalDefectsFromSubTasks(e);
+            }
+            t.setNumDefects(totalDefects);
+            return totalDefects;            
+        }
+        else {
+            return t.getNumDefects();
+        }
+    }
+    
     
     /**
      * Recursively calculate total lines of code based on subtasks for every node in the task tree

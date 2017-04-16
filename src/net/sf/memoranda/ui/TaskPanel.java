@@ -596,6 +596,14 @@ public class TaskPanel extends JPanel {
         	t.setLOC(tl.calculateTotalLOCFromSubTasks(t));
         }
         
+        if(dlg.calcActEffortChB.isSelected()) {
+        	t.setActEffort(tl.calculateTotalActEffortFromSubTasks(t));
+        }
+        
+        if(dlg.calcDefectsChB.isSelected()) {
+        	t.setNumDefects(tl.calculateTotalDefectsFromSubTasks(t));
+        }
+        
         if(dlg.compactDatesChB.isSelected()) {
             t.setStartDate(tl.getEarliestStartDateFromSubTasks(t));
             t.setEndDate(tl.getLatestEndDateFromSubTasks(t));

@@ -17,16 +17,12 @@ public class test_LOC_Task {
 	
 		private static Task testTask1;
 		private static Task testTask2;
-		private static Task testTask3;
-		private static Task testTask4;
 		
 		private static Task testTaskNull;
 		private static Task testTaskNFE;
 		
 		private static String idTestTask1;
 		private static String idTestTask2;
-		private static String idTestTask3;
-		private static String idTestTask4;
 		
 		private static Element taskElementNull;
 		private static Element taskElementNFE;
@@ -47,15 +43,11 @@ public class test_LOC_Task {
 		public static void setUpBeforeClass() throws Exception {
 			startDate = new CalendarDate();
 			endDate = new CalendarDate(startDate.getMonth()+1, startDate.getDay()+1, startDate.getYear()+1);
-			testTask1 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle1", 1, 5, 100, "testDesc1", null);
-			testTask2 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle2", 2, 10, 250, "testDesc2", null);
-			testTask3 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle3", 2, 10, 500, "testDesc3", null);
-			testTask4 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle4", 2, 10, 500, "testDesc4", null);
+			testTask1 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle1", 1, 1, 1, 5, 100, "testDesc1", null);
+			testTask2 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle2", 2, 1, 1, 10, 250, "testDesc2", null);
 				
 			idTestTask1 = testTask1.getID();
 			idTestTask2 = testTask2.getID();
-			idTestTask3 = testTask3.getID();
-			idTestTask4 = testTask4.getID();			
 			
 			taskElementNull = new Element("task");
 			testTaskNull = new TaskImpl(taskElementNull, CurrentProject.getTaskList());
@@ -97,40 +89,7 @@ public class test_LOC_Task {
 		  * testRollLOC checks if subtasks roll the LOC to the main task correctly
 		  * also tests to make sure that the value is overwritten and changed appropriately
 		  */
-		 @Test
-		 public void testRollLOC() {
-			 
-	        sd = testTask3.getStartDate();
-            ed = testTask3.getEndDate();
-			 
-			Task testTask3a = CurrentProject.getTaskList().createTask(sd, ed, "testTitle3a", 
-					1, 10, 300, "testDesc3a",
-					testTask3.getID());
-			Task testTask3b = CurrentProject.getTaskList().createTask(sd, ed, "testTitle3b", 
-					2, 5, 200, "testDesc3b",
-					testTask3.getID());
-			
-			task3loc = CurrentProject.getTaskList().calculateTotalLOCFromSubTasks(testTask3);
-			
-			// Asserts that testTask3a (300) + testTask3b (200) = 500
-			assertEquals(task3loc, 500);
-			
-	        sd = testTask3.getStartDate();
-            ed = testTask3.getEndDate();
-			
-			Task testTask4a = CurrentProject.getTaskList().createTask(sd, ed, "testTitle4a", 
-					1, 10, 200, "testDesc4a",
-					testTask4.getID());
-			Task testTask4b = CurrentProject.getTaskList().createTask(sd, ed, "testTitle4b", 
-					2, 5, 100, "testDesc4b",
-					testTask4.getID());
-			
-			task4loc = CurrentProject.getTaskList().calculateTotalLOCFromSubTasks(testTask4);
-			
-			// Asserts that testTask4a (200) + testTask4b(100) do not equal 500 (original testTask4 value)
-			assertFalse(task4loc == 500);
+
 		        
 		
-		 }
-
 }
