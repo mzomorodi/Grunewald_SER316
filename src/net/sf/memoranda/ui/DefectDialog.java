@@ -33,6 +33,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -264,6 +265,9 @@ public class DefectDialog extends JDialog{
         
         buttonsPanel.add(okB);
         buttonsPanel.add(cancelB);
+        
+        upperPanel.setBorder(new EmptyBorder(0, 5, 0, 5));
+        mainPanel.setBorder(new EmptyBorder(0, 5, 0, 5));
         
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(centerPanel, BorderLayout.NORTH);
