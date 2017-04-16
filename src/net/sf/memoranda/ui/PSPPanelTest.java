@@ -13,6 +13,10 @@ import javax.swing.JFrame;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * PSPPanelTest verifies the functionality of the Defect and Time views.
+ *
+ */
 public class PSPPanelTest {
 	
 	JFrame testFrame =  new JFrame();
