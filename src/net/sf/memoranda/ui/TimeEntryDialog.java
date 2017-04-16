@@ -97,6 +97,17 @@ public class TimeEntryDialog extends JDialog {
     JLabel commentsLabel = new JLabel();
 	JTextArea commentsField = new JTextArea();
     JScrollPane commentScrollPane = new JScrollPane(commentsField);
+    
+    public TimeEntryDialog(Frame frame, String title) {
+		super(frame, title, true);
+        try {
+            jbInit(title);            
+            pack();
+        }
+        catch (Exception ex) {
+            new ExceptionDialog(ex);
+        }
+	}
 
 	public TimeEntryDialog(Frame frame, String title, String[] currentSelection) {
 		super(frame, title, true);
