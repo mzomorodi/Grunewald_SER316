@@ -130,7 +130,9 @@ public class DefectsPanel extends JPanel{
 			if(dDlg.CANCELLED){
 				return;
 			} else {
+				int lastSelectedRow = _defectsTable.getLastSelectedRow();
 				_defectsTable.tableChanged();
+				_defectsTable.getSelectionModel().setSelectionInterval(lastSelectedRow, lastSelectedRow);
 			}
 		}
 	}

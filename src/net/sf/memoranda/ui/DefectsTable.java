@@ -232,6 +232,7 @@ public class DefectsTable extends JTable{
         	if (lsm.isSelectionEmpty()) {
         		_hasSelection = false;
         	} else {
+        		_hasSelection = true;
         		_lastSelectedRow = lsm.getMinSelectionIndex();
         	}
         }
