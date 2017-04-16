@@ -119,8 +119,10 @@ public class DefectsTable extends JTable{
         ListSelectionModel lsm = this.getSelectionModel();
         TableModel model = this.getModel();
         int row = lsm.getMinSelectionIndex();
+        if (row < 0) {
+        	row = 0;
+        }
 		int numColumns = model.getColumnCount() + 1;
-		
 		
         _sorter.tableChanged(null);
         initColumnsWidth();
