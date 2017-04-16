@@ -34,6 +34,7 @@ public class DefectList {
     	_doc = doc;
         _root = _doc.getRootElement();
         _project = prj;
+        buildElements(_root);
 	}
  // default constructor for testing:
     public DefectList(){
@@ -51,6 +52,15 @@ public class DefectList {
         
         return v;
     }
+    
+    private void buildElements(Element parent) {
+		Elements els = parent.getChildElements("defect");
+		for (int i = 0; i < els.size(); i++) {
+			Element el = els.get(i);
+			_elements.put(el.getAttribute("hashID").getValue(), el);
+			buildElements(el);
+		}
+	}
     
     public Defect getDefect(String id) {
         Util.debug("Getting defect " + id);          
