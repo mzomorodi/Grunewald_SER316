@@ -45,7 +45,7 @@ public class TXTExportTest {
 
 	@Test
 	public void testTxtExport() {
-		char [] theArray = new char[50];
+		char [] theArray = new char[14];
 		try {
 			new TXTExport(txtFile, doc);
 		} catch (BadLocationException e) {
@@ -59,8 +59,7 @@ public class TXTExportTest {
 		try {
 			FileReader fReader = new FileReader(txtFile);
 			fReader.read(theArray);
-			for(char c : theArray)
-		         System.out.print(c);
+			
 			fReader.close();
 			
 			
