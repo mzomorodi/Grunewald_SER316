@@ -103,8 +103,13 @@ public class TimeEntryList {
     }
 	
 	public TimeEntry getTimeEntry(String id) {
-        Util.debug("Getting entry " + id);          
-        return new TimeEntry(getTimeEntryElement(id), this);          
+        Util.debug("Getting entry " + id);   
+        Element el = getTimeEntryElement(id);
+        if (el != null) {
+        	return new TimeEntry(getTimeEntryElement(id), this);  
+        } else {
+        	return null;
+        }     
     }
     
     private Element getTimeEntryElement(String id) {
