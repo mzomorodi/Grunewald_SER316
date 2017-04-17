@@ -29,8 +29,8 @@ public class DescriptionTest {
 	@Before
 	public void setUp() throws Exception {
 		sd = ed = new CalendarDate();
-		desTest1 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, "The Stuff to Get Done", null);
-		desTest2 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, null, null);
+		desTest1 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, "The Stuff to Get Done", null);
+		desTest2 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, null, null);
 	}
 
 	/**

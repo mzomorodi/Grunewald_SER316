@@ -133,12 +133,6 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
     
-    public void setActEffort(long actEffort) {
-    	if(actEffort > 0){
-    		setAttr("actualEffort", String.valueOf(actEffort));
-    	}
-    }
-    
     // US 2
     public void setActEffort(long actEffort) {
     	if(actEffort > 0){
