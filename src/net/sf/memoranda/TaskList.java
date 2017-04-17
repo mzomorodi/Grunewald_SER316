@@ -19,7 +19,11 @@ public interface TaskList {
 	Project getProject();
     Task getTask(String id);
 
-    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actEffort, String description, String parentTaskId);
+    // US 1 loc
+    // US 2 actEffort
+    // US 3 numDefects
+    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actEffort, int numDefects, long loc, String description, String parentTaskId);
+
 
     void removeTask(Task task);
 
@@ -35,6 +39,9 @@ public interface TaskList {
 //    public void adjustParentTasks(Task t);
     
     public long calculateTotalEffortFromSubTasks(Task t);
+    public long calculateTotalLOCFromSubTasks(Task t);	// US 1
+    public long calculateTotalActEffortFromSubTasks(Task t);
+    public int calculateTotalDefectsFromSubTasks(Task t);
     public CalendarDate getLatestEndDateFromSubTasks(Task t);
     public CalendarDate getEarliestStartDateFromSubTasks(Task t);
     public long[] calculateCompletionFromSubTasks(Task t);

@@ -83,6 +83,8 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
     
+
+    // US 2
     // Added this section for 100% coverage of unit tests.
     //**********************************************************************
     public long getActEffortNullTest(){
@@ -136,7 +138,54 @@ public class TaskImpl implements Task, Comparable {
     		setAttr("actualEffort", String.valueOf(actEffort));
     	}
     }
+    
+    // US 2
+    public void setActEffort(long actEffort) {
+    	if(actEffort > 0){
+    		setAttr("actualEffort", String.valueOf(actEffort));
+    	}
+    }
 	
+    // US 1
+    public long getLOC() {
+    	Attribute attr = _element.getAttribute("loc");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Long.parseLong(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+    // US 1
+    public void setLOC(long loc) {
+        setAttr("loc", String.valueOf(loc));
+    }
+    
+    // US 3
+	public int getNumDefects() {
+		Attribute attr = _element.getAttribute("numDefects");
+		if (attr == null) {
+			return 0;
+		} else {
+			try {
+				return Integer.parseInt(attr.getValue());
+			} catch (NumberFormatException e) {
+				return 0;
+			}
+		}
+	}
+	
+	// US 3
+	public void setNumDefects(int numDefects) {
+		setAttr("numDefects", Integer.toString(numDefects));
+	}
+    
 	/* 
 	 * @see net.sf.memoranda.Task#getParentTask()
 	 */
