@@ -17,7 +17,6 @@ import nu.xom.Document;
 public class TimeEntryListTest {
 	private static String JN_DOCPATH;
 	private static String fn;
-	//private static FileStorage fs;
 	private static Document timeEntryListDoc;
 	
 	TimeEntryList tel1;
@@ -36,7 +35,6 @@ public class TimeEntryListTest {
 	public static void setUpBeforeClass() throws Exception {
 		JN_DOCPATH = Util.getEnvDir();
 		fn = JN_DOCPATH + CurrentProject.get().getID() + File.separator + ".timeslist";
-		//fs = (FileStorage)CurrentStorage.get();
 	    timeEntryListDoc = FileStorage.openDocument(fn);
 	}
 	
