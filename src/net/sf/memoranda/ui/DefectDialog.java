@@ -206,7 +206,7 @@ public class DefectDialog extends JDialog{
         injectedLabel.setText(Local.getString("Injected"));
         injectedLabel.setMinimumSize(new Dimension(60, 16));
         injectedLabel.setPreferredSize(new Dimension(60, 16));
-        removedLabel.setText(Local.getString("Injected"));
+        removedLabel.setText(Local.getString("Removed"));
         removedLabel.setMinimumSize(new Dimension(60, 16));
         removedLabel.setPreferredSize(new Dimension(60, 16));
         injectedChooser.setBorder(textBorder);
