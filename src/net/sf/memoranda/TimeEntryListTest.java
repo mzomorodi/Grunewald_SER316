@@ -66,8 +66,6 @@ public class TimeEntryListTest {
 		v = tel2.getAllTimeEntries();
 		testTimeEntry = (TimeEntry)v.get(0);
 		assertTrue(tel2.getTimeEntry(testTimeEntry.getHashID()) != null);
-		testTimeEntry = (TimeEntry)v.get(1);
-		//assertTrue(tel2.getTimeEntry(testTimeEntry.getHashID()) != null);
 	}
 	
 	@Test
