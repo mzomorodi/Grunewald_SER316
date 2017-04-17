@@ -168,19 +168,19 @@ public class TaskImpl implements Task, Comparable {
     }
     
     // US 3
-	public int getNumDefects() {
-		Attribute attr = _element.getAttribute("numDefects");
-		if (attr == null) {
-			return 0;
-		} else {
-			try {
-				return Integer.parseInt(attr.getValue());
-			} catch (NumberFormatException e) {
-				return 0;
-			}
-		}
-	}
-	
+	  public int getNumDefects() {
+		  Attribute attr = _element.getAttribute("numDefects");
+		  if (attr == null) {
+			  return 0;
+		  } else {
+			  try {
+				  return Integer.parseInt(attr.getValue());
+			  } catch (NumberFormatException e) {
+				  return 0;
+			  }
+		  }
+	  }
+
 	// US 3
 	public void setNumDefects(int numDefects) {
 		setAttr("numDefects", Integer.toString(numDefects));

@@ -46,7 +46,7 @@ public class DefectsTable extends JTable{
 	private String[] _currentSelection = {"","","","","","","","","",""};
 	
 	/**
-	 * Constructor for DefectFormTable
+   * Constructor for DefectsTable
 	 */
 	public DefectsTable() {
 		super();
@@ -62,6 +62,7 @@ public class DefectsTable extends JTable{
 		_sorter = new TableSorter(new DefectsTableModel());
 		_sorter.addMouseListenerToHeaderInTable(this);
 		setModel(_sorter);
+
 		
         _listSelectionModel = getSelectionModel();
         _listSelectionModel.addListSelectionListener(new TableListSelectionHandler());
@@ -70,7 +71,8 @@ public class DefectsTable extends JTable{
         addMouseListener(new MouseTableListener());
       
         CurrentProject.addProjectListener(new ProjectListener() {
-        	public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
+
+          public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
 					TimeEntryList tel) {}
 
 			public void projectWasChanged() {

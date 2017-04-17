@@ -252,7 +252,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 				curProjectTitle.setText(CurrentProject.get().getTitle());
 				prjTablePanel.updateUI();
 			}
-		
 		});
 		CurrentDate.addDateListener(new DateListener() {
 			public void dateChange(CalendarDate d) {

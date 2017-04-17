@@ -25,7 +25,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.sf.memoranda.CurrentProject;
-import net.sf.memoranda.DefectList;
 import net.sf.memoranda.History;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
@@ -349,7 +348,6 @@ public class TaskPanel extends JPanel {
             public void projectWasChanged() {
             	//taskTable.setCurrentRootTask(null); //XXX
             }
-			
         });
         taskTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {

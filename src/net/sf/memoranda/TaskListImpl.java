@@ -103,7 +103,6 @@ public class TaskListImpl implements TaskList {
         return filterActiveTasks(allTasks,date);
     }
 
-
     public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actEffort, int numDefects, long loc, String description, String parentTaskId) {
         Element el = new Element("task");
         el.addAttribute(new Attribute("startDate", startDate.toString()));

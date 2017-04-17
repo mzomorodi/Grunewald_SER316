@@ -627,6 +627,7 @@ public class AppFrame extends JFrame {
 
         CurrentProject.addProjectListener(new ProjectListener() {
 
+
             public void projectWasChanged() {
                 setTitle("Memoranda - " + CurrentProject.get().getTitle());
             }
@@ -636,6 +637,7 @@ public class AppFrame extends JFrame {
 				// TODO Auto-generated method stub
 				
 			}
+
         });
 
     }
