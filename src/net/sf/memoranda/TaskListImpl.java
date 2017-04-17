@@ -103,7 +103,7 @@ public class TaskListImpl implements TaskList {
         return filterActiveTasks(allTasks,date);
     }
 
-    public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, String description, String parentTaskId) {
+    public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actEffort, int numDefects, long loc, String description, String parentTaskId) {
         Element el = new Element("task");
         el.addAttribute(new Attribute("startDate", startDate.toString()));
         el.addAttribute(new Attribute("endDate", endDate != null? endDate.toString():""));
@@ -111,6 +111,9 @@ public class TaskListImpl implements TaskList {
         el.addAttribute(new Attribute("id", id));
         el.addAttribute(new Attribute("progress", "0"));
         el.addAttribute(new Attribute("effort", String.valueOf(effort)));
+        el.addAttribute(new Attribute("actualEffort", String.valueOf(actEffort)));
+        el.addAttribute(new Attribute("numDefects", String.valueOf(numDefects)));
+        el.addAttribute(new Attribute("loc", String.valueOf(loc)));
         el.addAttribute(new Attribute("priority", String.valueOf(priority)));
                 
         Element txt = new Element("text");
@@ -215,6 +218,64 @@ public class TaskListImpl implements TaskList {
             return t.getEffort();
         }
     }
+    
+    public long calculateTotalActEffortFromSubTasks(Task t) {
+        long totalActEffort = 0;
+        if (hasSubTasks(t.getID())) {
+            Collection subTasks = getAllSubTasks(t.getID());
+            for (Iterator iter = subTasks.iterator(); iter.hasNext();) {
+            	Task e = (Task) iter.next();
+            	totalActEffort = totalActEffort + calculateTotalActEffortFromSubTasks(e);
+            }
+            t.setActEffort(totalActEffort);
+            return totalActEffort;            
+        }
+        else {
+            return t.getActEffort();
+        }
+    }
+    
+    public int calculateTotalDefectsFromSubTasks(Task t) {
+        int totalDefects = 0;
+        if (hasSubTasks(t.getID())) {
+            Collection subTasks = getAllSubTasks(t.getID());
+            for (Iterator iter = subTasks.iterator(); iter.hasNext();) {
+            	Task e = (Task) iter.next();
+            	totalDefects = totalDefects + calculateTotalDefectsFromSubTasks(e);
+            }
+            t.setNumDefects(totalDefects);
+            return totalDefects;            
+        }
+        else {
+            return t.getNumDefects();
+        }
+    }
+    
+    
+    /**
+     * Recursively calculate total lines of code based on subtasks for every node in the task tree
+     * The values are saved as they are calculated as well
+     * 
+     * @param t
+     * @return
+     */
+    public long calculateTotalLOCFromSubTasks(Task t) {
+        long totalLOC = 0;
+        if (hasSubTasks(t.getID())) {
+            Collection subTasks = getAllSubTasks(t.getID());
+            for (Iterator iter = subTasks.iterator(); iter.hasNext();) {
+            	Task e = (Task) iter.next();
+            	totalLOC = totalLOC + calculateTotalLOCFromSubTasks(e);
+            }
+            t.setLOC(totalLOC);
+            return totalLOC;            
+        }
+        else {
+            return t.getLOC();
+        }
+    }
+    
+    
 
     /**
      * Looks through the entire sub task tree and corrects any inconsistencies in start dates
