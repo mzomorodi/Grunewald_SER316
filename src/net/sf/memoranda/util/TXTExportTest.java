@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
+import javax.swing.text.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,8 +19,9 @@ import org.junit.Test;
 public class TXTExportTest {
 
 		private static File txtFile = null;
-		private static Document doc = null;
+		private static Document doc = new PlainDocument();
 		private static String thisString = "This is a test";
+		
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		txtFile = File.createTempFile("txtfile", ".txt");
