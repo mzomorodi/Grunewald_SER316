@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.DefectList;
 import net.sf.memoranda.CurrentNote;
 import net.sf.memoranda.NoteListener;
 import net.sf.memoranda.EventNotificationListener;
@@ -39,6 +40,7 @@ import net.sf.memoranda.ProjectListener;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.Task;
 import net.sf.memoranda.TaskList;
+import net.sf.memoranda.TimeEntryList;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.date.DateListener;
@@ -249,11 +251,11 @@ public class DailyItemsPanel extends JPanel {
         });
 
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, TimeEntryList tel) {
 //            	Util.debug("DailyItemsPanel Project Listener: Project is going to be changed!");				
 //            	Util.debug("current project is " + CurrentProject.get().getTitle());
 
-            	currentProjectChanged(p, nl, tl, rl);
+            	currentProjectChanged(p, nl, tl, rl, dl, tel);
             }
             public void projectWasChanged() {
 //            	Util.debug("DailyItemsPanel Project Listener: Project has been changed!");            	
@@ -273,6 +275,7 @@ public class DailyItemsPanel extends JPanel {
 //                }
 //                // DEBUG
             }
+			
         });
 
         CurrentNote.addNoteListener(new NoteListener() {
@@ -387,7 +390,7 @@ public class DailyItemsPanel extends JPanel {
 		editorPanel.editor.requestFocus();		
 	}
 	
-    void currentProjectChanged(Project newprj, NoteList nl, TaskList tl, ResourcesList rl) {
+    void currentProjectChanged(Project newprj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, TimeEntryList tel) {
 //		Util.debug("currentProjectChanged");
 
         Cursor cur = App.getFrame().getCursor();
@@ -493,12 +496,16 @@ public class DailyItemsPanel extends JPanel {
         }
         boolean isAg = pan.equals("AGENDA");
         agendaPanel.setActive(isAg);
-        if (isAg)
+        if (isAg){
         	agendaPanel.refresh(CurrentDate.get());
+        }
+        
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
 		calendar.jnCalendar.updateUI();
 		CurrentPanel=pan;
+		
+		
     }
 
 	public String getCurrentPanel() {
