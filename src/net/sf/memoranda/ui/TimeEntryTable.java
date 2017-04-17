@@ -226,19 +226,19 @@ public class TimeEntryTable extends JTable {
             } else if (columnIndex == 1) {
             	return t.getDate().toString();
             } else if (columnIndex == 2) {
-            	return t.getTimeEntryPhase();
+            	return t.getPhase();
             } else if (columnIndex == 3) {
-            	return t.getTimeEntryLocStart();
+            	return t.getLocStart();
             } else if (columnIndex == 4) {
-            	return t.getTimeEntryLocEnd();
+            	return t.getLocEnd();
             } else if (columnIndex == 5) {
-            	return t.getTimeEntryStartTime();
+            	return t.getStartTime();
             } else if (columnIndex == 6) {
-            	return t.getTimeEntryStopTime();
+            	return t.getStopTime();
             } else if (columnIndex == 7) {
-            	return t.getTimeEntryInterruptTime();
+            	return t.getInterruptTime();
             } else if (columnIndex == 8) {
-            	return t.getTimeEntryComments();
+            	return t.getComments();
             } else if (columnIndex == 9) {
             	return t.getHashID();
             }

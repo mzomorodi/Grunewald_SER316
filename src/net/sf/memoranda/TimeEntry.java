@@ -58,31 +58,31 @@ public class TimeEntry {
 		return _elem.getAttribute("hashID").getValue();
 	}
 	
-	public String getTimeEntryLocStart(){
+	public String getLocStart(){
 		return _elem.getAttribute("locStart").getValue();
 	}
 	
-	public String getTimeEntryLocEnd(){
+	public String getLocEnd(){
 		return _elem.getAttribute("locEnd").getValue();
 	}
 	
-	public String getTimeEntryStartTime(){
+	public String getStartTime(){
 		return _elem.getAttribute("start").getValue();
 	}
 	
-	public String getTimeEntryStopTime(){
+	public String getStopTime(){
 		return _elem.getAttribute("stop").getValue();
 	}
 	
-	public String getTimeEntryInterruptTime(){
+	public String getInterruptTime(){
 		return _elem.getAttribute("interrupt").getValue();
 	}
 	
-	public String getTimeEntryPhase(){
+	public String getPhase(){
 		return _elem.getAttribute("phase").getValue();
 	}
 	
-	public String getTimeEntryComments(){
+	public String getComments(){
 		return _elem.getAttribute("comments").getValue();
 	}
 
