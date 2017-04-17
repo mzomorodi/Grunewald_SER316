@@ -26,6 +26,10 @@ public class HistoryItem {
         _project = project;
     }
     
+    public HistoryItem(CalendarDate date){
+    	_date = date;
+    }
+    
     public HistoryItem(Note note) {
         _date = note.getDate();
         _project = note.getProject();
