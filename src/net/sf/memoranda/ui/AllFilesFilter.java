@@ -32,6 +32,9 @@ public class AllFilesFilter extends FileFilter {
     public static final String JAR = "JAR";
     public static final String ICO = "ICO";
     public static final String WAV = "WAV";
+    public static final String TXT = "TXT";
+    public static final String TEXT = "TEXT";
+
 
     String _type = "";
     /**
@@ -61,8 +64,12 @@ public class AllFilesFilter extends FileFilter {
             return (ext.equals("wav") || ext.equals("au"));
         else if (_type.equals(XHTML))
             return (ext.equals("xhtml") || ext.equals("xml"));
+        else if (_type.equals(TEXT))
+            return (ext.equals("htm") || ext.equals("html") || ext.equals("txt"));
         else if (_type.equals(ICO))
             return (ext.equals("ico") || ext.equals("png"));
+        else if (_type.equals(TXT))
+            return (ext.equals("txt"));
         return ext.startsWith("htm");
     }
 
@@ -82,8 +89,12 @@ public class AllFilesFilter extends FileFilter {
             return Local.getString("Sound files") + " (*.wav, *.au)";
         else if (_type.equals(XHTML))
             return "XHTML files (*.xhtml, *.xml)";
+        else if (_type.equals(TEXT))
+            return "Text files (*.htm, *.html, *.txt)";
         else if (_type.equals(ICO))
             return Local.getString("Icon") + " " + Local.getString("Files") + " (*.ico, *.png)";
+        else if (_type.equals(TXT))
+            return "TXT files (*.txt)";
         return "HTML files (*.html, *.htm)";
     }
 

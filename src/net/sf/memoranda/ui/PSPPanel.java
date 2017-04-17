@@ -25,14 +25,13 @@ import net.sf.memoranda.util.Local;
 public class PSPPanel extends JPanel{
 	
 	JPanel formPanel = new JPanel();
-	FormPanel defectsPanel = new FormPanel();
-	FormPanel timesPanel = new FormPanel();
+	DefectsPanel defectsPanel = new DefectsPanel();
+	TimesPanel timesPanel = new TimesPanel();
 	JToolBar newFormToolBar = new JToolBar();
 	JButton defectB = new JButton();
 	JButton timeB = new JButton();
 	CardLayout cardLayout1 = new CardLayout();
 	BorderLayout borderLayout1 = new BorderLayout();
-	private DefectsTable _defectsTable = new DefectsTable();
 
 	/**
 	 * Constructor- used to configure panel
@@ -54,7 +53,7 @@ public class PSPPanel extends JPanel{
 	void jbInit() throws Exception {
 		
 		defectB.setIcon(
-	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_time.png")));
+	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_defect.png")));
         defectB.setEnabled(true);
         defectB.setMaximumSize(new Dimension(120, 30));
         defectB.setMinimumSize(new Dimension(26, 32));
@@ -71,13 +70,13 @@ public class PSPPanel extends JPanel{
         defectB.setBorderPainted(false);
         
         timeB.setIcon(
-	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_defect.png")));
+	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_time.png")));
         timeB.setEnabled(true);
-        timeB.setMaximumSize(new Dimension(90, 30));
+        timeB.setMaximumSize(new Dimension(120, 30));
         timeB.setMinimumSize(new Dimension(26, 32));
         timeB.setToolTipText(Local.getString("Open Time View"));
         timeB.setRequestFocusEnabled(false);
-        timeB.setPreferredSize(new Dimension(90, 30));
+        timeB.setPreferredSize(new Dimension(120, 30));
         timeB.setFocusable(false);
         timeB.setText("Time Log");
         timeB.addActionListener(new java.awt.event.ActionListener() {
@@ -95,10 +94,6 @@ public class PSPPanel extends JPanel{
 		
 		this.setLayout(borderLayout1);
 		
-		_defectsTable.setMaximumSize(new Dimension(32767, 32767));
-        _defectsTable.setRowHeight(24);
-        defectsPanel.add(_defectsTable);
-		
 		formPanel.setLayout(cardLayout1);
 		formPanel.add(defectsPanel, "DEFECTS");
 		formPanel.add(timesPanel, "TIMES");
@@ -115,16 +110,6 @@ public class PSPPanel extends JPanel{
 	 */
 	public void defectB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(formPanel, "DEFECTS");
-		DefectFormDialog dDlg = new DefectFormDialog(App.getFrame(), Local.getString("New Defect"));
-		Dimension frmSize = App.getFrame().getSize();
-		Point loc = App.getFrame().getLocation();
-		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
-		dDlg.setVisible(true);
-		if(dDlg.CANCELLED){
-			return;
-		} else {
-			//_defectsTable.tableChanged();
-		}
 	}
 	
 	/**

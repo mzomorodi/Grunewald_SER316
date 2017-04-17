@@ -14,6 +14,7 @@ import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
+import net.sf.memoranda.TimeEntryList;
 /**
  * 
  */
@@ -25,6 +26,9 @@ public interface Storage {
     
     DefectList openDefectList(Project prj);
     void storeDefectList(DefectList dl, Project prj);
+    
+    TimeEntryList openTimeEntryList(Project prj);
+    void storeTimeEntryList(TimeEntryList tel, Project prj);
     
     NoteList openNoteList(Project prj);
     void storeNoteList(NoteList nl, Project prj);

@@ -13,7 +13,7 @@ import org.junit.Test;
 import javax.swing.JFrame;
 
 /**
- * WorkPanelTest verifies the functionality the the 
+ * WorkPanelTest verifies the functionality of the PSP button.
  *
  */
 public class WorkPanelTest {
@@ -27,6 +27,8 @@ public class WorkPanelTest {
 	@Before
 	public void setUp() throws Exception {
 		testFrame.add(testPanel);
+		testFrame.pack();
+		testFrame.setVisible(true);
 	}
 
 	/**
@@ -34,8 +36,6 @@ public class WorkPanelTest {
 	 */
 	@Test
 	public void testPspB_actionPerformed() {
-		testFrame.pack();
-		testFrame.setVisible(true);
 		testPanel.pspB_actionPerformed(null);
 		assertTrue(testPanel.dailyItemsPanel.getCurrentPanel() == "PSP");
 	}

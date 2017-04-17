@@ -32,6 +32,7 @@ import net.sf.memoranda.Project;
 import net.sf.memoranda.ProjectListener;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
+import net.sf.memoranda.TimeEntryList;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
@@ -215,10 +216,11 @@ public class JNCalendarPanel extends JPanel {
       }
     });
     CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl) {}
+            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, TimeEntryList tel) {}
             public void projectWasChanged() {
                 jnCalendar.updateUI();
             }
+			
         });
 
 

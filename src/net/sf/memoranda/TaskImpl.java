@@ -82,28 +82,110 @@ public class TaskImpl implements Task, Comparable {
     		}
     	}
     }
+    
 
-    public void setEffort(long effort) {
-        setAttr("effort", String.valueOf(effort));
+    // US 2
+    // Added this section for 100% coverage of unit tests.
+    //**********************************************************************
+    public long getActEffortNullTest(){
+    	_element.removeAttribute(_element.getAttribute("actualEffort"));
+    	return getActEffort();
     }
     
-	public int getNumDefects() {
-		Attribute attr = _element.getAttribute("numDefects");
-		if (attr == null) {
-			return 0;
-		} else {
-			try {
-				return Integer.parseInt(attr.getValue());
-			} catch (NumberFormatException e) {
-				return 0;
-			}
-		}
-	}
+    public long getActEffortExcTest(){
+    	setAttr("actualEffort", "test");
+    	return getActEffort();
+    }
+    
+    public long getEffortNullTest(){
+    	_element.removeAttribute(_element.getAttribute("effort"));
+    	return getEffort();
+    }
+    
+    public long getEffortExcTest(){
+    	setAttr("effort", "test");
+    	return getEffort();
+    }
+    
+    public void remChildElement(String attr){
+    	_element.removeChild(_element.getFirstChildElement(attr));
+    }
+    //***********************************************************************
+    
+    public long getActEffort() {
+    	Attribute attr = _element.getAttribute("actualEffort");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Long.parseLong(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+    public void setEffort(long effort) {
+    	if (effort > 0){
+    		setAttr("effort", String.valueOf(effort));
+    	}
+    }
+    
+    public void setActEffort(long actEffort) {
+    	if(actEffort > 0){
+    		setAttr("actualEffort", String.valueOf(actEffort));
+    	}
+    }
+    
+    // US 2
+    public void setActEffort(long actEffort) {
+    	if(actEffort > 0){
+    		setAttr("actualEffort", String.valueOf(actEffort));
+    	}
+    }
 	
+    // US 1
+    public long getLOC() {
+    	Attribute attr = _element.getAttribute("loc");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Long.parseLong(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+    // US 1
+    public void setLOC(long loc) {
+        setAttr("loc", String.valueOf(loc));
+    }
+    
+    // US 3
+	  public int getNumDefects() {
+		  Attribute attr = _element.getAttribute("numDefects");
+		  if (attr == null) {
+			  return 0;
+		  } else {
+			  try {
+				  return Integer.parseInt(attr.getValue());
+			  } catch (NumberFormatException e) {
+				  return 0;
+			  }
+		  }
+	  }
+
+	// US 3
 	public void setNumDefects(int numDefects) {
 		setAttr("numDefects", Integer.toString(numDefects));
 	}
-	
+    
 	/* 
 	 * @see net.sf.memoranda.Task#getParentTask()
 	 */

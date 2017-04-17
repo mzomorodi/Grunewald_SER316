@@ -18,13 +18,13 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import net.sf.memoranda.CurrentProject;
-import net.sf.memoranda.Defect;
 import net.sf.memoranda.DefectList;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.ProjectListener;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
+import net.sf.memoranda.TimeEntry;
 import net.sf.memoranda.TimeEntryList;
 import net.sf.memoranda.ui.table.TableSorter;
 import net.sf.memoranda.util.Local;
@@ -32,13 +32,13 @@ import net.sf.memoranda.util.Local;
 /**
  * @author Matthew Seiler
  * 
- * Description: A class for presenting a list of defects in a table.
+ * Description: A class for presenting a list of time entries in a table.
  *
  */
-public class DefectsTable extends JTable{
+public class TimeEntryTable extends JTable {
 	
 	static int ID_COL = 9;
-	private Vector<Defect> _defects = null;
+	private Vector<TimeEntry> _times = null;
 	private TableSorter _sorter = null;
 	private ListSelectionModel _listSelectionModel = null;
 	private boolean _hasSelection;
@@ -46,38 +46,38 @@ public class DefectsTable extends JTable{
 	private String[] _currentSelection = {"","","","","","","","","",""};
 	
 	/**
-   * Constructor for DefectsTable
+	 * Constructor for TimeEntryTable.
 	 */
-	public DefectsTable() {
+	public TimeEntryTable() {
 		super();
 		
-		_hasSelection = false;
-
 		/* table properties */
 		setCellSelectionEnabled(true);
 		setRowHeight(30);
 		setFont(new Font("Dialog",0,11));
+		//setAutoCreateRowSorter(true);
 		
 		initTable();
-		_sorter = new TableSorter(new DefectsTableModel());
+		_sorter = new TableSorter(new TimeEntryTableModel());
 		_sorter.addMouseListenerToHeaderInTable(this);
 		setModel(_sorter);
-
+        //setModel(new TimeEntryTableModel());
 		
-        _listSelectionModel = getSelectionModel();
+		_listSelectionModel = getSelectionModel();
         _listSelectionModel.addListSelectionListener(new TableListSelectionHandler());
         setSelectionModel(_listSelectionModel);
         
         addMouseListener(new MouseTableListener());
-      
-        CurrentProject.addProjectListener(new ProjectListener() {
 
-          public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
-					TimeEntryList tel) {}
+        CurrentProject.addProjectListener(new ProjectListener() {
+			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, 
+					TimeEntryList tel) {
+				
+			}
 
 			public void projectWasChanged() {
 				tableChanged();
-			}			
+			}
         });
 	}
 	
@@ -114,11 +114,11 @@ public class DefectsTable extends JTable{
 	 */
 	public void initTable() {
 		initColumnsWidth();
-		Vector<Defect> v = CurrentProject.getDefectList().getAllDefects();
-        _defects = new Vector<Defect>();
+		Vector<TimeEntry> v = CurrentProject.getTimeEntryList().getAllTimeEntries();
+        _times = new Vector<TimeEntry>();
         for (int i = 0; i < v.size(); i++) {
-            Defect d = (Defect)v.get(i);
-            _defects.add(d);
+            TimeEntry t = (TimeEntry)v.get(i);
+            _times.add(t);
         }
 	}
 	
@@ -184,23 +184,23 @@ public class DefectsTable extends JTable{
     }
 	
 	/**
-	 * DefectsTableModel class represents the table's model
+	 * TimeEntryTableModel class represents the table's model
 	 */
-	class DefectsTableModel extends AbstractTableModel {
+	class TimeEntryTableModel extends AbstractTableModel {
 		
 		String[] columnNames = {
-                Local.getString("ID"),
-                Local.getString("Type"),
+				Local.getString("ID"),
                 Local.getString("Date"),
-                Local.getString("Task"),
-                Local.getString("Injected"),
-                Local.getString("Removed"),
-                Local.getString("Fix Time"),
-                Local.getString("Fix Ref"),
-                Local.getString("Description"),
+                Local.getString("Phase"),
+                Local.getString("LOC Start"),
+                Local.getString("LOC End"),
+                Local.getString("Start Time"),
+                Local.getString("Stop Time"),
+                Local.getString("Interrupt Time"),
+                Local.getString("Comments"),
                 "Hash ID"};
 		
-		public DefectsTableModel() {
+		public TimeEntryTableModel() {
 			super();
 		}
 
@@ -213,34 +213,34 @@ public class DefectsTable extends JTable{
         }
 
 		public int getRowCount() {
-			return _defects.size();
+			return _times.size();
 		}
 
 		/** getValueAt returns the value of the cell in the given row and column indexes
 		 * @return the selected cell at the given row and column indexes
 		 */
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			Defect d = (Defect)_defects.get(rowIndex);
+			TimeEntry t = (TimeEntry)_times.get(rowIndex);
             if (columnIndex == 0){
-            	return d.getID();
+            	return t.getID();
             } else if (columnIndex == 1) {
-            	return d.getDefectType();
+            	return t.getDate().toString();
             } else if (columnIndex == 2) {
-            	return d.getDate().toString();
+            	return t.getPhase();
             } else if (columnIndex == 3) {
-            	return d.getTask();
+            	return t.getLocStart();
             } else if (columnIndex == 4) {
-            	return d.getInjectedPhase();
+            	return t.getLocEnd();
             } else if (columnIndex == 5) {
-            	return d.getRemovedPhase();
+            	return t.getStartTime();
             } else if (columnIndex == 6) {
-            	return d.getFixedTime();
+            	return t.getStopTime();
             } else if (columnIndex == 7) {
-            	return d.getFixRef();
+            	return t.getInterruptTime();
             } else if (columnIndex == 8) {
-            	return d.getDesc();
+            	return t.getComments();
             } else if (columnIndex == 9) {
-            	return d.getHashId();
+            	return t.getHashID();
             }
             
             return null;
@@ -293,3 +293,4 @@ public class DefectsTable extends JTable{
         }
     }
 }
+

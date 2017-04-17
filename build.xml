@@ -191,6 +191,7 @@
 	<target name="unittest" depends="compile">
 		<junit haltonfailure="true" printsummary="true">
 			<test name="${source.dir}/net/sf/memoranda/ui/WorkPanelTest"/>
+			<test name="${source.dir}/net/sf/memorand/ui/PSPPanelTest" />
 		</junit>
 	</target>
 </project>
