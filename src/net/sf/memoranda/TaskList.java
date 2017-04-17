@@ -24,6 +24,7 @@ public interface TaskList {
     // US 3 numDefects
     Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actEffort, int numDefects, long loc, String description, String parentTaskId);
 
+
     void removeTask(Task task);
 
     public boolean hasSubTasks(String id);

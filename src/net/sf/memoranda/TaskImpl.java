@@ -83,6 +83,7 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
     
+
     // US 2
     // Added this section for 100% coverage of unit tests.
     //**********************************************************************
@@ -105,6 +106,10 @@ public class TaskImpl implements Task, Comparable {
     	setAttr("effort", "test");
     	return getEffort();
     }
+    
+    public void remChildElement(String attr){
+    	_element.removeChild(_element.getFirstChildElement(attr));
+    }
     //***********************************************************************
     
     public long getActEffort() {
@@ -123,7 +128,15 @@ public class TaskImpl implements Task, Comparable {
     }
 
     public void setEffort(long effort) {
-        setAttr("effort", String.valueOf(effort));
+    	if (effort > 0){
+    		setAttr("effort", String.valueOf(effort));
+    	}
+    }
+    
+    public void setActEffort(long actEffort) {
+    	if(actEffort > 0){
+    		setAttr("actualEffort", String.valueOf(actEffort));
+    	}
     }
     
     // US 2

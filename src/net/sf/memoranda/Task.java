@@ -82,12 +82,14 @@ public interface Task {
     // US 2
     void setActEffort(long actEffort);
     long getActEffort();
+  
     // Added this section for 100% coverage of unit tests.
     //**********************************************************************
     long getActEffortExcTest();
     long getActEffortNullTest();
     long getEffortExcTest();
     long getEffortNullTest();
+    void remChildElement(String attr);
     //**********************************************************************
 
     // US 3
