@@ -1,0 +1,10 @@
+language: java
+jdk: oraclejdk8
+
+script:
+  - ant compile
+  - ant findbugs
+  - ant checkstyle
+  
+notifications:
+  slack: grunewald-ser316:aaNQkwAkYQcmbjcEUc2fN4Ly
