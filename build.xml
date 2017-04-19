@@ -35,8 +35,9 @@
         classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
         classpath="${lib.dir}/findbugs-ant.jar"/>
         
-    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-anttask.properties"
-             classpath="${lib.dir}/checkstyle-7.6.1-all.jar"/>
+    <taskdef name="checkstyle"
+        resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-anttask.properties"
+        classpath="${lib.dir}/checkstyle-7.6.1-all.jar"/>
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -232,7 +233,7 @@
                 <path refid="classpath"/>
             </classpath>
             <formatter type="xml"
-                       tofile="${tests.checkstyle.dir}/checkstyleReport.xml"/>
+                    tofile="${tests.checkstyle.dir}/checkstyleReport.xml"/>
             <fileset dir="${source.dir}" includes="**/*.java"/>
         </checkstyle>
     </target>
