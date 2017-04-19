@@ -232,7 +232,7 @@
                 <path refid="classpath"/>
             </classpath>
             <formatter type="xml"
-                       tofile="${tests.checkstyle.dir}/checkstyleReport.xml"/>
+                    tofile="${tests.checkstyle.dir}/checkstyleReport.xml"/>
             <fileset dir="${source.dir}" includes="**/*.java"/>
         </checkstyle>
     </target>
