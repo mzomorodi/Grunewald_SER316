@@ -8,3 +8,4 @@ script:
   
 notifications:
   slack: grunewald-ser316:aaNQkwAkYQcmbjcEUc2fN4Ly
+  
