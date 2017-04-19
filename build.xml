@@ -19,6 +19,9 @@
 	<property name="jarname" value="${name}.jar"/>
 	<property name="dist.dir" value="${basedir}/dist"/>
 	<property name="junit.dir" value="${basedir}/lib"/>
+    <property name="tests.dir" value="${build.dir}/tests" />
+    <property name="tests.findbugs.dir" value="${tests.dir}/findbugs"/>
+    <property name="tests.checkstyle.dir" value="${tests.dir}/checkstyle"/>
 	<!-- compile options -->
 	<property name="debug" value="off"/>
 	<property name="debuglevel" value="lines,vars,source"/>
@@ -27,6 +30,13 @@
 	<presetdef name="javac">
 	        <javac includeantruntime="false" />
 	    </presetdef>
+        
+    <taskdef name="findbugs"
+        classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+        classpath="${lib.dir}/findbugs-ant.jar"/>
+        
+    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-anttask.properties"
+             classpath="${lib.dir}/checkstyle-7.6.1-all.jar"/>
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -194,4 +204,36 @@
 			<test name="${source.dir}/net/sf/memorand/ui/PSPPanelTest" />
 		</junit>
 	</target>
+    
+    <!-- =================================================================== -->
+    <!-- Runs FindBugs -->
+    <!-- =================================================================== -->
+    <target name="findbugs" depends="compile">
+        <mkdir dir="${tests.findbugs.dir}"/>
+        <findbugs home="${lib.dir}"
+                  reportLevel="high"
+                  output="html"
+                  outputFile="${tests.findbugs.dir}/findbugs.html">
+            <auxClasspath refid="classpath"/>
+            <sourcePath path="${source.dir}"/>
+            <class location="${build.classes.dir}"/>
+        </findbugs>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Runs CheckStyle -->
+    <!-- =================================================================== -->
+    <target name="checkstyle" depends="compile">
+        <mkdir dir="${tests.checkstyle.dir}"/>
+        <checkstyle config="${lib.dir}/CheckstyleConfig.xml"
+                    failureProperty="checkstyle.failure"
+                    failOnViolation="false">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+            <formatter type="xml"
+                       tofile="${tests.checkstyle.dir}/checkstyleReport.xml"/>
+            <fileset dir="${source.dir}" includes="**/*.java"/>
+        </checkstyle>
+    </target>
 </project>
