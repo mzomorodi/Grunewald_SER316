@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--- some exml comment -->
+<!--- edited by mzomorod 4/9/2017 -->
 <project name="Memoranda" default="package" basedir=".">
 	<!-- Build.xml file initially created by Kenneth J. Pouncey              -->
 	<!-- on 5 september 2003.                                                -->
@@ -18,11 +18,27 @@
 	<property name="main.class" value="net.sf.memoranda.Start"/>
 	<property name="jarname" value="${name}.jar"/>
 	<property name="dist.dir" value="${basedir}/dist"/>
+	<property name="junit.dir" value="${basedir}/lib"/>
+    <property name="tests.dir" value="${build.dir}/tests" />
+    <property name="tests.findbugs.dir" value="${tests.dir}/findbugs"/>
+    <property name="tests.checkstyle.dir" value="${tests.dir}/checkstyle"/>
 	<!-- compile options -->
 	<property name="debug" value="off"/>
 	<property name="debuglevel" value="lines,vars,source"/>
 	<property name="optimize" value="off"/>
 	<property name="deprecation" value="off"/>
+	<presetdef name="javac">
+	        <javac includeantruntime="false" />
+	    </presetdef>
+        
+    <taskdef name="findbugs"
+        classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+        classpath="${lib.dir}/findbugs-ant.jar"/>
+        
+
+    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
+        classpath="${lib.dir}/checkstyle-7.6.1-all.jar"/>
+
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -37,6 +53,7 @@
 			<include name="*.jar"/>
 			<include name="*.zip"/>
 		</fileset>
+		<fileset dir="${junit.dir}" includes="**/*.jar" />
 	</path>
 	<!-- =================================================================== -->
 	<!-- Creates the Jar                                                     -->
@@ -57,6 +74,7 @@
 			</manifest>
 		</jar>
 	</target>
+	
 	<target name="compile" depends="init">
 		<!-- Compile the java code from ${src} into ${build} -->
 		<buildnumber/>
@@ -88,12 +106,15 @@
 			<fileset dir="." includes="tasklist.dtd"/>
 		</copy>
 	</target>
+	
 	<target name="checkbuild">
 		<available file="${build.dir}/${jarname}" property="build.present"/>
 	</target>
+	
 	<target name="build-if-needed" depends="checkbuild" unless="build.present">
 		<antcall target="package"/>
 	</target>
+	
 	<target name="dist-full" depends="init, build-if-needed">
 		<!-- Create the full distribution includes:
     build (build\)
@@ -175,4 +196,46 @@
 			<classpath refid="classpath"/>
 		</java> -->
 	</target>
+	
+	<!-- =================================================================== -->
+	<!-- Runs the JUnit tests                                           	 -->
+	<!-- =================================================================== -->
+	<target name="unittest" depends="compile">
+		<junit haltonfailure="true" printsummary="true">
+			<test name="${source.dir}/net/sf/memoranda/ui/WorkPanelTest"/>
+			<test name="${source.dir}/net/sf/memorand/ui/PSPPanelTest" />
+		</junit>
+	</target>
+    
+    <!-- =================================================================== -->
+    <!-- Runs FindBugs -->
+    <!-- =================================================================== -->
+    <target name="findbugs" depends="compile">
+        <mkdir dir="${tests.findbugs.dir}"/>
+        <findbugs home="${lib.dir}"
+                  reportLevel="high"
+                  output="html"
+                  outputFile="${tests.findbugs.dir}/findbugs.html">
+            <auxClasspath refid="classpath"/>
+            <sourcePath path="${source.dir}"/>
+            <class location="${build.classes.dir}"/>
+        </findbugs>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Runs CheckStyle -->
+    <!-- =================================================================== -->
+    <target name="checkstyle" depends="compile">
+        <mkdir dir="${tests.checkstyle.dir}"/>
+        <checkstyle config="${lib.dir}/CheckstyleConfig.xml"
+                    failureProperty="checkstyle.failure"
+                    failOnViolation="false">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+            <formatter type="xml"
+                    tofile="${tests.checkstyle.dir}/checkstyleReport.xml"/>
+            <fileset dir="${source.dir}" includes="**/*.java"/>
+        </checkstyle>
+    </target>
 </project>

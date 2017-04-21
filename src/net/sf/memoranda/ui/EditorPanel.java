@@ -6,12 +6,13 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.net.URL;
 import java.text.DateFormat;
 
 import javax.swing.AbstractAction;
@@ -24,9 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 
-import net.sf.memoranda.History;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.CurrentNote;
@@ -34,10 +35,12 @@ import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 import net.sf.memoranda.util.Util;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
+import net.sf.memoranda.util.FileImport;
 import net.sf.memoranda.util.HTMLFileExport;
 import net.sf.memoranda.util.HTMLFileImport;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Configuration;
+import net.sf.memoranda.util.TXTExport;
 
 /*$Id: EditorPanel.java,v 1.21 2006/06/28 22:58:31 alexeya Exp $*/
 public class EditorPanel extends JPanel {
@@ -432,21 +435,21 @@ public class EditorPanel extends JPanel {
 				.getString("Cancel"));
 
 		JFileChooser chooser = new JFileChooser();
+		//chooser.setDialogType(JFileChooser.SAVE_DIALOG);
 		chooser.setFileHidingEnabled(false);
 		chooser.setDialogTitle(Local.getString("Export note"));
 		chooser.setAcceptAllFileFilterUsed(false);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser
-				.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.XHTML));
+		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.XHTML));
 		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
+		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.TXT));
 		// chooser.addChoosableFileFilter(new
 		// AllFilesFilter(AllFilesFilter.RTF));
 		String lastSel = (String) Context.get("LAST_SELECTED_EXPORT_FILE");
 		if (lastSel != null)
 			chooser.setCurrentDirectory(new File(lastSel));
 
-		FileExportDialog dlg = new FileExportDialog(App.getFrame(), Local
-				.getString("Export note"), chooser);
+		FileExportDialog dlg = new FileExportDialog(App.getFrame(), Local.getString("Export note"), chooser);
 		String enc = (String) Context.get("EXPORT_FILE_ENCODING");
 		if (enc != null)
 			dlg.encCB.setSelectedItem(enc);
@@ -469,8 +472,7 @@ public class EditorPanel extends JPanel {
 		if (dlg.CANCELLED)
 			return;
 
-		Context.put("LAST_SELECTED_EXPORT_FILE", chooser.getSelectedFile()
-				.getPath());
+		Context.put("LAST_SELECTED_EXPORT_FILE", dlg.getFilePath());
 		Context.put("EXPORT_FILE_ENCODING", dlg.encCB.getSelectedItem());
 		Context.put("EXPORT_NUMENT", dlg.numentChB.isSelected() ? "YES" : "NO");
 		Context.put("EXPORT_XHTML", dlg.xhtmlChB.isSelected() ? "YES" : "NO");
@@ -479,18 +481,31 @@ public class EditorPanel extends JPanel {
 			template = dlg.templF.getText();
 			Context.put("EXPORT_TEMPLATE", template);
 		}
-		/*
-		 * if (chooser.getFileFilter().getDescription().equals("Rich Text
-		 * Format")) new RTFFileExport(chooser.getSelectedFile(),
-		 * editor.document); else
-		 */
-		int ei = dlg.encCB.getSelectedIndex();
-		enc = null;
-		if (ei == 1)
-			enc = "UTF-8";
-		File f = chooser.getSelectedFile();
-		new HTMLFileExport(f, editor.document, CurrentNote.get(), enc,
-				dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
+		
+		//if (chooser.getFileFilter().getDescription().equals("Rich TextFormat")) 
+		//	new RTFFileExport(chooser.getSelectedFile(),
+		//	editor.document); //else
+		//Come back to this and clean up
+		if(chooser.getFileFilter().getDescription().equals("TXT files (*.txt)"))
+			try {
+				new TXTExport(new File(dlg.getFilePath()), editor.document);
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		else
+		{
+			int ei = dlg.encCB.getSelectedIndex();
+			enc = null;
+			if (ei == 1)
+				enc = "UTF-8";
+			File f = new File(dlg.getFilePath());
+			new HTMLFileExport(f, editor.document, CurrentNote.get(), enc,
+					dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
+		}
 	}
 
 	String initialTitle = "";
@@ -555,7 +570,7 @@ public class EditorPanel extends JPanel {
 		chooser.setDialogTitle(Local.getString("Insert file"));
 		chooser.setAcceptAllFileFilterUsed(false);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
+		chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.TEXT));
 		chooser.setPreferredSize(new Dimension(550, 375));
 		String lastSel = (String) Context.get("LAST_SELECTED_IMPORT_FILE");
 		if (lastSel != null)
@@ -567,7 +582,7 @@ public class EditorPanel extends JPanel {
 				.getPath());
 
 		File f = chooser.getSelectedFile();
-		new HTMLFileImport(f, editor);
+		new FileImport(f, editor);
 	}
 
 	void newB_actionPerformed(ActionEvent e) {

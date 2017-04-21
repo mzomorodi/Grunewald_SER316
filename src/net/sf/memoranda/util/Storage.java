@@ -8,11 +8,13 @@
  */
 package net.sf.memoranda.util;
 
+import net.sf.memoranda.DefectList;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
+import net.sf.memoranda.TimeEntryList;
 /**
  * 
  */
@@ -21,6 +23,12 @@ public interface Storage {
             
     TaskList openTaskList(Project prj);    
     void storeTaskList(TaskList tl, Project prj);
+    
+    DefectList openDefectList(Project prj);
+    void storeDefectList(DefectList dl, Project prj);
+    
+    TimeEntryList openTimeEntryList(Project prj);
+    void storeTimeEntryList(TimeEntryList tel, Project prj);
     
     NoteList openNoteList(Project prj);
     void storeNoteList(NoteList nl, Project prj);

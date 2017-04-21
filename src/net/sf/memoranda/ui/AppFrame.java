@@ -35,6 +35,7 @@ import javax.swing.UIManager;
 import javax.swing.text.html.HTMLDocument;
 
 import net.sf.memoranda.CurrentProject;
+import net.sf.memoranda.DefectList;
 import net.sf.memoranda.History;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.NoteList;
@@ -42,6 +43,7 @@ import net.sf.memoranda.Project;
 import net.sf.memoranda.ProjectListener;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
+import net.sf.memoranda.TimeEntryList;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 import net.sf.memoranda.util.Configuration;
@@ -625,13 +627,17 @@ public class AppFrame extends JFrame {
 
         CurrentProject.addProjectListener(new ProjectListener() {
 
-            public void projectChange(Project prj, NoteList nl, TaskList tl,
-                    ResourcesList rl) {
-            }
 
             public void projectWasChanged() {
                 setTitle("Memoranda - " + CurrentProject.get().getTitle());
             }
+
+			
+			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, TimeEntryList tel) {
+				// TODO Auto-generated method stub
+				
+			}
+
         });
 
     }
