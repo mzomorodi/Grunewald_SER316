@@ -84,7 +84,7 @@ public class DefectDialog extends JDialog{
     private JComboBox typeChooser = new JComboBox();
     private static final ArrayList<String> types = new ArrayList<String>(Arrays.asList(
 			new String[] {Local.getString("10: Documentation"),
-		    		Local.getString("20: Syntax"), Local.getString("30: Build, Package"),
+		    		Local.getString("20: Syntax"), Local.getString("30: Build/ Package"),
 		    		Local.getString("40: Assignment"), Local.getString("50: Interface"),
 		    		Local.getString("60: Checking"), Local.getString("70: Data"),
 		    		Local.getString("80: Function"), Local.getString("90: System"),
