@@ -53,6 +53,7 @@ public class TaskPanel extends JPanel {
     JButton editTaskB = new JButton();
     JButton removeTaskB = new JButton();
     JButton completeTaskB = new JButton();
+    JButton pspTaskB = new JButton();
     
 	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
 		
@@ -178,6 +179,18 @@ public class TaskPanel extends JPanel {
         completeTaskB.setMaximumSize(new Dimension(24, 24));
         completeTaskB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+        
+        pspTaskB.setBorderPainted(false);
+        pspTaskB.setFocusable(false);
+        pspTaskB.setToolTipText(Local.getString("Create PSP parent level tasks"));
+        pspTaskB.setPreferredSize(new Dimension(24, 24));
+        pspTaskB.setIcon(
+        		new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_tasks.png")));
+        pspTaskB.addActionListener(new java.awt.event.ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		pspTasks_actionPerformed(e);
+        	}
+        });
 
 		// added by rawsushi
 //		showActiveOnly.setBorderPainted(false);
@@ -324,6 +337,7 @@ public class TaskPanel extends JPanel {
         tasksToolBar.addSeparator(new Dimension(8, 24));
         tasksToolBar.add(editTaskB, null);
         tasksToolBar.add(completeTaskB, null);
+        tasksToolBar.add(pspTaskB, null);
 
 		//tasksToolBar.add(showActiveOnly, null);
         
@@ -723,6 +737,19 @@ public class TaskPanel extends JPanel {
 		CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
 		parentPanel.updateIndicators();
 		//taskTable.updateUI();
+	}
+	
+	void pspTasks_actionPerformed(ActionEvent e){
+		CalendarDate d1 = CurrentProject.get().getStartDate();
+		//CalendarDate d2 = CurrentProject.get().getEndDate();
+		String[] phases = {"PLANNING", "DESIGN", "CODE", "CODE_REVIEW", "COMPILE", "TEST", "POSTMORTEM"};
+		for (int i = 0; i < phases.length; i++){
+			Task newTask = CurrentProject.getTaskList().createTask(d1, null, phases[i], 2, 0, 0, 0, 0, 
+					phases[i].toLowerCase() + Local.getString(" phase task"), null);
+			CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
+	        taskTable.tableChanged();
+	        parentPanel.updateIndicators();
+		}
 	}
 
 	// toggle "show active only"
