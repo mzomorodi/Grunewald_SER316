@@ -481,5 +481,9 @@ public class TaskImpl implements Task, Comparable {
 		return false;
 	}
 
+	public String getPhase() {
+		return _element.getFirstChildElement("phase").getValue();
+	}
+
 	
 }

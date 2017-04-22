@@ -536,7 +536,7 @@ public class TaskPanel extends JPanel {
         int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
         long locode = Long.parseLong(dlg.LOCField.getText());
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(),  dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(),null);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(),  dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), null, null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -580,7 +580,7 @@ public class TaskPanel extends JPanel {
         long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
         int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
         long locode = Long.parseLong(dlg.LOCField.getText());
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(),parentTaskId);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), null, parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
@@ -745,7 +745,7 @@ public class TaskPanel extends JPanel {
 		String[] phases = {"PLANNING", "DESIGN", "CODE", "CODE_REVIEW", "COMPILE", "TEST", "POSTMORTEM"};
 		for (int i = 0; i < phases.length; i++){
 			Task newTask = CurrentProject.getTaskList().createTask(d1, null, phases[i], 2, 0, 0, 0, 0, 
-					phases[i].toLowerCase() + Local.getString(" phase task"), null);
+					phases[i].toLowerCase() + Local.getString(" phase task"), null, null);
 			CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
 	        taskTable.tableChanged();
 	        parentPanel.updateIndicators();
