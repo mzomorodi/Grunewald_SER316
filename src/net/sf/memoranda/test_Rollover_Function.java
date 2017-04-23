@@ -46,8 +46,8 @@ public class test_Rollover_Function {
 	public static void setUpBeforeClass() throws Exception {
 		startDate = new CalendarDate();
 		endDate = new CalendarDate(startDate.getMonth()+1, startDate.getDay()+1, startDate.getYear()+1);
-		testTask1 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle1", 1, 1, 1, 5, 100, "testDesc1", null);
-		testTask2 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle2", 2, 1, 1, 10, 250, "testDesc2", null);
+		testTask1 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle1", 1, 1, 1, 5, 100, "testDesc1", null, null);
+		testTask2 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle2", 2, 1, 1, 10, 250, "testDesc2", null, null);
 			
 		idTestTask1 = testTask1.getID();
 		idTestTask2 = testTask2.getID();
@@ -72,10 +72,10 @@ public class test_Rollover_Function {
        ed = testTask1.getEndDate();
 		 
 		Task testTask1a = CurrentProject.getTaskList().createTask(sd, ed, "testTitle1a", 
-				1, 2, 6, 10, 300, "testDesc3a",
+				1, 2, 6, 10, 300, "testDesc3a", null,
 				testTask1.getID());
 		Task testTask1b = CurrentProject.getTaskList().createTask(sd, ed, "testTitle1b", 
-				2, 5, 7, 5, 200, "testDesc3b",
+				2, 5, 7, 5, 200, "testDesc3b", null,
 				testTask1.getID());
 		
 		task1loc = CurrentProject.getTaskList().calculateTotalLOCFromSubTasks(testTask1);
@@ -99,10 +99,10 @@ public class test_Rollover_Function {
     // start date, end date, title, priority, effort, acteffort, defects, loc, description, parent
 		
 		Task testTask2a = CurrentProject.getTaskList().createTask(sd, ed, "testTitle2a", 
-				1, 2, 6, 10, 200, "testDesc2a",
+				1, 2, 6, 10, 200, "testDesc2a", null,
 				testTask2.getID());
 		Task testTask2b = CurrentProject.getTaskList().createTask(sd, ed, "testTitle2b", 
-				2, 5, 7, 5, 100, "testDesc2b",
+				2, 5, 7, 5, 100, "testDesc2b", null,
 				testTask2.getID());
 		
 		task2loc = CurrentProject.getTaskList().calculateTotalLOCFromSubTasks(testTask2);
