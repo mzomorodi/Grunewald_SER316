@@ -486,7 +486,12 @@ public class TaskPanel extends JPanel {
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
         t.setActEffort(Util.getMillisFromHours(dlg.actEffortField.getText()));
         t.setNumDefects((Integer) dlg.numDefectsSpinner.getValue());
-        t.setLOC(Long.parseLong(dlg.LOCField.getText()));
+        try {
+        	t.setLOC(Long.parseLong(dlg.LOCField.getText()));
+        }
+        catch (NumberFormatException nfe) {
+        	t.setLOC(0l);
+        }
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
 //		CurrentProject.getTaskList().adjustParentTasks(t);
@@ -520,7 +525,13 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
         int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
-        long locode = Long.parseLong(dlg.LOCField.getText());
+        long locode;
+        try {
+        	locode = Long.parseLong(dlg.LOCField.getText());
+        }
+        catch (NumberFormatException nfe) {
+        	locode = 0l;
+        }
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(),  dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(),null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
@@ -565,7 +576,13 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
         int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
-        long locode = Long.parseLong(dlg.LOCField.getText());
+        long locode;
+        try {
+        	locode = Long.parseLong(dlg.LOCField.getText());
+        }
+        catch (NumberFormatException nfe) {
+        	locode = 0l;
+        }
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(),parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
