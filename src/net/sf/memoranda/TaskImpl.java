@@ -487,12 +487,7 @@ public class TaskImpl implements Task, Comparable {
     		return null;
     	}
     	else {
-    		try {
-        		return attr.getValue();
-    		}
-    		catch (NumberFormatException e) {
-    			return null;
-    		}
+        	return attr.getValue();
     	}
 	}
 
