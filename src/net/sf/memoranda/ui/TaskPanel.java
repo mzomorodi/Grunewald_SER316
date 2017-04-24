@@ -502,13 +502,7 @@ public class TaskPanel extends JPanel {
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
         t.setActEffort(Util.getMillisFromHours(dlg.actEffortField.getText()));
         t.setNumDefects((Integer) dlg.numDefectsSpinner.getValue());
-
-        if (dlg.LOCField.getText().trim().equals("")) {
-        	t.setLOC(0);
-        } else {
-        	t.setLOC(Long.parseLong(dlg.LOCField.getText()));
-        }
-        
+        t.setLOC(Long.parseLong(dlg.LOCField.getText()));
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
 //		CurrentProject.getTaskList().adjustParentTasks(t);
@@ -542,14 +536,7 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
         int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
-        
-        long locode;
-        if (dlg.LOCField.getText().trim().equals("")) {
-        	locode = 0;
-        } else {
-        	locode = Long.parseLong(dlg.LOCField.getText());
-        }
-        
+        long locode = Long.parseLong(dlg.LOCField.getText());
         String phase = dlg.phaseCB.getSelectedItem().toString();
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(),  dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), phase, null);
@@ -597,14 +584,7 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
         int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
-        
-        long locode;
-        if (dlg.LOCField.getText().trim().equals("")) {
-        	locode = 0;
-        } else {
-        	locode = Long.parseLong(dlg.LOCField.getText());
-        }
-        
+        long locode = Long.parseLong(dlg.LOCField.getText());
         String phase = dlg.phaseCB.getSelectedItem().toString();
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), phase, parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
