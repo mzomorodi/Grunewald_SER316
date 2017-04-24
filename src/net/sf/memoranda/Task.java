@@ -97,6 +97,7 @@ public interface Task {
     void setNumDefects(int numDefects);
     
     String getPhase();
+    void setPhase(String phase);
     
     void setDescription(String description);
     String getDescription();

@@ -482,8 +482,21 @@ public class TaskImpl implements Task, Comparable {
 	}
 
 	public String getPhase() {
-		return _element.getFirstChildElement("phase").getValue();
+		Attribute attr = _element.getAttribute("phase");
+    	if (attr == null) {
+    		return null;
+    	}
+    	else {
+    		try {
+        		return attr.getValue();
+    		}
+    		catch (NumberFormatException e) {
+    			return null;
+    		}
+    	}
 	}
 
-	
+	public void setPhase(String phase) {
+		setAttr("phase", phase);
+	}
 }

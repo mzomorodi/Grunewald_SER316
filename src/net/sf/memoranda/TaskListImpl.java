@@ -116,10 +116,7 @@ public class TaskListImpl implements TaskList {
         el.addAttribute(new Attribute("numDefects", String.valueOf(numDefects)));
         el.addAttribute(new Attribute("loc", String.valueOf(loc)));
         el.addAttribute(new Attribute("priority", String.valueOf(priority)));
-        
-        Element ph = new Element("phase");
-        ph.appendChild(phase);
-        el.appendChild(ph);
+        el.addAttribute(new Attribute("phase", phase));
                 
         Element txt = new Element("text");
         txt.appendChild(text);

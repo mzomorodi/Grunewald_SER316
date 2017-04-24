@@ -471,7 +471,8 @@ public class TaskPanel extends JPanel {
         dlg.descriptionField.setText(t.getDescription());
         dlg.startDate.getModel().setValue(t.getStartDate().getDate());
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
-        dlg.priorityCB.setSelectedIndex(t.getPriority());                
+        dlg.priorityCB.setSelectedIndex(t.getPriority());   
+        dlg.phaseCB.setSelectedItem(t.getPhase());
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
         dlg.actEffortField.setText(Util.getHoursFromMillis(t.getActEffort()));
         dlg.numDefectsSpinner.setValue(t.getNumDefects());
@@ -497,6 +498,7 @@ public class TaskPanel extends JPanel {
         t.setText(dlg.todoField.getText());
         t.setDescription(dlg.descriptionField.getText());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
+        t.setPhase(dlg.phaseCB.getSelectedItem().toString());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
         t.setActEffort(Util.getMillisFromHours(dlg.actEffortField.getText()));
         t.setNumDefects((Integer) dlg.numDefectsSpinner.getValue());
@@ -535,8 +537,9 @@ public class TaskPanel extends JPanel {
         long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
         int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
         long locode = Long.parseLong(dlg.LOCField.getText());
+        String phase = dlg.phaseCB.getSelectedItem().toString();
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(),  dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), null, null);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(),  dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), phase, null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -580,7 +583,8 @@ public class TaskPanel extends JPanel {
         long actEffort = Util.getMillisFromHours(dlg.actEffortField.getText());
         int numDefects = (Integer) dlg.numDefectsSpinner.getValue();
         long locode = Long.parseLong(dlg.LOCField.getText());
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), null, parentTaskId);
+        String phase = dlg.phaseCB.getSelectedItem().toString();
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), phase, parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
@@ -745,7 +749,7 @@ public class TaskPanel extends JPanel {
 		String[] phases = {"PLANNING", "DESIGN", "CODE", "CODE_REVIEW", "COMPILE", "TEST", "POSTMORTEM"};
 		for (int i = 0; i < phases.length; i++){
 			Task newTask = CurrentProject.getTaskList().createTask(d1, null, phases[i], 2, 0, 0, 0, 0, 
-					phases[i].toLowerCase() + Local.getString(" phase task"), null, null);
+					phases[i].toLowerCase() + Local.getString(" phase task"), phases[i], null);
 			CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
 	        taskTable.tableChanged();
 	        parentPanel.updateIndicators();
