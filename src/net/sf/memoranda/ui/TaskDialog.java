@@ -83,6 +83,9 @@ public class TaskDialog extends JDialog {
     String[] priority = {Local.getString("Lowest"), Local.getString("Low"),
         Local.getString("Normal"), Local.getString("High"),
         Local.getString("Highest")};
+    String[] phases = {Local.getString("PLANNING"), Local.getString("DESIGN"),
+            Local.getString("CODE"), Local.getString("CODE_REVIEW"),
+            Local.getString("COMPILE"), Local.getString("TEST"), Local.getString("POSTMORTEM")};
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
 
@@ -95,6 +98,7 @@ public class TaskDialog extends JDialog {
     JSpinner endDate;
 //    JSpinner endDate = new JSpinner(new SpinnerDateModel());
     JButton setEndDateB = new JButton();
+    JPanel jPanelPhase = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanel5 = new JPanel(new FlowLayout(FlowLayout.LEFT)); // US 3
@@ -109,6 +113,7 @@ public class TaskDialog extends JDialog {
     
     JButton setNotifB = new JButton();
     JComboBox priorityCB = new JComboBox(priority);
+    JComboBox<String> phaseCB = new JComboBox<String>(phases);
     JLabel jLabel7 = new JLabel();
     // added by rawsushi
     JLabel jLabelEffort = new JLabel();
@@ -118,6 +123,8 @@ public class TaskDialog extends JDialog {
 	JLabel jLabelLOC = new JLabel();
 	// Added by bhood2 US 2
 	JLabel jLabelActEffort = new JLabel();
+	
+	JLabel jLabelPhase = new JLabel();
 	
 	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	JLabel jLabelProgress = new JLabel();
@@ -254,6 +261,10 @@ public class TaskDialog extends JDialog {
         jLabelNumDefects.setMinimumSize(new Dimension (60, 16));
         numDefectsSpinner.setBorder(border8);
         
+        jLabelPhase.setMaximumSize(new Dimension(100, 16));
+        jLabelPhase.setMinimumSize(new Dimension (60, 16));
+        jLabelPhase.setText(Local.getString("Phase"));
+        
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
 		SimpleDateFormat sdf = new SimpleDateFormat();
@@ -365,6 +376,7 @@ public class TaskDialog extends JDialog {
         jLabel7.setText(Local.getString("Priority"));
 
         priorityCB.setFont(new java.awt.Font("Dialog", 0, 11));
+        phaseCB.setFont(new java.awt.Font("Dialog", 0, 11));
         jPanel5.add(jLabel7, null);
         getContentPane().add(mPanel);
         mPanel.add(areaPanel, BorderLayout.CENTER);
@@ -409,19 +421,25 @@ public class TaskDialog extends JDialog {
         
         jPanel3.add(setNotifB, null);
         
+        jPanelPhase.add(jLabelPhase, null);
+        jPanelPhase.add(phaseCB, null);
+        
         jLabelProgress.setText(Local.getString("Progress"));
         jPanelProgress.add(jLabelProgress, null);
         jPanelProgress.add(progress, null);
         jPanel2.add(jPanelProgress);
         
-        jPanel2.add(jPanel3, null);
+        jPanel2.add(jPanelPhase, null);
 
         // added by csmith US 1
         jPanel2.add(jPanelLOC, null);
         jPanelLOC.add(jLabelLOC, null);
         jPanelLOC.add(LOCField, null);
         
+        jPanel2.add(jPanel3, null);
+        
         priorityCB.setSelectedItem(Local.getString("Normal"));
+        phaseCB.setSelectedItem(Local.getString("PLANNING"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ignoreStartChanged)
@@ -429,7 +447,7 @@ public class TaskDialog extends JDialog {
                 startDate.getModel().setValue(startCalFrame.cal.get().getCalendar().getTime());
             }
         });
-        
+
         endCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ignoreEndChanged)
