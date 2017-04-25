@@ -3,22 +3,13 @@ package net.sf.memoranda;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
-import net.sf.memoranda.util.FileStorage;
-import net.sf.memoranda.util.Util;
-import nu.xom.Document;
 
-public class TimeEntryListTest {
-	private static String JN_DOCPATH;
-	private static String fn;
-	private static Document timeEntryListDoc;
-	
+public class TimeEntryListTest {	
 	TimeEntryList tel1;
 	TimeEntryList tel2;
 	TimeEntry te1;
@@ -30,18 +21,10 @@ public class TimeEntryListTest {
     
     CalendarDate date = new CalendarDate();
 	
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		JN_DOCPATH = Util.getEnvDir();
-		fn = JN_DOCPATH + CurrentProject.get().getID() + File.separator + ".timeslist";
-	    timeEntryListDoc = FileStorage.openDocument(fn);
-	}
-	
 	@Before
 	public void setUp() throws Exception {
-		tel1 = new TimeEntryList(timeEntryListDoc, CurrentProject.get());
-		tel2 = new TimeEntryList(timeEntryListDoc, CurrentProject.get());
+		tel1 = new TimeEntryList(CurrentProject.get());
+		tel2 = new TimeEntryList(CurrentProject.get());
 		te1 = tel1.createTimeEntry("id1", date, "1", "2", "900", "1000", "15+5", "PLANNING", "comments 1");
 		te2 = tel2.createTimeEntry("id2", date, "2", "3", "1100", "1200", "20+10", "DESIGN", "comments 2");
 		te3 = tel1.createTimeEntry("id3", date, "3", "4", "900", "1900", "15+50", "PLANNING", "comments 3");
@@ -52,34 +35,26 @@ public class TimeEntryListTest {
 	
 	@Test
 	public void testGetAllTimeEntries() {
-		Vector<TimeEntry> v;
+		Vector<TimeEntry> v1, v2;
 		TimeEntry testTimeEntry;
 		
-		v = tel1.getAllTimeEntries();
-		testTimeEntry = (TimeEntry)v.elementAt(0);
+		v1 = tel1.getAllTimeEntries();
+		v2 = tel2.getAllTimeEntries();
+		
+		testTimeEntry = (TimeEntry)v1.get(0);
 		assertTrue(tel1.getTimeEntry(testTimeEntry.getHashID()) != null);
 		
-		v = tel2.getAllTimeEntries();
-		testTimeEntry = (TimeEntry)v.elementAt(0);
-		assertTrue(tel1.getTimeEntry(testTimeEntry.getHashID()) != null);
-
-		v = tel1.getAllTimeEntries();
-		testTimeEntry = (TimeEntry)v.elementAt(2);
-		assertFalse(tel2.getTimeEntry(testTimeEntry.getHashID()) != null);
+		testTimeEntry = (TimeEntry)v2.get(0);
+		assertTrue(tel2.getTimeEntry(testTimeEntry.getHashID()) != null);
 		
-		v = tel2.getAllTimeEntries();
-		testTimeEntry = (TimeEntry)v.get(2);
+		testTimeEntry = (TimeEntry)v1.get(1);
 		assertTrue(tel1.getTimeEntry(testTimeEntry.getHashID()) != null);
 		
-		v = tel2.getAllTimeEntries();
-		testTimeEntry = (TimeEntry)v.elementAt(1);
-		assertFalse(tel2.getTimeEntry(testTimeEntry.getHashID()) != null);
+		testTimeEntry = (TimeEntry)v2.get(1);
+		assertTrue(tel2.getTimeEntry(testTimeEntry.getHashID()) != null);
 		
-		v = tel1.getAllTimeEntries();
-		testTimeEntry = (TimeEntry)v.get(0);
-		assertTrue(tel1.getTimeEntry(testTimeEntry.getHashID()) != null);
-		
-		
+		assertTrue(v1.size() == 2);
+		assertTrue(v2.size() == 2);
 	}
 	
 	@Test
