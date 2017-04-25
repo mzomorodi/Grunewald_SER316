@@ -492,7 +492,7 @@ public class TaskPanel extends JPanel {
  		if(dlg.chkEndDate.isSelected())
  			ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
  		else
- 			ed = null;
+ 			ed = new CalendarDate((Date) dlg.startDate.getModel().getValue());
         t.setStartDate(sd);
         t.setEndDate(ed);
         t.setText(dlg.todoField.getText());
