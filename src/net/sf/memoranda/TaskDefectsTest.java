@@ -68,7 +68,6 @@ public class TaskDefectsTest {
 		assertEquals(0, testTaskNull.getNumDefects());
 		
 		// test NumberFormatException
-		System.out.println(taskElementNFE.getAttribute("numDefects").getValue());
 		assertEquals("notNumber", taskElementNFE.getAttribute("numDefects").getValue());
 		assertEquals(0, testTaskNFE.getNumDefects());
 	}
