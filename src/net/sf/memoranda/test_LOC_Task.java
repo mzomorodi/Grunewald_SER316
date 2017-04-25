@@ -69,7 +69,6 @@ public class test_LOC_Task {
 		 	assertEquals(0, testTaskNull.getLOC());
 		 	
 		 	// test NumberFormatException
-		 	System.out.println(taskElementNFE.getAttribute("LOC").getValue());
 		 	assertEquals("notNumber", taskElementNFE.getAttribute("LOC").getValue());
 		 	assertEquals(0, testTaskNFE.getLOC());
 		 }
