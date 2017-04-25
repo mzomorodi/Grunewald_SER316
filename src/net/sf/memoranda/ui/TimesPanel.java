@@ -12,9 +12,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,6 +26,7 @@ import javax.swing.JToolBar;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.TimeEntry;
+import net.sf.memoranda.util.CSVExport;
 import net.sf.memoranda.util.Local;
 
 public class TimesPanel extends JPanel{
@@ -33,6 +37,7 @@ public class TimesPanel extends JPanel{
 	private JButton _newTimeButton = new JButton();
 	private JButton _editTimeButton = new JButton();
 	private JButton _deleteTimeEntryButton = new JButton();
+	private JButton _exportTimeEntryButton = new JButton();
 	private JScrollPane _scrollPane = new JScrollPane();
 	TimeEntryTable _timeEntryTable = new TimeEntryTable();
 
@@ -66,6 +71,8 @@ public class TimesPanel extends JPanel{
 		_formToolBar.add(_editTimeButton, null);
 		_formToolBar.addSeparator(new Dimension(8, 24));
 		_formToolBar.add(_deleteTimeEntryButton, null);
+		_formToolBar.addSeparator(new Dimension(8, 24));
+		_formToolBar.add(_exportTimeEntryButton, null);
 		_formToolBar.addSeparator(new Dimension(240, 24));
 		_formToolBar.add(_timeEntryLabel);
 		
@@ -116,6 +123,21 @@ public class TimesPanel extends JPanel{
 		});
 		_deleteTimeEntryButton.setIcon(new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/removeresource.png")));
+		
+		_exportTimeEntryButton.setEnabled(true);
+		_exportTimeEntryButton.setMaximumSize(new Dimension(24, 24));
+		_exportTimeEntryButton.setToolTipText("export Entry");
+		_exportTimeEntryButton.setRequestFocusEnabled(false);
+		_exportTimeEntryButton.setPreferredSize(new Dimension(24, 24));
+		_exportTimeEntryButton.setFocusable(false);
+		_exportTimeEntryButton.setBorderPainted(false);
+		_exportTimeEntryButton.addActionListener(new java.awt.event.ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				_exportTimeEntryButtonClicked(e);
+			}
+		});
+		_exportTimeEntryButton.setIcon(new ImageIcon(
+				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/export.png")));
 		
 		_timeEntryTable.setMaximumSize(new Dimension(32767, 32767));
         _timeEntryTable.setRowHeight(24);
@@ -190,5 +212,41 @@ public class TimesPanel extends JPanel{
 	        CurrentProject.getTimeEntryList().removeTimeEntry(te1);
 	        _timeEntryTable.tableChanged();
 		}
+	}
+	
+	public void _exportTimeEntryButtonClicked(ActionEvent e) {
+		
+		String filename = CurrentProject.get().getID() + "_Times.csv";
+		JFileChooser fileDialog = new JFileChooser();
+		File selectedFile = new File(filename);
+		
+		
+		fileDialog.setDialogTitle("Export Time Entries to CSV File");
+		fileDialog.setSelectedFile(selectedFile);
+		int option = fileDialog.showSaveDialog(null);
+	   if (option != JFileChooser.APPROVE_OPTION)
+	      return;  // User canceled or clicked the dialog's close box.
+	   selectedFile = fileDialog.getSelectedFile();
+	   if (selectedFile.exists()) {  // Ask the user whether to replace the file.
+	      int response = JOptionPane.showConfirmDialog(this,
+	            "The file \"" + selectedFile.getName()
+	                + "\" already exists.\nDo you want to replace it?", 
+	            "Confirm Save",
+	            JOptionPane.YES_NO_OPTION, 
+	            JOptionPane.WARNING_MESSAGE );
+	      if (response != JOptionPane.YES_OPTION)
+	         return;  // User does not want to replace the file.
+	   }
+	   
+	   try {
+		   CSVExport.export("time", selectedFile);
+		   JOptionPane.showMessageDialog(this, "CSV File Saved", "CSV Export Succeeded", JOptionPane.INFORMATION_MESSAGE);
+	   }
+	   catch (FileNotFoundException fnfe) {
+		   JOptionPane.showMessageDialog(this, "The selected file could not be created",
+				   "CSV Export Failed", JOptionPane.ERROR_MESSAGE);
+		   return;
+	   }
+		   
 	}
 }
