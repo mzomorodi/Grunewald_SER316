@@ -47,7 +47,7 @@ public class AgendaGenerator {
 	static String generateTasksInfo(Project p, CalendarDate date, Collection expandedTasks) {    	    	
 		TaskList tl;
 		if (p.getID().equals(CurrentProject.get().getID())) {
-			tl = CurrentProject.getTaskList();        	
+			tl = CurrentProject.getTaskList();
 		}
 		else {
 			tl = CurrentStorage.get().openTaskList(p);        	
@@ -55,8 +55,14 @@ public class AgendaGenerator {
 		String s = "";
 		int k = getProgress(tl);
 		if (k > -1) {
-			s += "<br>" + Local.getString("Total progress") + ": " + k + "%";        	
+			s += "<br>" + Local.getString("Total progress") + ": " + k + "%"; 
 		}
+		
+		int l = getProductivity(tl, date);
+		if (l > -1) {
+			s += "<br>" + Local.getString("Daily productivity") + ": " + l + "%"; 
+		}
+		
 		s += "</td></tr></table>\n";
 
 		Vector tasks = (Vector) tl.getActiveSubTasks(null,date);        
@@ -249,6 +255,22 @@ public class AgendaGenerator {
 			p += t.getProgress();
 		}
 		return (p * 100) / (v.size() * 100);
+	}
+	
+	static int getProductivity(TaskList tl, CalendarDate date) {
+		
+		Vector v = (Vector) tl.getAllSubTasks(null);
+		if (v.size() == 0)
+			return -1;
+		int p = 0;
+		
+		
+		
+		for (Enumeration en = v.elements(); en.hasMoreElements();) {
+			Task t = (Task) en.nextElement();
+			p = t.getProgress();
+		}
+		return p;
 	}
 
 	static String getPriorityString(int p) {

@@ -22,7 +22,8 @@ public interface TaskList {
     // US 1 loc
     // US 2 actEffort
     // US 3 numDefects
-    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actEffort, int numDefects, long loc, String description, String parentTaskId);
+    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, 
+    		long actEffort, int numDefects, long loc, String description, String phase, String parentTaskId);
 
 
     void removeTask(Task task);

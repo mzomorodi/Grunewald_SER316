@@ -43,8 +43,8 @@ public class test_LOC_Task {
 		public static void setUpBeforeClass() throws Exception {
 			startDate = new CalendarDate();
 			endDate = new CalendarDate(startDate.getMonth()+1, startDate.getDay()+1, startDate.getYear()+1);
-			testTask1 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle1", 1, 1, 1, 5, 100, "testDesc1", null);
-			testTask2 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle2", 2, 1, 1, 10, 250, "testDesc2", null);
+			testTask1 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle1", 1, 1, 1, 5, 100, "testDesc1", "PLANNING", null);
+			testTask2 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle2", 2, 1, 1, 10, 250, "testDesc2", "PLANNING", null);
 				
 			idTestTask1 = testTask1.getID();
 			idTestTask2 = testTask2.getID();
@@ -69,7 +69,6 @@ public class test_LOC_Task {
 		 	assertEquals(0, testTaskNull.getLOC());
 		 	
 		 	// test NumberFormatException
-		 	System.out.println(taskElementNFE.getAttribute("LOC").getValue());
 		 	assertEquals("notNumber", taskElementNFE.getAttribute("LOC").getValue());
 		 	assertEquals(0, testTaskNFE.getLOC());
 		 }

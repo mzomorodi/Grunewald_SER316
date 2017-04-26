@@ -42,8 +42,8 @@ public class TaskDefectsTest {
 	public static void setUpBeforeClass() throws Exception {
 		startDate = new CalendarDate();
 		endDate = new CalendarDate(startDate.getMonth()+1, startDate.getDay()+1, startDate.getYear()+1);
-		testTask1 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle1", 1, 5, 2, 1, 362, "testDesc1", null);
-		testTask2 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle2", 2, 10, 5, 2, 1048, "testDesc2", null);
+		testTask1 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle1", 1, 5, 2, 1, 362, "testDesc1", "PLANNING", null);
+		testTask2 = CurrentProject.getTaskList().createTask(startDate, endDate, "testTitle2", 2, 10, 5, 2, 1048, "testDesc2", "PLANNING", null);
 		idTestTask1 = testTask1.getID();
 		idTestTask2 = testTask2.getID();
 		
@@ -68,7 +68,6 @@ public class TaskDefectsTest {
 		assertEquals(0, testTaskNull.getNumDefects());
 		
 		// test NumberFormatException
-		System.out.println(taskElementNFE.getAttribute("numDefects").getValue());
 		assertEquals("notNumber", taskElementNFE.getAttribute("numDefects").getValue());
 		assertEquals(0, testTaskNFE.getNumDefects());
 	}
