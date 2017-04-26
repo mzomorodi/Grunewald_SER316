@@ -172,7 +172,13 @@ public class AgendaGenerator {
 				+ Local.getString("Priority")
 				+ ": "
 				+ getPriorityString(t.getPriority())
-				+ "</p>";
+				+ "</p>"
+				+ "<p>"
+				+ Local.getString("Productivity Rate: ")
+				+ "<i>"
+				+ String.valueOf(t.getProductivity())
+				+ " LOC/hr</i></p>";
+		
 		/*<<<<<<< AgendaGenerator.java
 		if (!(t.getStartDate().getDate()).after(t.getEndDate().getDate())) {
 		    if (t.getEndDate().equals(date))
@@ -233,7 +239,9 @@ public class AgendaGenerator {
 						+ Local.getString("No Deadline")
 						+ "</p>";		        
 			}
-		}                     
+		}
+		
+		
 		//>>>>>>> 1.4
 		s += "</li>\n";
 		return s;

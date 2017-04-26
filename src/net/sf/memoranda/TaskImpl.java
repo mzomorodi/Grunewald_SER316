@@ -10,10 +10,12 @@ package net.sf.memoranda;
 
 import java.util.Collection;
 import java.util.Vector;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
+import net.sf.memoranda.util.Util;
 import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
@@ -126,6 +128,36 @@ public class TaskImpl implements Task, Comparable {
     		}
     	}
     }
+    
+    private double getDoubleEffort(){
+    	Attribute attr = _element.getAttribute("actualEffort");
+    	if(attr == null){
+    		return 0;
+    	}
+    	else{
+    		try{
+    			return Double.parseDouble(attr.getValue());
+    		}
+    		catch (NumberFormatException e){
+    			return 0;
+    		}
+    	}
+    }
+    
+    private double getDoubleLOC(){
+    	Attribute attr = _element.getAttribute("loc");
+    	if(attr == null){
+    		return 0;
+    	}
+    	else{
+    		try{
+    			return Double.parseDouble(attr.getValue());
+    		}
+    		catch (NumberFormatException e){
+    			return 0;
+    		}
+    	}
+    }
 
     public void setEffort(long effort) {
     	if (effort > 0){
@@ -154,6 +186,15 @@ public class TaskImpl implements Task, Comparable {
     			return 0;
     		}
     	}
+    }
+    
+    public double getProductivity(){
+    	double prod = 0.0;
+    	prod = (double)this.getLOC()/Double.parseDouble((Util.getHoursFromMillis(this.getActEffort())));
+    	
+    	return prod;    	
+    	//String p = "Screw this";
+    	//return p; 
     }
 
     // US 1
