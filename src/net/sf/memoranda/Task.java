@@ -96,7 +96,8 @@ public interface Task {
     int getNumDefects();
     void setNumDefects(int numDefects);
     double getProductivity();
-      
+   
+    
     void setDescription(String description);
     String getDescription();
 

@@ -117,14 +117,14 @@ public class TaskImpl implements Task, Comparable {
     public long getActEffort() {
     	Attribute attr = _element.getAttribute("actualEffort");
     	if (attr == null) {
-    		return 0;
+    		return 1;
     	}
     	else {
     		try {
         		return Long.parseLong(attr.getValue());
     		}
     		catch (NumberFormatException e) {
-    			return 0;
+    			return 1;
     		}
     	}
     }
@@ -132,14 +132,14 @@ public class TaskImpl implements Task, Comparable {
     private double getDoubleEffort(){
     	Attribute attr = _element.getAttribute("actualEffort");
     	if(attr == null){
-    		return 0;
+    		return 1;
     	}
     	else{
     		try{
     			return Double.parseDouble(attr.getValue());
     		}
     		catch (NumberFormatException e){
-    			return 0;
+    			return 1;
     		}
     	}
     }
@@ -189,8 +189,14 @@ public class TaskImpl implements Task, Comparable {
     }
     
     public double getProductivity(){
-    	double prod = 0.0;
-    	prod = (double)this.getLOC()/Double.parseDouble((Util.getHoursFromMillis(this.getActEffort())));
+    	//double prod = 0.0;
+    	//prod = (double)this.getLOC()/Double.parseDouble(Util.getHoursFromMillis(this.getActEffort()));
+    	
+    	double prod, num, den;
+    	num = (double)this.getLOC();
+    	den = Double.parseDouble(Util.getHoursFromMillis(this.getActEffort()));
+    	//System.out.println("LOC: " + this.getLOC() + "\nActual Hours: " + Util.getHoursFromMillis(this.getActEffort()));
+    	prod = num/den;
     	
     	return prod;    	
     	//String p = "Screw this";

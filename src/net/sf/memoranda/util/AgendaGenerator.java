@@ -178,7 +178,7 @@ public class AgendaGenerator {
 				+ String.valueOf(t.getProductivity())
 				+ " LOC/hr</i></p>";
 		
-		/*<<<<<<< AgendaGenerator.java
+		
 		if (!(t.getStartDate().getDate()).after(t.getEndDate().getDate())) {
 		    if (t.getEndDate().equals(date))
 		        s += "<p><font color=\"#FF9900\"><b>"
@@ -201,7 +201,7 @@ public class AgendaGenerator {
 		            + "</i> ("+days+")</p>";
 		    }                    
 		}
-=======*/
+
 		if (t.getEndDate().equals(date)){
 			s += "<p><font color=\"#FF9900\"><b>"
 					+ Local.getString("Should be done today")
