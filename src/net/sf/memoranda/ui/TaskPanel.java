@@ -606,7 +606,7 @@ public class TaskPanel extends JPanel {
         catch (NumberFormatException nfe) {
         	locode = 0l;
         }
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(),parentTaskId);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(), effort, actEffort, numDefects, locode, dlg.descriptionField.getText(), phase, parentTaskId);
 
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
