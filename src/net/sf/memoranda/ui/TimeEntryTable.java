@@ -231,7 +231,7 @@ public class TimeEntryTable extends JTable {
             if (columnIndex == 0){
             	return t.getID();
             } else if (columnIndex == 1) {
-            	return t.getDate().toString();
+            	return t.getDate().getShortDateString();
             } else if (columnIndex == 2) {
             	return t.getPhase();
             } else if (columnIndex == 3) {

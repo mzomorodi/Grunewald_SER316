@@ -234,7 +234,7 @@ public class DefectsTable extends JTable{
             } else if (columnIndex == 1) {
             	return d.getDefectType();
             } else if (columnIndex == 2) {
-            	return d.getDate().toString();
+            	return d.getDate().getShortDateString();
             } else if (columnIndex == 3) {
             	return d.getTask();
             } else if (columnIndex == 4) {
