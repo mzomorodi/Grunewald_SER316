@@ -231,7 +231,7 @@ public class DefectDialog extends JDialog{
         referenceField.setPreferredSize(new Dimension(30, 24));
         
         if(t.equals("Edit Defect")){
-	        DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
+	        DateFormat df = new SimpleDateFormat("MM/dd/yy"); 
 	        Date defectDate = df.parse(currSelection[2]);
 	        
 	        idField.setText(currSelection[0]);

@@ -245,7 +245,7 @@ public class TimeEntryDialog extends JDialog {
 		});
 		
 		if(t.equals("Edit Time")){
-	        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+	        DateFormat df = new SimpleDateFormat("MM/dd/yy");
 	        Date timeEntryDate = df.parse(currSelection[1]);
 	        
 	        idField.setText(currSelection[0]);
