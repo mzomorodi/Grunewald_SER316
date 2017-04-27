@@ -312,7 +312,7 @@ public class TimeEntryDialog extends JDialog {
     				currSelection[TimeEntryTable.ID_COL]);
     		te.setID(id);
     		te.setPhase(phase);
-    		te.setDate(d.toString());
+    		te.setDate(d.getShortDateString());
     		te.setLocStart(locStart);
     		te.setLocEnd(locEnd);
     		te.setStartTime(startTime);
