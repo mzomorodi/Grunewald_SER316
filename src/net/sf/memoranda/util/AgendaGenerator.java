@@ -178,30 +178,6 @@ public class AgendaGenerator {
 				+ String.valueOf(t.getProductivity())
 				+ " LOC/hr</i></p>";
 		
-		
-		if (!(t.getStartDate().getDate()).after(t.getEndDate().getDate())) {
-		    if (t.getEndDate().equals(date))
-		        s += "<p><font color=\"#FF9900\"><b>"
-		            + Local.getString("Should be done today")
-		            + ".</b></font></p>";
-		    else {
-		        Calendar endDateCal = t.getEndDate().getCalendar();
-		        Calendar dateCal = date.getCalendar();
-		        int numOfDays = (endDateCal.get(Calendar.YEAR)*365 + endDateCal.get(Calendar.DAY_OF_YEAR)) - 
-		                (dateCal.get(Calendar.YEAR)*365 + dateCal.get(Calendar.DAY_OF_YEAR));
-		        String days = "";
-		        if (numOfDays > 1)
-		            days = Local.getString("in")+" "+numOfDays+" "+Local.getString("day(s)");
-		        else
-		            days = Local.getString("tomorrow");
-		        s += "<p>"
-		            + Local.getString("Deadline")
-		            + ": <i>"
-		            + t.getEndDate().getMediumDateString()
-		            + "</i> ("+days+")</p>";
-		    }                    
-		}
-
 		if (t.getEndDate().equals(date)){
 			s += "<p><font color=\"#FF9900\"><b>"
 					+ Local.getString("Should be done today")
