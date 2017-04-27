@@ -80,11 +80,11 @@ public class TaskListImpl implements TaskList {
     public Collection getAllSubTasks(String taskId) {
     	if ((taskId == null) || (taskId.length() == 0)) {
     		return getAllRootTasks();
-    	}
-    	else {
+    	} else {
             Element task = getTaskElement(taskId);
-            if (task == null)
+            if (task == null) {
                 return new Vector();
+            }
             Elements subTasks = task.getChildElements("task");
             return convertToTaskObjects(subTasks);    	    		
     	}
@@ -128,8 +128,7 @@ public class TaskListImpl implements TaskList {
 
         if (parentTaskId == null) {
             _root.appendChild(el);
-        }
-        else {
+        } else {
             Element parent = getTaskElement(parentTaskId);
             parent.appendChild(el);
         }
@@ -149,8 +148,7 @@ public class TaskListImpl implements TaskList {
         String parentTaskId = task.getParentId();
         if (parentTaskId == null) {
             _root.removeChild(task.getContent());            
-        }
-        else {
+        } else {
             Element parentNode = getTaskElement(parentTaskId);
             parentNode.removeChild(task.getContent());
         }
@@ -162,8 +160,7 @@ public class TaskListImpl implements TaskList {
         if (task == null) return false;
         if(task.getChildElements("task").size() > 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -181,12 +178,10 @@ public class TaskListImpl implements TaskList {
     	    Element parent = (Element) parentNode;
         	if (parent.getLocalName().equalsIgnoreCase("task")) {
         	    return true;
-        	}
-        	else {
+        	} else {
         	    return false;
         	}
-    	}
-    	else {
+    	} else {
     	    return false;
     	}
     }
@@ -215,8 +210,7 @@ public class TaskListImpl implements TaskList {
             }
             t.setEffort(totalEffort);
             return totalEffort;            
-        }
-        else {
+        } else {
             return t.getEffort();
         }
     }
@@ -231,8 +225,7 @@ public class TaskListImpl implements TaskList {
             }
             t.setActEffort(totalActEffort);
             return totalActEffort;            
-        }
-        else {
+        } else {
             return t.getActEffort();
         }
     }
@@ -247,8 +240,7 @@ public class TaskListImpl implements TaskList {
             }
             t.setNumDefects(totalDefects);
             return totalDefects;            
-        }
-        else {
+        } else {
             return t.getNumDefects();
         }
     }
@@ -271,8 +263,7 @@ public class TaskListImpl implements TaskList {
             }
             t.setLOC(totalLOC);
             return totalLOC;            
-        }
-        else {
+        } else {
             return t.getLOC();
         }
     }
@@ -298,8 +289,7 @@ public class TaskListImpl implements TaskList {
 	        }
 	        t.setStartDate(d);
 	        return d;
-        }
-        else {
+        } else {
             return t.getStartDate();
         }
     }
@@ -323,8 +313,7 @@ public class TaskListImpl implements TaskList {
 	        }
 	        t.setEndDate(d);
 	        return d;
-        }
-        else {
+        } else {
             return t.getEndDate();
         }
     }
@@ -350,7 +339,8 @@ public class TaskListImpl implements TaskList {
             	totalEffort = totalEffort + subTaskCompletion[1];
             }
             
-            int thisProgress = (int) Math.round((((double)expendedEffort / (double)totalEffort) * 100));
+            int thisProgress = (int) Math.round(
+            		(((double)expendedEffort / (double)totalEffort) * 100));
             t.setProgress(thisProgress);
 
 //            Util.debug("Expended Effort: "+ expendedEffort);
@@ -420,10 +410,11 @@ public class TaskListImpl implements TaskList {
     }
 
     private boolean isActive(Task t,CalendarDate date) {
-    	if ((t.getStatus(date) == Task.ACTIVE) || (t.getStatus(date) == Task.DEADLINE) || (t.getStatus(date) == Task.FAILED)) {
+    	if ((t.getStatus(date) == Task.ACTIVE) || 
+    			(t.getStatus(date) == Task.DEADLINE) || 
+    			(t.getStatus(date) == Task.FAILED)) {
     		return true;
-    	}
-    	else {
+    	} else {
     		return false;
     	}
     }

@@ -27,6 +27,8 @@ import javax.swing.JToolBar;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.Defect;
+
+import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.CSVExport;
 import net.sf.memoranda.util.Local;
 
@@ -87,13 +89,14 @@ public class DefectsPanel extends JPanel{
 		_newDefectButton.setPreferredSize(new Dimension(24, 24));
 		_newDefectButton.setFocusable(false);
 		_newDefectButton.setBorderPainted(false);
-		_newDefectButton.addActionListener(new java.awt.event.ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		_newDefectButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				_newDefectButtonClicked(e);
 			}
 		});
 		_newDefectButton.setIcon(new ImageIcon(
-				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/addresource.png")));
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+						"resources/icons/addresource.png")));
 		
 		_editDefectButton.setEnabled(true);
 		_editDefectButton.setMaximumSize(new Dimension(24, 24));
@@ -108,7 +111,8 @@ public class DefectsPanel extends JPanel{
 			}
 		});
 		_editDefectButton.setIcon(new ImageIcon(
-				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/editproject.png")));
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+						"resources/icons/editproject.png")));
 		
 		_deleteDefectButton.setEnabled(true);
 		_deleteDefectButton.setMaximumSize(new Dimension(24, 24));
@@ -123,7 +127,8 @@ public class DefectsPanel extends JPanel{
 			}
 		});
 		_deleteDefectButton.setIcon(new ImageIcon(
-				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/removeresource.png")));
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+						"resources/icons/removeresource.png")));
 		
 		_exportDefectsButton.setEnabled(true);
 		_exportDefectsButton.setMaximumSize(new Dimension(24, 24));
@@ -148,15 +153,17 @@ public class DefectsPanel extends JPanel{
 	/*
 	 * Opens Defect dialog to enter new defect
 	 */
-	public void _newDefectButtonClicked(ActionEvent e){
+	public void _newDefectButtonClicked(ActionEvent e) {
 		DefectDialog dDlg = new DefectDialog(App.getFrame(), Local.getString("New Defect"));
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
-		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
+		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, 
+				(frmSize.height - dDlg.getSize().height) / 2 + loc.y);
 		dDlg.setVisible(true);
 		if(dDlg.CANCELLED){
 			return;
 		} else {
+			CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
 			_defectsTable.tableChanged();
 		}
 	}
@@ -164,24 +171,30 @@ public class DefectsPanel extends JPanel{
 	/*
 	 * Opens Defect dialog to edit selected defect
 	 */
-	public void _editDefectButtonClicked(ActionEvent e){
+	public void _editDefectButtonClicked(ActionEvent e) {
 		if (_defectsTable.hasSelection()) {
-			DefectDialog dDlg = new DefectDialog(App.getFrame(), Local.getString("Edit Defect"), _defectsTable.getCurrentSelection());
+			DefectDialog dDlg = new DefectDialog(App.getFrame(), 
+					Local.getString("Edit Defect"), 
+					_defectsTable.getCurrentSelection());
 			Dimension frmSize = App.getFrame().getSize();
 			Point loc = App.getFrame().getLocation();
-			dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
+			dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, 
+					(frmSize.height - dDlg.getSize().height) / 2 + loc.y);
 			dDlg.setVisible(true);
 			if(dDlg.CANCELLED){
 				return;
 			} else {
+				CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
 				int lastSelectedRow = _defectsTable.getLastSelectedRow();
 				_defectsTable.tableChanged();
-				_defectsTable.getSelectionModel().setSelectionInterval(lastSelectedRow, lastSelectedRow);
+				_defectsTable.getSelectionModel().setSelectionInterval(
+						lastSelectedRow, 
+						lastSelectedRow);
 			}
 		}
 	}
 	
-	public void _deleteDefectButtonClicked(ActionEvent e){
+	public void _deleteDefectButtonClicked(ActionEvent e) {
 		if (_defectsTable.hasSelection()) {
 			int toRemove = _defectsTable.getSelectedRow();
 	        String msg = "";
@@ -198,15 +211,18 @@ public class DefectsPanel extends JPanel{
 	                msg,
 	                Local.getString("Delete defect"),
 	                JOptionPane.YES_NO_OPTION);
-	        if (n != JOptionPane.YES_OPTION)
+	        if (n != JOptionPane.YES_OPTION) {
 	            return;
+	        }
 	        /*System.out.println(_defectsTable.getModel().getValueAt(
 	        		_defectsTable.getSelectedRow(), DefectsTable.ID_COL).toString());*/
 	        Defect d1 = CurrentProject.getDefectList().getDefect(
 	                _defectsTable.getModel().getValueAt(
-	                		_defectsTable.getSelectedRow(), DefectsTable.ID_COL).toString());
+	                		_defectsTable.getSelectedRow(), 
+	                		DefectsTable.ID_COL).toString());
 	        CurrentProject.getDefectList().removeDefect(d1);
 	        _defectsTable.tableChanged();
+	        CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
 		}
 	}
 	

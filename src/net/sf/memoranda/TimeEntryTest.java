@@ -11,8 +11,10 @@ public class TimeEntryTest {
 	CalendarDate date = new CalendarDate();
 	TimeEntryList tel1 = new TimeEntryList();
 	TimeEntryList tel2 = new TimeEntryList();
-	TimeEntry te1 = tel1.createTimeEntry("id1", date, "1", "2", "900", "1000", "15+5", "PLANNING", "comments 1");
-	TimeEntry te2 = tel2.createTimeEntry("id2", date, "2", "3", "1100", "1200", "20+10", "DESIGN", "comments 2");
+	TimeEntry te1 = tel1.createTimeEntry(
+			"id1", date, "1", "2", "900", "1000", "15+5", "PLANNING", "comments 1");
+	TimeEntry te2 = tel2.createTimeEntry(
+			"id2", date, "2", "3", "1100", "1200", "20+10", "DESIGN", "comments 2");
 	
 	@Test
 	public void testGetContent() {

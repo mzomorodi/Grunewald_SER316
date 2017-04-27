@@ -83,7 +83,7 @@ public class TimeEntryDialog extends JDialog {
     private JTextField endLOCField = new JTextField();
     
     // misc components
-    private static final ArrayList<String> phases = new ArrayList<String>(Arrays.asList(
+    private static final ArrayList<String> PHASES = new ArrayList<String>(Arrays.asList(
 			new String[] {Local.getString("PLANNING"),
 		    		Local.getString("DESIGN"), Local.getString("CODE"),
 		    		Local.getString("CODE_REVIEW"), Local.getString("COMPILE"),
@@ -137,11 +137,14 @@ public class TimeEntryDialog extends JDialog {
 		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, sdf.toPattern()));
 		dateSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				SpinnerDateModel sdm = new SpinnerDateModel((Date)dateSpinner.getModel().getValue(), null, null,Calendar.DAY_OF_WEEK);
+				SpinnerDateModel sdm = new SpinnerDateModel(
+						(Date)dateSpinner.getModel().getValue(), 
+						null, null, Calendar.DAY_OF_WEEK);
 				dateSpinner.setModel(sdm);
 
-				if (ignoreDateChanged)
+				if (ignoreDateChanged) {
 					return;
+				}
 				ignoreDateChanged = true;
 				Date sd = (Date) dateSpinner.getModel().getValue();
 
@@ -184,8 +187,8 @@ public class TimeEntryDialog extends JDialog {
 		upperPanel.add(datePanel, BorderLayout.NORTH);
 		upperPanel.add(commentsPanel, BorderLayout.SOUTH);
 		
-		for(int i = 0; i < phases.size(); i++){
-			phChooser.addItem(phases.get(i));
+		for(int i = 0; i < PHASES.size(); i++){
+			phChooser.addItem(PHASES.get(i));
 		}
 		
 		phChooser.setBorder(textBorder);
@@ -242,12 +245,12 @@ public class TimeEntryDialog extends JDialog {
 		});
 		
 		if(t.equals("Edit Time")){
-	        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+	        DateFormat df = new SimpleDateFormat("MM/dd/yy");
 	        Date timeEntryDate = df.parse(currSelection[1]);
 	        
 	        idField.setText(currSelection[0]);
 	        dateSpinner.getModel().setValue(timeEntryDate);
-	        phChooser.setSelectedIndex(phases.indexOf(currSelection[2]));
+	        phChooser.setSelectedIndex(PHASES.indexOf(currSelection[2]));
 	        startLOCField.setText(currSelection[3]);
 	        endLOCField.setText(currSelection[4]);
 	        startTimeField.setText(currSelection[5]);
@@ -260,7 +263,7 @@ public class TimeEntryDialog extends JDialog {
 		buttonsPanel.add(cancelB);
 				
 		centerPanel.setLayout(new GridLayout(0,2));
-		centerPanel.setPreferredSize(new Dimension(300, 160));;
+		centerPanel.setPreferredSize(new Dimension(300, 160));
 		centerPanel.add(phLabel);
 		centerPanel.add(phChooser);
 		centerPanel.add(startLOCLabel);
@@ -301,10 +304,12 @@ public class TimeEntryDialog extends JDialog {
     	String phase = phChooser.getSelectedItem().toString();
     	String comments = commentsField.getText();
     	if(getTitle().equals("New Time")){
-    		CurrentProject.getTimeEntryList().createTimeEntry(id, d, locStart, locEnd, startTime, stopTime, interruptTime, phase, comments);
-    	}
-    	else{
-    		TimeEntry te = CurrentProject.getTimeEntryList().getTimeEntry(currSelection[TimeEntryTable.ID_COL]);
+    		CurrentProject.getTimeEntryList().createTimeEntry(
+    				id, d, locStart, locEnd, startTime, 
+    				stopTime, interruptTime, phase, comments);
+    	} else {
+    		TimeEntry te = CurrentProject.getTimeEntryList().getTimeEntry(
+    				currSelection[TimeEntryTable.ID_COL]);
     		te.setID(id);
     		te.setPhase(phase);
     		te.setDate(d.toString());
@@ -315,7 +320,9 @@ public class TimeEntryDialog extends JDialog {
     		te.setInterruptTime(interruptTime);
     		te.setComments(comments);
     	}
-    	CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
+    	CurrentStorage.get().storeTimeEntryList(
+    			CurrentProject.getTimeEntryList(), 
+    			CurrentProject.get());
         this.dispose();
     }
 	

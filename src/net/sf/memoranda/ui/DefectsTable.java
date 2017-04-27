@@ -72,7 +72,8 @@ public class DefectsTable extends JTable{
       
         CurrentProject.addProjectListener(new ProjectListener() {
 
-          public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
+          public void projectChange(Project prj, 
+        		  NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
 					TimeEntryList tel) {}
 
 			public void projectWasChanged() {
@@ -105,7 +106,7 @@ public class DefectsTable extends JTable{
 	 * @return array of strings, each string contains one cell from the selected table row
 	 */
 	public String[] getCurrentSelection() {
-		return _currentSelection;
+		return _currentSelection.clone();
 	}
 	
 	/**
@@ -156,9 +157,15 @@ public class DefectsTable extends JTable{
         initColumnsWidth();
         updateUI();
         
-        for(int i = 0; i < numColumns; i++) {
-			_currentSelection[i] = (String) model.getValueAt(row, i);
-		}
+        if (model.getRowCount() > 0) {
+	        for(int i = 0; i < numColumns; i++) {
+				_currentSelection[i] = (String) model.getValueAt(row, i);
+			}
+        } else {
+        	for(int i = 0; i < numColumns; i++) {
+				_currentSelection[i] = "";
+			}
+        }
     }
 	
 	/**
@@ -176,7 +183,8 @@ public class DefectsTable extends JTable{
                 int column) {
                 JLabel comp;
 
-                comp = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                comp = (JLabel)super.getTableCellRendererComponent(
+                		table, value, isSelected, hasFocus, row, column);
                 
                 return comp;
             }
@@ -226,7 +234,7 @@ public class DefectsTable extends JTable{
             } else if (columnIndex == 1) {
             	return d.getDefectType();
             } else if (columnIndex == 2) {
-            	return d.getDate().toString();
+            	return d.getDate().getShortDateString();
             } else if (columnIndex == 3) {
             	return d.getTask();
             } else if (columnIndex == 4) {

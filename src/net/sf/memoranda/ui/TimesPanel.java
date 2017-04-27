@@ -26,6 +26,8 @@ import javax.swing.JToolBar;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.TimeEntry;
+
+import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.CSVExport;
 import net.sf.memoranda.util.Local;
 
@@ -47,8 +49,7 @@ public class TimesPanel extends JPanel{
 	public TimesPanel() {
 		try{
 			jbInit();
-		}
-		catch(Exception e){
+		} catch(Exception e) {
 			new ExceptionDialog(e);
 		}
 	}
@@ -87,12 +88,13 @@ public class TimesPanel extends JPanel{
 		_newTimeButton.setFocusable(false);
 		_newTimeButton.setBorderPainted(false);
 		_newTimeButton.addActionListener(new java.awt.event.ActionListener(){
-			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e) {
 				_newTimeButtonClicked(e);
 			}
 		});
 		_newTimeButton.setIcon(new ImageIcon(
-				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/addresource.png")));
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+						"resources/icons/addresource.png")));
 		
 		_editTimeButton.setEnabled(true);
 		_editTimeButton.setMaximumSize(new Dimension(24, 24));
@@ -102,12 +104,13 @@ public class TimesPanel extends JPanel{
 		_editTimeButton.setFocusable(false);
 		_editTimeButton.setBorderPainted(false);
 		_editTimeButton.addActionListener(new java.awt.event.ActionListener(){
-			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e) {
 				_editTimeButtonClicked(e);
 			}
 		});
 		_editTimeButton.setIcon(new ImageIcon(
-				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/editproject.png")));
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+						"resources/icons/editproject.png")));
 		
 		_deleteTimeEntryButton.setEnabled(true);
 		_deleteTimeEntryButton.setMaximumSize(new Dimension(24, 24));
@@ -122,7 +125,8 @@ public class TimesPanel extends JPanel{
 			}
 		});
 		_deleteTimeEntryButton.setIcon(new ImageIcon(
-				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/removeresource.png")));
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+						"resources/icons/removeresource.png")));
 		
 		_exportTimeEntryButton.setEnabled(true);
 		_exportTimeEntryButton.setMaximumSize(new Dimension(24, 24));
@@ -148,15 +152,20 @@ public class TimesPanel extends JPanel{
 	 * Opens TimeEntryDialog to enter new time entry
 	 * 
 	 */
-	public void _newTimeButtonClicked(ActionEvent e){
-		TimeEntryDialog dDlg = new TimeEntryDialog(App.getFrame(), Local.getString("New Time"), _timeEntryTable.getCurrentSelection());
+	public void _newTimeButtonClicked(ActionEvent e) {
+		TimeEntryDialog dDlg = new TimeEntryDialog(
+				App.getFrame(), 
+				Local.getString("New Time"), 
+				_timeEntryTable.getCurrentSelection());
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
-		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, (frmSize.height - dDlg.getSize().height) / 2 + loc.y);
+		dDlg.setLocation((frmSize.width - dDlg.getSize().width)/2 + loc.x, 
+				(frmSize.height - dDlg.getSize().height) / 2 + loc.y);
 		dDlg.setVisible(true);
 		if(dDlg.CANCELLED){
 			return;
 		} else {
+			CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
 			_timeEntryTable.tableChanged();
 		}
 	}
@@ -165,19 +174,26 @@ public class TimesPanel extends JPanel{
 	 * Opens TimeEntryDialog to edit selected time entry
 	 * 
 	 */
-	public void _editTimeButtonClicked(ActionEvent e){
+	public void _editTimeButtonClicked(ActionEvent e) {
 		if (_timeEntryTable.hasSelection()) {
-			TimeEntryDialog tDlg = new TimeEntryDialog(App.getFrame(), Local.getString("Edit Time"), _timeEntryTable.getCurrentSelection());
+			TimeEntryDialog tDlg = new TimeEntryDialog(
+					App.getFrame(), 
+					Local.getString("Edit Time"), 
+					_timeEntryTable.getCurrentSelection());
 			Dimension frmSize = App.getFrame().getSize();
 			Point loc = App.getFrame().getLocation();
-			tDlg.setLocation((frmSize.width - tDlg.getSize().width)/2 + loc.x, (frmSize.height - tDlg.getSize().height) / 2 + loc.y);
+			tDlg.setLocation((frmSize.width - tDlg.getSize().width)/2 + loc.x, 
+					(frmSize.height - tDlg.getSize().height) / 2 + loc.y);
 			tDlg.setVisible(true);
 			if(tDlg.CANCELLED){
 				return;
 			} else {
+				CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
 				int lastSelectedRow = _timeEntryTable.getLastSelectedRow();
 				_timeEntryTable.tableChanged();
-				_timeEntryTable.getSelectionModel().setSelectionInterval(lastSelectedRow, lastSelectedRow);
+				_timeEntryTable.getSelectionModel().setSelectionInterval(
+						lastSelectedRow, 
+						lastSelectedRow);
 			}
 		}
 	}
@@ -185,7 +201,7 @@ public class TimesPanel extends JPanel{
 	/*
 	 * Deletes time entry
 	 */
-	public void _deleteTimeEntryButtonClicked(ActionEvent e){
+	public void _deleteTimeEntryButtonClicked(ActionEvent e) {
 		if (_timeEntryTable.hasSelection()) {
 			int toRemove = _timeEntryTable.getSelectedRow();
 	        String msg = "";
@@ -202,15 +218,18 @@ public class TimesPanel extends JPanel{
 	                msg,
 	                Local.getString("Delete entry"),
 	                JOptionPane.YES_NO_OPTION);
-	        if (n != JOptionPane.YES_OPTION)
+	        if (n != JOptionPane.YES_OPTION) {
 	            return;
+	        }
 	        /*System.out.println(_timeEntryTable.getModel().getValueAt(
 	        		_timeEntryTable.getSelectedRow(), TimeEntryTable.ID_COL).toString());*/
 	        TimeEntry te1 = CurrentProject.getTimeEntryList().getTimeEntry(
 	        		_timeEntryTable.getModel().getValueAt(
-	                		_timeEntryTable.getSelectedRow(), TimeEntryTable.ID_COL).toString());
+	                		_timeEntryTable.getSelectedRow(), 
+	                		TimeEntryTable.ID_COL).toString());
 	        CurrentProject.getTimeEntryList().removeTimeEntry(te1);
 	        _timeEntryTable.tableChanged();
+	        CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
 		}
 	}
 	

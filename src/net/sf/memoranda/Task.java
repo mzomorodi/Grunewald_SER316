@@ -95,6 +95,8 @@ public interface Task {
     // US 3
     int getNumDefects();
     void setNumDefects(int numDefects);
+    double getProductivity();
+   
     
     String getPhase();
     void setPhase(String phase);

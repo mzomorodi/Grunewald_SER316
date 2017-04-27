@@ -13,9 +13,13 @@ public class DefectTest {
 	DefectList dl1 = new DefectList();
 	DefectList dl2 = new DefectList();
 	Defect d1a = dl1.createDefect();
-	Defect d1b = dl1.createDefect(date, "def2", "20: Syntax", "DESIGN", "CODE_REVIEW", "15 min", "", "added missing statement");
+	Defect d1b = dl1.createDefect(
+			date, "def2", "20: Syntax", "DESIGN", 
+			"CODE_REVIEW", "15 min", "", "added missing statement");
 	Defect d2a = dl2.createDefect();
-	Defect d2b = dl2.createDefect(date, "def2", "30: Build, Package", "PLANNING", "CODE_REVIEW", "20 min", "", "added missing jar to build path");
+	Defect d2b = dl2.createDefect(
+			date, "def2", "30: Build, Package", "PLANNING", 
+			"CODE_REVIEW", "20 min", "", "added missing jar to build path");
 	
 	@Test
 	public void testGetContent() {

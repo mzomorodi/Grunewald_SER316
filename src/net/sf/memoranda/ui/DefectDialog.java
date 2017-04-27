@@ -82,7 +82,7 @@ public class DefectDialog extends JDialog{
     // Type Field Components
     JLabel typeLabel = new JLabel();
     private JComboBox typeChooser = new JComboBox();
-    private static final ArrayList<String> types = new ArrayList<String>(Arrays.asList(
+    private static final ArrayList<String> TYPES = new ArrayList<String>(Arrays.asList(
 			new String[] {Local.getString("10: Documentation"),
 		    		Local.getString("20: Syntax"), Local.getString("30: Build/ Package"),
 		    		Local.getString("40: Assignment"), Local.getString("50: Interface"),
@@ -96,7 +96,7 @@ public class DefectDialog extends JDialog{
     private JLabel removedLabel = new JLabel();
     private JComboBox injectedChooser = new JComboBox();
     private JComboBox removedChooser = new JComboBox();
-    private static final ArrayList<String> phases = new ArrayList<String>(Arrays.asList(
+    private static final ArrayList<String> PHASES = new ArrayList<String>(Arrays.asList(
 			new String[] {Local.getString("PLANNING"),
 		    		Local.getString("DESIGN"), Local.getString("CODE"),
 		    		Local.getString("CODE_REVIEW"), Local.getString("COMPILE"),
@@ -114,8 +114,7 @@ public class DefectDialog extends JDialog{
         try {
             jbInit(title);            
             pack();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             new ExceptionDialog(ex);
         }
 	}
@@ -153,11 +152,14 @@ public class DefectDialog extends JDialog{
         dateSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
             	
-            	SpinnerDateModel sdm = new SpinnerDateModel((Date)dateSpinner.getModel().getValue(),null,null,Calendar.DAY_OF_WEEK);
+            	SpinnerDateModel sdm = new SpinnerDateModel(
+            			(Date)dateSpinner.getModel().getValue(),
+            			null, null, Calendar.DAY_OF_WEEK);
             	dateSpinner.setModel(sdm);
 
-                if (ignoreDateChanged)
+                if (ignoreDateChanged) {
                     return;
+                }
                 ignoreDateChanged = true;
                 Date sd = (Date) dateSpinner.getModel().getValue();
                 
@@ -199,8 +201,8 @@ public class DefectDialog extends JDialog{
         typeLabel.setMinimumSize(new Dimension(60, 16));
         typeLabel.setPreferredSize(new Dimension(60, 16));
         typeChooser.setBorder(textBorder);     	        	
-        for(int i = 0; i < types.size(); i++){
-        	typeChooser.addItem(types.get(i));
+        for(int i = 0; i < TYPES.size(); i++){
+        	typeChooser.addItem(TYPES.get(i));
     	}
         
         injectedLabel.setText(Local.getString("Injected"));
@@ -212,9 +214,9 @@ public class DefectDialog extends JDialog{
         injectedChooser.setBorder(textBorder);
         removedChooser.setBorder(textBorder);   
         
-        for(int i = 0; i < phases.size(); i++){
-        	injectedChooser.addItem(phases.get(i));
-        	removedChooser.addItem(phases.get(i));
+        for(int i = 0; i < PHASES.size(); i++){
+        	injectedChooser.addItem(PHASES.get(i));
+        	removedChooser.addItem(PHASES.get(i));
         }
         
         timeLabel.setText(Local.getString("Fix Time"));
@@ -229,14 +231,14 @@ public class DefectDialog extends JDialog{
         referenceField.setPreferredSize(new Dimension(30, 24));
         
         if(t.equals("Edit Defect")){
-	        DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
+	        DateFormat df = new SimpleDateFormat("MM/dd/yy"); 
 	        Date defectDate = df.parse(currSelection[2]);
 	        
 	        idField.setText(currSelection[0]);
-	        typeChooser.setSelectedIndex(types.indexOf(currSelection[1]));
+	        typeChooser.setSelectedIndex(TYPES.indexOf(currSelection[1]));
 	        dateSpinner.getModel().setValue(defectDate);
-	        injectedChooser.setSelectedIndex(phases.indexOf(currSelection[4]));
-	        removedChooser.setSelectedIndex(phases.indexOf(currSelection[5]));
+	        injectedChooser.setSelectedIndex(PHASES.indexOf(currSelection[4]));
+	        removedChooser.setSelectedIndex(PHASES.indexOf(currSelection[5]));
 	        timeField.setText(currSelection[6]);
 	        referenceField.setText(currSelection[7]);
 	        descriptionField.setText(currSelection[8]);
@@ -307,7 +309,8 @@ public class DefectDialog extends JDialog{
     	if(getTitle().equals("New Defect")){
     		CurrentProject.getDefectList().createDefect(d, id, ty, inj, rm, fTime, fRef, desc);
     	} else {
-    		Defect defect = CurrentProject.getDefectList().getDefect(currSelection[DefectsTable.ID_COL]);
+    		Defect defect = CurrentProject.getDefectList().getDefect(
+    				currSelection[DefectsTable.ID_COL]);
     		defect.setID(id);
     		defect.setDefectType(ty);
     		defect.setDate(d.toString());
