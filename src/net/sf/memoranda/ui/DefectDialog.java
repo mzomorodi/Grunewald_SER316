@@ -310,7 +310,7 @@ public class DefectDialog extends JDialog{
     		Defect defect = CurrentProject.getDefectList().getDefect(currSelection[DefectsTable.ID_COL]);
     		defect.setID(id);
     		defect.setDefectType(ty);
-    		defect.setDate(d.toString());
+    		defect.setDate(d.getShortDateString());
     		defect.setInjectedPhase(inj);
     		defect.setRemovedPhase(rm);
     		defect.setFixedTime(fTime);
