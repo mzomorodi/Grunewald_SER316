@@ -156,9 +156,15 @@ public class TimeEntryTable extends JTable {
         initColumnsWidth();
         updateUI();
         
-        for(int i = 0; i < numColumns; i++) {
-			_currentSelection[i] = (String) model.getValueAt(row, i);
-		}
+        if (model.getRowCount() > 0) {
+	        for(int i = 0; i < numColumns; i++) {
+				_currentSelection[i] = (String) model.getValueAt(row, i);
+			}
+        } else {
+        	for(int i = 0; i < numColumns; i++) {
+				_currentSelection[i] = "";
+			}
+        }
     }
 	
 	/**
