@@ -55,8 +55,14 @@ public class AgendaGenerator {
 		String s = "";
 		int k = getProgress(tl);
 		if (k > -1) {
-			s += "<br>" + Local.getString("Total progress") + ": " + k + "%";        	
+			s += "<br>" + Local.getString("Total progress") + ": " + k + "%"; 
 		}
+		
+		int l = getProductivity(tl, date);
+		if (l > -1) {
+			s += "<br>" + Local.getString("Daily productivity") + ": " + l + "%"; 
+		}
+		
 		s += "</td></tr></table>\n";
 
 		Vector tasks = (Vector) tl.getActiveSubTasks(null,date);        
@@ -231,6 +237,22 @@ public class AgendaGenerator {
 		}
 		return (p * 100) / (v.size() * 100);
 	}
+	
+	static int getProductivity(TaskList tl, CalendarDate date) {
+		
+		Vector v = (Vector) tl.getAllSubTasks(null);
+		if (v.size() == 0)
+			return -1;
+		int p = 0;
+		
+		
+		
+		for (Enumeration en = v.elements(); en.hasMoreElements();) {
+			Task t = (Task) en.nextElement();
+			p = t.getProgress();
+		}
+		return p;
+	}
 
 	static String getPriorityString(int p) {
 		switch (p) {
@@ -374,7 +396,7 @@ public class AgendaGenerator {
 				+ "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"
 				+Local.getString("Add sticker")+"</b></a></td></tr></table>"; */
 		/*String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Importar anotaci�n")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Exportar anotaci�n como .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Exportar anotaci�n como .html")+"</b></a></td></tr></table>"
->>>>>>> 07c1dcce9775dcf33db83fbafb5cc37d3c63fe22
+
 				 +   "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""				
 				 + iurl
 				+ "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"

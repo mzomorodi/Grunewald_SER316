@@ -12,9 +12,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,7 +27,9 @@ import javax.swing.JToolBar;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.Defect;
+
 import net.sf.memoranda.util.CurrentStorage;
+import net.sf.memoranda.util.CSVExport;
 import net.sf.memoranda.util.Local;
 
 public class DefectsPanel extends JPanel{
@@ -34,6 +40,7 @@ public class DefectsPanel extends JPanel{
 	private JButton _newDefectButton = new JButton();
 	private JButton _editDefectButton = new JButton();
 	private JButton _deleteDefectButton = new JButton();
+	private JButton _exportDefectsButton = new JButton();
 	private JScrollPane _scrollPane = new JScrollPane();
 	DefectsTable _defectsTable = new DefectsTable();
 
@@ -67,6 +74,8 @@ public class DefectsPanel extends JPanel{
 		_formToolBar.add(_editDefectButton, null);
 		_formToolBar.addSeparator(new Dimension(8, 24));
 		_formToolBar.add(_deleteDefectButton, null);
+		_formToolBar.addSeparator(new Dimension(8, 24));
+		_formToolBar.add(_exportDefectsButton, null);
 		_formToolBar.addSeparator(new Dimension(240, 24));
 		_formToolBar.add(_defectLabel);
 		
@@ -120,6 +129,21 @@ public class DefectsPanel extends JPanel{
 		_deleteDefectButton.setIcon(new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource(
 						"resources/icons/removeresource.png")));
+		
+		_exportDefectsButton.setEnabled(true);
+		_exportDefectsButton.setMaximumSize(new Dimension(24, 24));
+		_exportDefectsButton.setToolTipText("Export Defects to CSV");
+		_exportDefectsButton.setRequestFocusEnabled(false);
+		_exportDefectsButton.setPreferredSize(new Dimension(24, 24));
+		_exportDefectsButton.setFocusable(false);
+		_exportDefectsButton.setBorderPainted(false);
+		_exportDefectsButton.addActionListener(new java.awt.event.ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				_exportDefectsButtonClicked(e);
+			}
+		});
+		_exportDefectsButton.setIcon(new ImageIcon(
+				net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/export.png")));
 		
 		_defectsTable.setMaximumSize(new Dimension(32767, 32767));
         _defectsTable.setRowHeight(24);
@@ -200,5 +224,41 @@ public class DefectsPanel extends JPanel{
 	        _defectsTable.tableChanged();
 	        CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
 		}
+	}
+	
+	public void _exportDefectsButtonClicked(ActionEvent e) {
+		
+		String filename = CurrentProject.get().getID() + "_Defects.csv";
+		JFileChooser fileDialog = new JFileChooser();
+		File selectedFile = new File(filename);
+		
+		
+		fileDialog.setDialogTitle("Export Defects to CSV File");
+		fileDialog.setSelectedFile(selectedFile);
+		int option = fileDialog.showSaveDialog(null);
+	   if (option != JFileChooser.APPROVE_OPTION)
+	      return;  // User canceled or clicked the dialog's close box.
+	   selectedFile = fileDialog.getSelectedFile();
+	   if (selectedFile.exists()) {  // Ask the user whether to replace the file.
+	      int response = JOptionPane.showConfirmDialog(this,
+	            "The file \"" + selectedFile.getName()
+	                + "\" already exists.\nDo you want to replace it?", 
+	            "Confirm Save",
+	            JOptionPane.YES_NO_OPTION, 
+	            JOptionPane.WARNING_MESSAGE );
+	      if (response != JOptionPane.YES_OPTION)
+	         return;  // User does not want to replace the file.
+	   }
+	   
+	   try {
+		   CSVExport.export("defect", selectedFile);
+		   JOptionPane.showMessageDialog(this, "CSV File Saved", "CSV Export Succeeded", JOptionPane.INFORMATION_MESSAGE);
+	   }
+	   catch (FileNotFoundException fnfe) {
+		   JOptionPane.showMessageDialog(this, "The selected file could not be created",
+				   "CSV Export Failed", JOptionPane.ERROR_MESSAGE);
+		   return;
+	   }
+		   
 	}
 }

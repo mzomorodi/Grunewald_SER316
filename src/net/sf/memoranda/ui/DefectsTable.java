@@ -83,7 +83,7 @@ public class DefectsTable extends JTable{
 	}
 	
 	/**
-	 * hasSelection returns whether the able has a selection or not
+	 * hasSelection returns whether the table has a selection or not
 	 * 
 	 * @return the table's selection state
 	 */

@@ -98,6 +98,9 @@ public interface Task {
     double getProductivity();
    
     
+    String getPhase();
+    void setPhase(String phase);
+    
     void setDescription(String description);
     String getDescription();
 

@@ -29,7 +29,8 @@ public class GetStatusTest {
 		//ACTIVE
 		sd = new CalendarDate(10, 4, 2017);
 		ed = new CalendarDate(10, 4, 2018);
-		gstest1 = CurrentProject.getTaskList().createTask(
+
+		/*gstest1 = CurrentProject.getTaskList().createTask(
 				sd, ed, "GSD", 2, (long)4.0, 
 				(long)1.5, 2, 365, "The Stuff to Get Done", null);
 		//SCHEDULED
@@ -43,12 +44,24 @@ public class GetStatusTest {
 		ed = new CalendarDate(20, 4, 2017);
 		gstest3 = CurrentProject.getTaskList().createTask(
 				sd, ed, "GSD", 2, (long)4.0, 
-				(long)1.5, 2, 365, "The Stuff to Get Done", null);
+				(long)1.5, 2, 365, "The Stuff to Get Done", null);*/
+
+		gstest1 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, "The Stuff to Get Done", "PLANNING", null);
+		//SCHEDULED
+		sd = new CalendarDate(20, 4, 2017);
+		ed = null;
+		gstest2 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, "The Stuff to Get Done", "PLANNING", null);
+		//FROZEN
+		sd = new CalendarDate(10, 4, 2017);
+		ed = new CalendarDate(20, 4, 2017);
+		gstest3 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, "The Stuff to Get Done", "PLANNING", null);
+
 		gstest3.freeze();
 		//DEADLINE
 		sd = new CalendarDate(10, 4, 2017);
 		ed = new CalendarDate(15, 4, 2017);
-		gstest4 = CurrentProject.getTaskList().createTask(
+
+		/*gstest4 = CurrentProject.getTaskList().createTask(
 				sd, ed, "GSD", 2, (long)4.0, 
 				(long)1.5, 2, 365, "The Stuff to Get Done", null);
 		//COMPLETED
@@ -56,12 +69,20 @@ public class GetStatusTest {
 		ed = new CalendarDate(20, 4, 2017);
 		gstest5 = CurrentProject.getTaskList().createTask(
 				sd, ed, "GSD", 2, (long)4.0, 
-				(long)1.5, 2, 365, "The Stuff to Get Done", null);
+				(long)1.5, 2, 365, "The Stuff to Get Done", null);*/
+
+		gstest4 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, "The Stuff to Get Done", "PLANNING", null);
+		//COMPLETED
+		sd = new CalendarDate(10, 4, 2017);
+		ed = new CalendarDate(20, 4, 2017);
+		gstest5 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, "The Stuff to Get Done", "PLANNING", null);
+
 		gstest5.setProgress(100);
 		//FAILED
 		sd = new CalendarDate(10, 4, 2017);
 		ed = new CalendarDate(14, 4, 2017);
-		gstest6 = CurrentProject.getTaskList().createTask(
+
+		/*gstest6 = CurrentProject.getTaskList().createTask(
 				sd, ed, "GSD", 2, (long)4.0, 
 				(long)1.5, 2, 365, "The Stuff to Get Done", null);
 		//ACTIVE
@@ -69,7 +90,14 @@ public class GetStatusTest {
 		ed = new CalendarDate(10, 4, 2016);
 		gstest7 = CurrentProject.getTaskList().createTask(
 				sd, ed, "GSD", 2, (long)4.0, 
-				(long)1.5, 2, 365, "The Stuff to Get Done", null);
+				(long)1.5, 2, 365, "The Stuff to Get Done", null);*/
+
+		gstest6 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, "The Stuff to Get Done", "PLANNING", null);
+		//ACTIVE
+		sd = new CalendarDate(10, 4, 2017);
+		ed = new CalendarDate(10, 4, 2016);
+		gstest7 = CurrentProject.getTaskList().createTask(sd, ed, "GSD", 2, (long)4.0, (long)1.5, 2, 365, "The Stuff to Get Done", "PLANNING", null);
+
 				
 	}
 

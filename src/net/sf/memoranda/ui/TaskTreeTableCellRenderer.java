@@ -78,7 +78,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             return empty_panel;
         Task t = (Task) value; 
         setText(t.getText());
-        setToolTipText(t.getDescription());
+        //setToolTipText(t.getDescription());
         setIcon(getStatusIcon(t));
         applyFont(t, this);
         //return getTaskTreeCellRenderer(t, selected, hasFocus);
@@ -157,7 +157,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     private Component getPriorityIconCellRenderer(Task t, boolean selected, boolean hasFocus) {
         applyFocus(false, label); // disable focus borders
         label.setIcon(getPriorityIcon(t));
-        label.setToolTipText(t.getDescription());
+        //label.setToolTipText(t.getDescription());
         return label;
     }
 
