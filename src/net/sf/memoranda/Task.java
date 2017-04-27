@@ -95,7 +95,7 @@ public interface Task {
     // US 3
     int getNumDefects();
     void setNumDefects(int numDefects);
-    
+      
     void setDescription(String description);
     String getDescription();
 
