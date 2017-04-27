@@ -33,7 +33,7 @@ public class FileImportTest {
 	private static File txtFile = null;
 	private static File htmlFile = null;
 	private static File htmFile = null;
-	private static HTMLEditor editor = null;
+	private HTMLEditor editor = null;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -76,7 +76,9 @@ public class FileImportTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			fw.close();
+			if (fw != null) {
+				fw.close();
+			}
 		}
 		new FileImport(txtFile, editor);
 		editorText = editor.document.getText(0, editor.document.getLength());
@@ -100,7 +102,9 @@ public class FileImportTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			fw.close();
+			if (fw != null) {
+				fw.close();
+			}
 		}
 		
 		new FileImport(htmlFile, editor);
@@ -136,7 +140,9 @@ public class FileImportTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			fw.close();
+			if (fw != null) {
+				fw.close();
+			}
 		}
 		
 		new FileImport(htmFile, editor);
@@ -178,7 +184,9 @@ public class FileImportTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			fw.close();
+			if (fw != null) {
+				fw.close();
+			}
 		}
 		
 		new FileImport(pngFile, editor);

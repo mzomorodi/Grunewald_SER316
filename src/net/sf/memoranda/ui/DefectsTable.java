@@ -105,7 +105,7 @@ public class DefectsTable extends JTable{
 	 * @return array of strings, each string contains one cell from the selected table row
 	 */
 	public String[] getCurrentSelection() {
-		return _currentSelection;
+		return _currentSelection.clone();
 	}
 	
 	/**

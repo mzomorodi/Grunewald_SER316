@@ -42,7 +42,7 @@ public class TimeEntry {
 	
 	public CalendarDate getDate(){
 		String t = _elem.getAttribute("date").getValue();
-		if(t != "") {
+		if(!t.equals("")) {
 			return new CalendarDate(_elem.getAttribute("date").getValue());
 		}
 		else{

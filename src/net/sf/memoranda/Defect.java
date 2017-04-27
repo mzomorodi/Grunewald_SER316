@@ -42,7 +42,7 @@ public class Defect {
 	
 	public CalendarDate getDate(){
 		String d = _elem.getAttribute("date").getValue();
-		if(d != ""){
+		if(!d.equals("")){
 			return new CalendarDate(_elem.getAttribute("date").getValue());
 		}
 		else{

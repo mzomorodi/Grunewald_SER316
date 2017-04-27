@@ -76,7 +76,7 @@ public class EventTest {
 	@Test
 	public void testGetTime() {
 		//System.out.println(e2.getTime().toString());
-		assertTrue(!e2.getTime().equals(new CalendarDate().today()));
+		assertTrue(!e2.getTime().equals(new CalendarDate().today().getDate()));
 	}
 
 	@Test
