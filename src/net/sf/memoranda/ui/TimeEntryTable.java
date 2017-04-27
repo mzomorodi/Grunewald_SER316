@@ -70,7 +70,8 @@ public class TimeEntryTable extends JTable {
         addMouseListener(new MouseTableListener());
 
         CurrentProject.addProjectListener(new ProjectListener() {
-			public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, 
+			public void projectChange(Project prj, 
+					NoteList nl, TaskList tl, ResourcesList rl, DefectList dl, 
 					TimeEntryList tel) {
 				
 			}
@@ -131,8 +132,7 @@ public class TimeEntryTable extends JTable {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(100);
-            }
-            else {
+            } else {
                 column.setMinWidth(100);
                 column.setPreferredWidth(100);
             }
@@ -176,7 +176,8 @@ public class TimeEntryTable extends JTable {
                 int column) {
                 JLabel comp;
 
-                comp = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                comp = (JLabel)super.getTableCellRendererComponent(
+                		table, value, isSelected, hasFocus, row, column);
                 
                 return comp;
             }

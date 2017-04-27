@@ -61,8 +61,9 @@ public class TimeEntryList {
 	 * Description: creates a TimeEntry object
 	 */
 	public TimeEntry createTimeEntry(
-			String id, CalendarDate d, String locStart, String locEnd, String startTime, 
-			String stopTime, String interruptTime, String phase, String comments) {
+			String id, CalendarDate d, String locStart, String locEnd, 
+			String startTime, String stopTime, String interruptTime, 
+			String phase, String comments) {
 		Element e = new Element("time");
 		String hashID = Util.generateId();
 		e.addAttribute(new Attribute("id", id));
@@ -93,8 +94,7 @@ public class TimeEntryList {
         String parentTimeEntryId = timeEntry.getParentId();
         if (parentTimeEntryId == null) {
             _root.removeChild(timeEntry.getContent());            
-        }
-        else {
+        } else {
             Element parentNode = getTimeEntryElement(parentTimeEntryId);
             parentNode.removeChild(timeEntry.getContent());
         }
@@ -116,7 +116,9 @@ public class TimeEntryList {
 		Element el = (Element)_elements.get(id);
 		
 		if (el == null) {
-			Util.debug("Entry " + id + " cannot be found in project " + _project.getTitle());
+			Util.debug(
+					"Entry " + id + " cannot be found in project " 
+							 + _project.getTitle());
 		}
 		
 		return el;

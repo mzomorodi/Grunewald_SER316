@@ -14,19 +14,20 @@ public class TimeEntry {
 	private Element _elem = null;
 	private TimeEntryList _tel = null;
 		
-	public TimeEntry(Element timeElem, TimeEntryList tel){
+	public TimeEntry(Element timeElem, TimeEntryList tel) {
 		_elem = timeElem;
 		_tel = tel;
 	}
 	
-	public Element getContent(){
+	public Element getContent() {
 		return _elem;
 	}
 	
 	public String getParentId() {
 		TimeEntry parent = this.getParentTimeEntry();
-		if (parent != null)
+		if (parent != null) {
 			return parent.getHashID();
+		}
 		return null;
 	}
 	
@@ -34,18 +35,18 @@ public class TimeEntry {
 		Node parentNode = _elem.getParent();
     	if (parentNode instanceof Element) {
     	    Element parent = (Element) parentNode;
-        	if (parent.getLocalName().equalsIgnoreCase("time")) 
+        	if (parent.getLocalName().equalsIgnoreCase("time")) {
         	    return new TimeEntry(parent, _tel);
+        	}
     	}
     	return null;
 	}
 	
-	public CalendarDate getDate(){
+	public CalendarDate getDate() {
 		String t = _elem.getAttribute("date").getValue();
 		if(!t.equals("")) {
 			return new CalendarDate(_elem.getAttribute("date").getValue());
-		}
-		else{
+		} else {
 			return null;
 		}
 	}
@@ -58,67 +59,67 @@ public class TimeEntry {
 		return _elem.getAttribute("hashID").getValue();
 	}
 	
-	public String getLocStart(){
+	public String getLocStart() {
 		return _elem.getAttribute("locStart").getValue();
 	}
 	
-	public String getLocEnd(){
+	public String getLocEnd() {
 		return _elem.getAttribute("locEnd").getValue();
 	}
 	
-	public String getStartTime(){
+	public String getStartTime() {
 		return _elem.getAttribute("start").getValue();
 	}
 	
-	public String getStopTime(){
+	public String getStopTime() {
 		return _elem.getAttribute("stop").getValue();
 	}
 	
-	public String getInterruptTime(){
+	public String getInterruptTime() {
 		return _elem.getAttribute("interrupt").getValue();
 	}
 	
-	public String getPhase(){
+	public String getPhase() {
 		return _elem.getAttribute("phase").getValue();
 	}
 	
-	public String getComments(){
+	public String getComments() {
 		return _elem.getAttribute("comments").getValue();
 	}
 
-	public void setDate(String d){
+	public void setDate(String d) {
 		_elem.getAttribute("date").setValue(d);
 	}
 	
-	public void setID(String id){
+	public void setID(String id) {
 		_elem.getAttribute("id").setValue(id);
 	}
 	
-	public void setPhase(String p){
+	public void setPhase(String p) {
 		_elem.getAttribute("phase").setValue(p);
 	}
 	
-	public void setLocStart(String locStart){
+	public void setLocStart(String locStart) {
 		_elem.getAttribute("locStart").setValue(locStart);
 	}
 	
-	public void setLocEnd(String locEnd){
+	public void setLocEnd(String locEnd) {
 		_elem.getAttribute("locEnd").setValue(locEnd);
 	}
 	
-	public void setStartTime(String startTime){
+	public void setStartTime(String startTime) {
 		_elem.getAttribute("start").setValue(startTime);
 	}
 	
-	public void setStopTime(String stopTime){
+	public void setStopTime(String stopTime) {
 		_elem.getAttribute("stop").setValue(stopTime);
 	}
 	
-	public void setInterruptTime(String fr){
+	public void setInterruptTime(String fr) {
 		_elem.getAttribute("interrupt").setValue(fr);
 	}
 	
-	public void setComments(String d){
+	public void setComments(String d) {
 		_elem.getAttribute("comments").setValue(d);
 	}
 }

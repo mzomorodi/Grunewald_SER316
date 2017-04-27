@@ -22,7 +22,7 @@ import net.sf.memoranda.util.Local;
  * The PSP Panel represents the container for creating
  * Defect and Time forms for the current Project.
  */
-public class PSPPanel extends JPanel{
+public class PSPPanel extends JPanel {
 	
 	JPanel formPanel = new JPanel();
 	DefectsPanel defectsPanel = new DefectsPanel();
@@ -53,7 +53,8 @@ public class PSPPanel extends JPanel{
 	void jbInit() throws Exception {
 		
 		defectB.setIcon(
-	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_defect.png")));
+	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource(
+	            		"resources/icons/psp_defect.png")));
         defectB.setEnabled(true);
         defectB.setMaximumSize(new Dimension(120, 30));
         defectB.setMinimumSize(new Dimension(26, 32));
@@ -70,7 +71,8 @@ public class PSPPanel extends JPanel{
         defectB.setBorderPainted(false);
         
         timeB.setIcon(
-	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/psp_time.png")));
+	            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource(
+	            		"resources/icons/psp_time.png")));
         timeB.setEnabled(true);
         timeB.setMaximumSize(new Dimension(120, 30));
         timeB.setMinimumSize(new Dimension(26, 32));

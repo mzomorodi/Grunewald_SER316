@@ -25,8 +25,9 @@ public class Defect {
 	
 	public String getParentId() {
 		Defect parent = this.getParentDefect();
-		if (parent != null)
+		if (parent != null) {
 			return parent.getHashId();
+		}
 		return null;
 	}
 	
@@ -34,8 +35,9 @@ public class Defect {
 		Node parentNode = _elem.getParent();
     	if (parentNode instanceof Element) {
     	    Element parent = (Element) parentNode;
-        	if (parent.getLocalName().equalsIgnoreCase("defect")) 
+        	if (parent.getLocalName().equalsIgnoreCase("defect")) {
         	    return new Defect(parent, _dl);
+        	}
     	}
     	return null;
 	}
@@ -44,8 +46,7 @@ public class Defect {
 		String d = _elem.getAttribute("date").getValue();
 		if(!d.equals("")){
 			return new CalendarDate(_elem.getAttribute("date").getValue());
-		}
-		else{
+		} else {
 			return null;
 		}
 	}
