@@ -66,8 +66,7 @@ public class DefectList {
         String parentDefectId = defect.getParentId();
         if (parentDefectId == null) {
             _root.removeChild(defect.getContent());            
-        }
-        else {
+        } else {
             Element parentNode = getDefectElement(parentDefectId);
             parentNode.removeChild(defect.getContent());
         }
@@ -84,13 +83,19 @@ public class DefectList {
 		Element el = (Element)_elements.get(id);
 		
 		if (el == null) {
-			Util.debug("Defect " + id + " cannot be found in project " + _project.getTitle());
+			Util.debug(
+					"Defect " 
+					+ id 
+					+ " cannot be found in project " 
+					+ _project.getTitle());
 		}
 		
 		return el;
     }
 
-	public Defect createDefect(String t, CalendarDate d, String id, String type, String inject, String remove, String fTime, String fRef, String desc){
+	public Defect createDefect(
+			String t, CalendarDate d, String id, String type, String inject, 
+			String remove, String fTime, String fRef, String desc){
     	Element e = new Element("defect");
     	String hashID = Util.generateId();
     	e.addAttribute(new Attribute("hashID", hashID));
@@ -128,7 +133,9 @@ public class DefectList {
 	}
 	
 // CONSTRUCTOR FOR DEFECT NOT ASSOCIATED WITH TASK:
-	public Defect createDefect(CalendarDate d, String id, String type, String inject, String remove, String fTime, String fRef, String desc){
+	public Defect createDefect(
+			CalendarDate d, String id, String type, String inject, 
+			String remove, String fTime, String fRef, String desc){
 		Element e = new Element("defect");
 		String hashID = Util.generateId();
 		e.addAttribute(new Attribute("hashID", hashID));

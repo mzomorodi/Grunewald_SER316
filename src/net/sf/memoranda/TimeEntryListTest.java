@@ -42,10 +42,18 @@ public class TimeEntryListTest {
 	public void setUp() throws Exception {
 		tel1 = new TimeEntryList(timeEntryListDoc, CurrentProject.get());
 		tel2 = new TimeEntryList(timeEntryListDoc, CurrentProject.get());
-		te1 = tel1.createTimeEntry("id1", date, "1", "2", "900", "1000", "15+5", "PLANNING", "comments 1");
-		te2 = tel2.createTimeEntry("id2", date, "2", "3", "1100", "1200", "20+10", "DESIGN", "comments 2");
-		te3 = tel1.createTimeEntry("id3", date, "3", "4", "900", "1900", "15+50", "PLANNING2", "comments 3");
-		te4 = tel2.createTimeEntry("id4", date, "4", "5", "1100", "2000", "20+100", "DESIGN2", "comments 4");
+		te1 = tel1.createTimeEntry(
+				"id1", date, "1", "2", "900", 
+				"1000", "15+5", "PLANNING", "comments 1");
+		te2 = tel2.createTimeEntry(
+				"id2", date, "2", "3", "1100", 
+				"1200", "20+10", "DESIGN", "comments 2");
+		te3 = tel1.createTimeEntry(
+				"id3", date, "3", "4", "900", 
+				"1900", "15+50", "PLANNING2", "comments 3");
+		te4 = tel2.createTimeEntry(
+				"id4", date, "4", "5", "1100", 
+				"2000", "20+100", "DESIGN2", "comments 4");
 		te1HashID = te1.getHashID();
 		te2HashID = te2.getHashID();
 	}

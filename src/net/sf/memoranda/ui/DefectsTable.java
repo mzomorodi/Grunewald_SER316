@@ -72,7 +72,8 @@ public class DefectsTable extends JTable{
       
         CurrentProject.addProjectListener(new ProjectListener() {
 
-          public void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
+          public void projectChange(Project prj, 
+        		  NoteList nl, TaskList tl, ResourcesList rl, DefectList dl,
 					TimeEntryList tel) {}
 
 			public void projectWasChanged() {
@@ -176,7 +177,8 @@ public class DefectsTable extends JTable{
                 int column) {
                 JLabel comp;
 
-                comp = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                comp = (JLabel)super.getTableCellRendererComponent(
+                		table, value, isSelected, hasFocus, row, column);
                 
                 return comp;
             }
