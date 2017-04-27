@@ -23,6 +23,7 @@ import javax.swing.JToolBar;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.Defect;
+import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 
 public class DefectsPanel extends JPanel{
@@ -138,6 +139,7 @@ public class DefectsPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
+			CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
 			_defectsTable.tableChanged();
 		}
 	}
@@ -158,6 +160,7 @@ public class DefectsPanel extends JPanel{
 			if(dDlg.CANCELLED){
 				return;
 			} else {
+				CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
 				int lastSelectedRow = _defectsTable.getLastSelectedRow();
 				_defectsTable.tableChanged();
 				_defectsTable.getSelectionModel().setSelectionInterval(
@@ -195,6 +198,7 @@ public class DefectsPanel extends JPanel{
 	                		DefectsTable.ID_COL).toString());
 	        CurrentProject.getDefectList().removeDefect(d1);
 	        _defectsTable.tableChanged();
+	        CurrentStorage.get().storeDefectList(CurrentProject.getDefectList(), CurrentProject.get());
 		}
 	}
 }

@@ -23,6 +23,7 @@ import javax.swing.JToolBar;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.TimeEntry;
+import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 
 public class TimesPanel extends JPanel{
@@ -141,6 +142,7 @@ public class TimesPanel extends JPanel{
 		if(dDlg.CANCELLED){
 			return;
 		} else {
+			CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
 			_timeEntryTable.tableChanged();
 		}
 	}
@@ -163,6 +165,7 @@ public class TimesPanel extends JPanel{
 			if(tDlg.CANCELLED){
 				return;
 			} else {
+				CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
 				int lastSelectedRow = _timeEntryTable.getLastSelectedRow();
 				_timeEntryTable.tableChanged();
 				_timeEntryTable.getSelectionModel().setSelectionInterval(
@@ -203,6 +206,7 @@ public class TimesPanel extends JPanel{
 	                		TimeEntryTable.ID_COL).toString());
 	        CurrentProject.getTimeEntryList().removeTimeEntry(te1);
 	        _timeEntryTable.tableChanged();
+	        CurrentStorage.get().storeTimeEntryList(CurrentProject.getTimeEntryList(), CurrentProject.get());
 		}
 	}
 }
